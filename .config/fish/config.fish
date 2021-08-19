@@ -1,5 +1,14 @@
 # theme
-set -x theme_color_scheme 'dark'
+set -x FOREGROUND_COLOR '#c5cdd9'
+set -x BACKGROUND_COLOR '#2c2e34'
+set -x BLACK_COLOR '#3e4249'
+set -x RED_COLOR '#ec7279'
+set -x GREEN_COLOR '#a0c980'
+set -x YELLOW_COLOR '#deb974'
+set -x BLUE_COLOR '#6cb6eb'
+set -x MAGENTA_COLOR '#d38aea'
+set -x CYAN_COLOR '#5dbbc1'
+set -x WHITE_COLOR '#c5cdd9'
 
 # environments
 

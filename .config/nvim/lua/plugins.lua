@@ -7,21 +7,15 @@ require('packer').startup(function()
 
   -- color
   use {
-    'folke/tokyonight.nvim',
+    'sainnhe/edge',
     setup = function()
-      vim.g.tokyonight_style = 'storm'
-      vim.g.tokyonight_italic_comments = true
-      vim.g.tokyonight_italic_keywords = true
-      vim.g.tokyonight_italic_functions = true
-      vim.g.tokyonight_italic_variables = false
-      vim.g.tokyonight_hide_inactive_statusline = true
-      vim.g.tokyonight_sidebars = { 'qf', 'terminal', 'toggleterm', 'packer', 'NvimTree', 'vista_kind', 'Trouble' }
-      vim.g.tokyonight_dark_sidebar = false
-      vim.g.tokyonight_dark_float = true
-      vim.g.tokyonight_lualine_bold = true
+      vim.g.edge_style = 'default'
+      vim.g.edge_diagnostic_virtual_text = 'colored'
+      vim.g.edge_diagnostic_line_highlight = 1
+      vim.g.edge_diagnostic_text_highlight = 1
     end,
     config = function()
-      vim.cmd [[colorscheme tokyonight]]
+      vim.cmd [[colorscheme edge]]
     end,
   }
 
@@ -123,34 +117,43 @@ require('packer').startup(function()
     end,
   }
   use {
-    'hoob3rt/lualine.nvim',
-    requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+    'datwaft/bubbly.nvim',
     config = function()
-      local sign = require('config').sign
-      local ws = ' '
-      require('lualine').setup{
-        options = {
-          theme = 'tokyonight',
-          disabled_filetypes = { 'qf', 'terminal', 'packer', 'NvimTree', 'vista_kind', 'Trouble' },
-        },
-        sections = {
-          lualine_a = { 'mode' },
-          lualine_b = { 'branch', 'diff' },
-          lualine_c = {
-            {
-              'diagnostics',
-              sources = { 'nvim_lsp' },
-              sections = { 'error', 'warn', 'info', 'hint' },
-              symbols = { error = sign.error..ws, warn = sign.warn..ws, info = sign.info..ws, hint = sign.hint..ws },
-            },
-            'filename',
-          },
-          lualine_x = { 'encoding', 'fileformat', 'filetype' },
-          lualine_y = { 'progress' },
-          lualine_z = { 'location' },
-        },
+      vim.g.bubbly_tabline = 0
+      vim.g.bubbly_palette = {
+        background = vim.env.BACKGROUND_COLOR,
+        foreground = vim.env.FOREGROUND_COLOR,
+        black = vim.env.BLACK_COLOR,
+        red = vim.env.RED_COLOR,
+        green = vim.env.GREEN_COLOR,
+        yellow = vim.env.YELLOW_COLOR,
+        blue = vim.env.BLUE_COLOR,
+        purple = vim.env.MAGENTA_COLOR,
+        cyan = vim.env.CYAN_COLOR,
+        white = vim.env.WHITE_COLOR,
+        lightgrey = "#57595e",
+        darkgrey = "#404247",
       }
-    end,
+      vim.g.bubbly_statusline = {
+        'mode',
+        'total_buffer_number',
+
+        'truncate',
+
+        'path',
+        'branch',
+        'signify',
+        'builtinlsp.diagnostic_count',
+
+        'divisor',
+
+        'filetype',
+        'progress',
+      }
+      vim.g.bubbly_filter = {
+        default = { 'qf', 'packer', 'NvimTree', 'vista_kind', 'Trouble' },
+      }
+    end
   }
 
   -- finder
@@ -407,8 +410,9 @@ require('packer').startup(function()
     'sheerun/vim-polyglot',
     setup = function()
       -- disabled filetypes
-      vim.g.polyglot_disabled = { 'org' }
+      vim.g.polyglot_disabled = {}
       -- markdown behaviors
+      vim.g.vim_markdown_conceal = 0
       vim.g.vim_markdown_conceal_code_blocks = 0
       -- vue behaviors
       vim.g.vue_pre_processors = 'detect_on_enter'
@@ -417,10 +421,7 @@ require('packer').startup(function()
   use {
     'kristijanhusak/orgmode.nvim',
     config = function()
-      require('orgmode').setup{
-        org_agenda_file = { '~/org/*' },
-        org_default_notes_file = '~/org/notes.org',
-      }
+      require('orgmode').setup{}
     end,
   }
   use {
