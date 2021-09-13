@@ -1,0 +1,32 @@
+[user]
+	name = syuni
+	email = motikix@gmail.com
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+[core]
+	quotepath = false
+	autocrlf = false
+	pager = diff-so-fancy | less --tabs=4 -RFX
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false
+[merge]
+	tool = vimdiff
+[mergetool]
+	prompt = false
+[credential]
+	helper = osxkeychain
+[pull]
+	rebase = false
+[alias]
+	graph = log --graph --date-order -C -M --pretty=format:\"<%h> %ad [%an] %Cgreen%d%Creset %s\" --all --date=short
+[ghq]
+	root = ~/.local/src

@@ -35,8 +35,10 @@ local on_attach = function(client, bufnr)
   require('lsp_signature').on_attach({
       bind = true,
       doc_lines = 10,
-      fix_pos = true,
-      hint_enable = false,
+      floating_window = false,
+      fix_pos = false,
+      hint_enable = true,
+      hint_prefix = require('config').sign.hint..' ',
       use_lspsaga = false,
       handler_opts = {
         border = 'single',
@@ -56,7 +58,7 @@ lsp.ccls.setup{
   },
 }
 lsp.gopls.setup{ on_attach = on_attach }
-lsp.rls.setup{ on_attach = on_attach }
+lsp.rust_analyzer.setup{ on_attach = on_attach }
 lsp.denols.setup{
   on_attach = on_attach,
   root_dir = lsp.util.root_pattern('.deno'),

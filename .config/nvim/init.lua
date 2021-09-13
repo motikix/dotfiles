@@ -51,7 +51,7 @@ vim.o.laststatus = 2
 
 -- Indent
 vim.o.tabstop = 4
-vim.o.shiftwidth = 2
+vim.o.shiftwidth = 4
 vim.o.smarttab = true
 vim.o.expandtab = true
 vim.o.autoindent = true
@@ -117,4 +117,7 @@ vim.o.termguicolors = true
 vim.api.nvim_set_keymap('t', '<Esc>', '<C-\\><C-n>', { noremap = true })
 
 -- Plugins
+if not (pcall(require, 'impatient')) then
+  print('Load impatient failed')
+end
 require('plugins')

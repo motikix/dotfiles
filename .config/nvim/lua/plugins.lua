@@ -1,9 +1,16 @@
+vim.fn.setenv('MACOSX_DEPLOYMENT_TARGET', '10.15')
+
 vim.cmd [[packadd packer.nvim]]
 
 require('packer').startup(function()
 
   -- package manager
   use 'wbthomason/packer.nvim'
+
+  use {
+    'lewis6991/impatient.nvim',
+    rocks = 'mpack',
+  }
 
   -- color
   use {
@@ -291,7 +298,7 @@ require('packer').startup(function()
         vue = { 'eslint' },
         svelte = { 'eslint' },
         go = { 'govet' },
-        rust = { 'rls' },
+        rust = { 'analyzer' },
         python = { 'flake8', 'mypy' },
         terraform = { 'terraform' },
       }
@@ -307,7 +314,7 @@ require('packer').startup(function()
         python = { 'black', 'isort' },
         terraform = { 'terraform' },
       }
-      vim.g.ale_disable_lsp = 1
+      vim.g.ale_disable_lsp = 0
       vim.g.ale_linters_explicit = 1
       vim.g.ale_sign_column_always = 1
       vim.g.ale_fix_on_save = 1
