@@ -12,10 +12,10 @@ set $up k
 set $right l
 
 # Terminal emulator
-set $term env WINIT_UNIX_BACKEND=x11 alacritty
+set $term kitty
 
 # Launcher
-set $menu rofi -show combi | xargs swaymsg exec
+set $menu dmenu_path | wofi --dmenu | xargs swaymsg exec
 
 # Screenshot
 set $screenshot-region slurp | grim -g - $HOME/Pictures/$(date +%Y%m%d%H%M%S).png
@@ -37,11 +37,11 @@ default_border pixel 2
 #
 
 # Display
-output eDP-1 resolution 2880x1800 position 2400,0 scale 1.2
-output HDMI-A-3 resolution 1920x1080 position 0,0 scale 0.8
+output eDP-1 resolution 1920x1080 position 1920,0
+output HDMI-A-3 resolution 1920x1080 position 0,0
 
 # Wallpaper
-output * bg $HOME/.local/share/backgrounds/xfce-blue.jpg fill
+output * bg $HOME/Pictures/backgrounds/dracula/dracula-remove-windows.png fill
 
 
 #
@@ -282,7 +282,7 @@ bar {
 #
 
 # Input method
-exec fcitx-autostart
+exec fcitx5
 
 # Notification
 exec mako
@@ -295,5 +295,4 @@ exec libinput-gestures
 # Load other configulation files
 #
 
-include colors
 include /etc/sway/config.d/*

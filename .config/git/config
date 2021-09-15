@@ -23,7 +23,7 @@
 [mergetool]
 	prompt = false
 [credential]
-	helper = osxkeychain
+	helper = /usr/lib/git-core/git-credential-libsecret
 [pull]
 	rebase = false
 [alias]

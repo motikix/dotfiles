@@ -12,9 +12,6 @@ set -x WHITE_COLOR '#c5cdd9'
 
 # environments
 
-# backends
-set -x GDK_BACKEND x11
-
 # lang
 set -x LANG en_US.UTF-8
 
@@ -33,7 +30,9 @@ if type -q ssh-agent
 end
 
 # asdf
-source $HOME/.asdf/asdf.fish
+if test -d $HOME/.asdf
+  source $HOME/.asdf/asdf.fish
+end
 
 # java
 if test "$XDG_SESSION_DESKTOP" = "sway"

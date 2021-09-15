@@ -107,8 +107,8 @@ vim.o.diffopt = 'internal,vertical,filler,algorithm:histogram,indent-heuristic'
 -- Nvim clients
 vim.g.python_host_prog = '/usr/bin/python2'
 vim.g.python3_host_prog = '/usr/bin/python3'
-vim.g.ruby_host_prog = '$HOME/.local/bin/neovim-ruby-host'
-vim.g.node_host_prog = '$HOME/.local/bin/neovim-node-host'
+vim.g.ruby_host_prog = '/usr/bin/neovim-ruby-host'
+vim.g.node_host_prog = '/usr/bin/neovim-node-host'
 
 -- Colors
 vim.o.termguicolors = true

@@ -1,10 +1,10 @@
 * {
   border: none;
   border-radius: 0;
-  font-family: RobotoMono;
-  font-size: 14px;
+  font-family: Roboto Mono;
+  font-size: 9px;
   font-weight: bold;
-  min-height: 24px;
+  min-height: 12px;
 }
 
 window#waybar {

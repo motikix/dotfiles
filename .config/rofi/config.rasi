@@ -1,14 +1,12 @@
 configuration {
   modi: "combi,drun,run,ssh,window";
-  lines: 12;
   show-icons: true;
-  terminal: "termite";
+  terminal: "alacritty";
   run-shell-command: "{terminal} --window -- bash";
-  drun-icon-theme: "Papirus-Dark";
   combi-modi: "drun,run,ssh,window";
-  hide-scrollbar: true;
   window-format: "{t}";
-  theme: "colors.rasi";
+  font: "Neuropol 24";
+  theme: "Arc-Dark.rasi";
   combi-hide-mode-prefix: true;
   display-window: "Windows";
   display-windowcd: "Windows";

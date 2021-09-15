@@ -66,6 +66,7 @@ lsp.denols.setup{
 }
 lsp.tsserver.setup{ on_attach = on_attach }
 lsp.vuels.setup{ on_attach = on_attach }
+-- lsp.volar.setup{ on_attach = on_attach }
 lsp.svelte.setup{ on_attach = on_attach }
 lsp.pyright.setup{ on_attach = on_attach }
 lsp.vimls.setup{ on_attach = on_attach }
