@@ -26,21 +26,25 @@ font pango:Roboto Mono 24
 # Launch apps
 exec --no-startup-id libinput-gestures
 exec --no-startup-id fcitx5
+exec --no-startup-id dunst
+exec --no-startup-id xss-lock -- i3lock-fancy -n
+exec --no-startup-id nm-applet
+exec --no-startup-id blueman-applet
 
 exec_always --no-startup-id sleep .5; picom -b --experimental-backends
 exec_always --no-startup-id sleep .5; feh --no-fehbg --bg-fill ~/.local/share/backgrounds/dracula/dracula-remove-windows.png
 exec_always --no-startup-id sleep .5; ~/.config/polybar/launch.sh
 
-# The combination of xss-lock, nm-applet and pactl is a popular choice, so
-# they are included here as an example. Modify as you see fit.
+# Lock screen
+bindsym $mod+shift+ctrl+l exec i3lock-fancy -n
 
-# xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
-# screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock-fancy --nofork
+# Brightness
+bindsym XF86MonBrightnessUp exec brightnessctl -d 'acpi_video0' set +10
+bindsym XF86MonBrightnessDown exec brightnessctl -d 'acpi_video0' set 10-
 
-# NetworkManager is the most popular way to manage wireless networks on Linux,
-# and nm-applet is a desktop environment-independent system tray GUI for it.
-exec --no-startup-id nm-applet
+# Keyboard backlight
+bindsym XF86KbdBrightnessUp exec brightnessctl -d 'smc::kbd_backlight' set +15
+bindsym XF86KbdBrightnessDown exec brightnessctl -d 'smc::kbd_backlight' set 15-
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -48,6 +52,12 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+# Music control
+bindsym XF86AudioPlay exec playerctl play
+bindsym XF86AudioPause exec playerctl pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
 
 # use these keys for focus, movement, and resize directions when reaching for
 # the arrows is not convenient
@@ -67,12 +77,6 @@ bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec --no-startup-id $menu
-# bindsym $mod+d exec --no-startup-id dmenu_run
-# A more modern dmenu replacement is rofi:
-# bindsym $mod+d exec "rofi -modi drun,run -show drun"
-# There also is i3-dmenu-desktop which only displays applications shipping a
-# .desktop file. It is a wrapper around dmenu, so you need that installed.
-# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
 bindsym $mod+$left focus left
