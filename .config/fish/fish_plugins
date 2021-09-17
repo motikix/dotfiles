@@ -1,6 +1,7 @@
 jorgebucaran/fisher
-0rax/fish-bd
-jethrokuan/fzf
-jethrokuan/z
-decors/fish-ghq
+pure-fish/pure
 jorgebucaran/autopair.fish
+0rax/fish-bd
+jethrokuan/z
+jethrokuan/fzf
+decors/fish-ghq

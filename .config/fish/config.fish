@@ -109,11 +109,6 @@ end
 
 # launch
 
-# starship
-if type -q starship
-  starship init fish | source
-end
-
 # tmux
 if status is-interactive
 and not set -q TMUX
