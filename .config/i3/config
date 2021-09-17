@@ -23,6 +23,14 @@ set $menu "rofi -show"
 # is used in the bar {} block below.
 font pango:Roboto Mono 24
 
+# Settings for i3-gaps
+default_border pixel 0
+default_floating_border pixel 0
+
+border_radius 20
+
+gaps inner 32
+
 # Launch apps
 exec --no-startup-id libinput-gestures
 exec --no-startup-id fcitx5
@@ -205,13 +213,6 @@ mode "resize" {
 }
 
 bindsym $mod+r mode "resize"
-
-# Settings for i3-gaps
-default_border pixel 1
-default_floating_border pixel 1
-
-border_radius 5
-gaps inner 32
 
 #######################################################################
 # automatically start i3-config-wizard to offer the user to create a

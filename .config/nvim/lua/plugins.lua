@@ -133,8 +133,8 @@ require('packer').startup(function()
         purple = vim.env.MAGENTA_COLOR,
         cyan = vim.env.CYAN_COLOR,
         white = vim.env.WHITE_COLOR,
-        lightgrey = "#57595e",
-        darkgrey = "#404247",
+        lightgrey = '#57595e',
+        darkgrey = '#404247',
       }
       vim.g.bubbly_statusline = {
         'mode',
