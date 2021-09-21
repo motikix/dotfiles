@@ -1,4 +1,4 @@
-# theme (Dracula)
+# theme (GitHub Dark Default)
 set -x BACKGROUND_COLOR '#0d1117'
 set -x FOREGROUND_COLOR '#b3b1ad'
 set -x BLACK_COLOR '#484f58'
