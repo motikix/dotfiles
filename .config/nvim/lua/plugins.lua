@@ -14,12 +14,14 @@ require('packer').startup(function()
 
   -- color
   use {
-    'dracula/vim',
+    'projekt0n/github-nvim-theme',
     config = function()
-      vim.cmd [[colorscheme dracula]]
+      require('github-theme').setup({
+        theme_style = 'dark_default',
+        sidebars = { 'qf', 'packer', 'NvimTree', 'vista_kind', 'Trouble' }
+      })
     end,
   }
-
 
   -- treesitter
   use {

@@ -6,3 +6,6 @@
 
 # For python
 pyrightconfig.json
+
+# For asdf-vm
+.tool-versions

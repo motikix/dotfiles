@@ -1,25 +1,22 @@
-# theme (Dracula)
-set -x FOREGROUND_COLOR '#f8f8f2'
-set -x BACKGROUND_COLOR '#282a36'
-set -x CURRENTLINE_COLOR '#44475a'
-set -x SELECTION_COLOR '#44475a'
-set -x COMMENT_COLOR '#6272a4'
-set -x BLACK_COLOR '#21222c'
-set -x RED_COLOR '#ff5555'
-set -x GREEN_COLOR '#50fa7b'
-set -x YELLOW_COLOR '#f1fa8c'
-set -x BLUE_COLOR '#bd93f9'
-set -x MAGENTA_COLOR '#ff79c6'
-set -x CYAN_COLOR '#8be9fd'
-set -x WHITE_COLOR '#f8f8f2'
-set -x BRIGHT_BLACK_COLOR '#6272a4'
-set -x BRIGHT_RED_COLOR '#ff6e6e'
-set -x BRIGHT_GREEN_COLOR '#69ff94'
-set -x BRIGHT_YELLOW_COLOR '#ffffa5'
-set -x BRIGHT_BLUE_COLOR '#d6acff'
-set -x BRIGHT_MAGENTA_COLOR '#ff92df'
-set -x BRIGHT_CYAN_COLOR '#a4ffff'
-set -x BRIGHT_WHITE_COLOR '#ffffff'
+# theme (GitHub Dark Default)
+set -x BACKGROUND_COLOR '#0d1117'
+set -x FOREGROUND_COLOR '#b3b1ad'
+set -x BLACK_COLOR '#484f58'
+set -x RED_COLOR '#ff7b72'
+set -x GREEN_COLOR '#3fb950'
+set -x YELLOW_COLOR '#d29922'
+set -x BLUE_COLOR '#58a6ff'
+set -x MAGENTA_COLOR '#bc8cff'
+set -x CYAN_COLOR '#39c5cf'
+set -x WHITE_COLOR '#b3b1ad'
+set -x BRIGHT_BLACK_COLOR '#6e7681'
+set -x BRIGHT_RED_COLOR '#ffa198'
+set -x BRIGHT_GREEN_COLOR '#56d364'
+set -x BRIGHT_YELLOW_COLOR '#e3b341'
+set -x BRIGHT_BLUE_COLOR '#79c0ff'
+set -x BRIGHT_MAGENTA_COLOR '#d2a8ff'
+set -x BRIGHT_CYAN_COLOR '#39c5cf'
+set -x BRIGHT_WHITE_COLOR '#b3b1ad'
 
 # environments
 
@@ -109,9 +106,15 @@ end
 
 # launch
 
-# starship
-if type -q starship
-  starship init fish | source
+# company settings (on WSL2)
+# path
+set -x PATH /mnt/d/bin $PATH
+# aws-vault
+set -x AWS_VAULT_BACKEND pass
+set -x AWS_VAULT_PASS_PREFIX aws-vault
+
+if not set -q INSIDE_GENIE
+  exec genie -s
 end
 
 # tmux

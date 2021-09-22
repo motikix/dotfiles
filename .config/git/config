@@ -1,6 +1,6 @@
 [user]
-	name = syuni
-	email = motikix@gmail.com
+	name = INOUE-Syun
+	email = xinoue.syun@contract.isid.co.jp
 [color]
 	diff = auto
 	status = auto
@@ -23,7 +23,7 @@
 [mergetool]
 	prompt = false
 [credential]
-	helper = /usr/lib/git-core/git-credential-libsecret
+	helper = /mnt/c/Program\\ Files/Git/mingw64/libexec/git-core/git-credential-manager.exe
 [pull]
 	rebase = false
 [alias]
