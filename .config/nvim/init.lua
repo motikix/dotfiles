@@ -93,9 +93,6 @@ vim.api.nvim_set_keymap('c', '<C-d>', '<Del>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<Leader>bD', '<Cmd>bd<Cr>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<Leader>baD', ':bufdo :bd<Cr>', { noremap = true, silent = true })
 
--- vscode-neovim with jupyter notebooks
-vim.api.nvim_set_keymap('n', '<Esc>', "<Cmd>call VSCodeNotify('notebook.cell.quitEdit')<Cr>", { noremap = true, silent = true })
-
 -- Search
 vim.o.ignorecase = true
 vim.o.smartcase = true

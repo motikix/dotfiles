@@ -1,22 +1,22 @@
-# theme (GitHub Dark Default)
-set -x BACKGROUND_COLOR '#0d1117'
-set -x FOREGROUND_COLOR '#b3b1ad'
-set -x BLACK_COLOR '#484f58'
-set -x RED_COLOR '#ff7b72'
-set -x GREEN_COLOR '#3fb950'
-set -x YELLOW_COLOR '#d29922'
-set -x BLUE_COLOR '#58a6ff'
-set -x MAGENTA_COLOR '#bc8cff'
-set -x CYAN_COLOR '#39c5cf'
-set -x WHITE_COLOR '#b3b1ad'
-set -x BRIGHT_BLACK_COLOR '#6e7681'
-set -x BRIGHT_RED_COLOR '#ffa198'
-set -x BRIGHT_GREEN_COLOR '#56d364'
-set -x BRIGHT_YELLOW_COLOR '#e3b341'
-set -x BRIGHT_BLUE_COLOR '#79c0ff'
-set -x BRIGHT_MAGENTA_COLOR '#d2a8ff'
-set -x BRIGHT_CYAN_COLOR '#39c5cf'
-set -x BRIGHT_WHITE_COLOR '#b3b1ad'
+# theme (GitHub Dimmed)
+set -x BACKGROUND_COLOR '#22272e'
+set -x FOREGROUND_COLOR '#768390'
+set -x BLACK_COLOR '#22272e'
+set -x RED_COLOR '#ff938a'
+set -x GREEN_COLOR '#6bc46d'
+set -x YELLOW_COLOR '#c69026'
+set -x BLUE_COLOR '#6cb6ff'
+set -x MAGENTA_COLOR '#b083f0'
+set -x CYAN_COLOR '#56d4dd'
+set -x WHITE_COLOR '#768390'
+set -x BRIGHT_BLACK_COLOR '#636e7b'
+set -x BRIGHT_RED_COLOR '#ff938a'
+set -x BRIGHT_GREEN_COLOR '#6bc46d'
+set -x BRIGHT_YELLOW_COLOR '#daaa3f'
+set -x BRIGHT_BLUE_COLOR '#6cb6ff'
+set -x BRIGHT_MAGENTA_COLOR '#dcbdfb'
+set -x BRIGHT_CYAN_COLOR '#56d4dd'
+set -x BRIGHT_WHITE_COLOR '#768390'
 
 # environments
 
@@ -105,6 +105,11 @@ if type -q diff-so-fancy
 end
 
 # launch
+
+# starship
+if type -q starship
+  starship init fish | source
+end
 
 # tmux
 if status is-interactive
