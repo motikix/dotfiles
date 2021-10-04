@@ -58,7 +58,7 @@ lsp.ccls.setup{
   },
 }
 lsp.gopls.setup{ on_attach = on_attach }
-lsp.rls.setup{ on_attach = on_attach }
+lsp.rust_analyzer.setup{ on_attach = on_attach }
 lsp.denols.setup{
   on_attach = on_attach,
   root_dir = lsp.util.root_pattern('.deno'),
@@ -66,7 +66,6 @@ lsp.denols.setup{
 }
 lsp.tsserver.setup{ on_attach = on_attach }
 lsp.vuels.setup{ on_attach = on_attach }
--- lsp.volar.setup{ on_attach = on_attach }
 lsp.svelte.setup{ on_attach = on_attach }
 lsp.pyright.setup{ on_attach = on_attach }
 lsp.vimls.setup{ on_attach = on_attach }
