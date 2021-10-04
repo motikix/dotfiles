@@ -17,9 +17,11 @@ require('packer').startup(function()
     'projekt0n/github-nvim-theme',
     config = function()
       require('github-theme').setup({
-        theme_style = 'dark',
+        theme_style = 'dimmed',
         transparent = false,
-        sidebars = { 'qf', 'packer', 'NvimTree', 'vista_kind', 'Trouble' }
+        sidebars = { 'qf', 'vista_kind', 'terminal', 'packer', 'NvimTree' },
+        dark_sidebar = true,
+        dark_float = true,
       })
     end,
   }
@@ -269,7 +271,25 @@ require('packer').startup(function()
       vim.api.nvim_set_keymap('n', '<Leader>ft', '<Cmd>TodoTelescope<Cr>', { noremap = true, silent = true })
     end,
   }
-  use 'Raimondi/delimitMate'
+  use {
+    'windwp/nvim-autopairs',
+    config = function()
+      require('nvim-autopairs').setup({
+        disable_filetype = { "TelescopePrompt" , "vim" },
+        check_ts = true,
+      })
+      require("nvim-autopairs.completion.cmp").setup({
+        map_cr = true,
+        map_complete = true,
+        auto_select = true,
+        insert = false,
+        map_char = {
+          all = '(',
+          tex = '{',
+        },
+      })
+    end,
+  }
   use 'editorconfig/editorconfig-vim'
   use 'tpope/vim-surround'
   use 'andymass/vim-matchup'
@@ -343,6 +363,8 @@ require('packer').startup(function()
         open_mapping = [[<C-\>]],
         hide_numbers = true,
         direction = 'horizontal',
+        shade_terminals = false,
+        shade_filetypes = { 'none' },
       }
     end,
   }
@@ -362,29 +384,38 @@ require('packer').startup(function()
     end,
   }
   use {
-    'hrsh7th/nvim-compe',
+    'hrsh7th/nvim-cmp',
+    requires = {
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-nvim-lsp',
+      'quangnguyen30192/cmp-nvim-ultisnips',
+    },
     config = function()
-      vim.o.completeopt = 'menuone,noselect'
-      require('compe').setup{
-        documentation = true,
-        source = {
-          path = true,
-          buffer = true,
-          calc = true,
-          nvim_lsp = true,
-          nvim_lua = true,
-          vsnip = false,
-          ultisnips = true,
-          emoji = false,
-          orgmode = true,
+      local cmp = require'cmp'
+
+      cmp.setup({
+        completion = {
+          keyword_length = 2,
         },
-      }
-      local opts = { noremap = true, silent = true, expr = true }
-      vim.api.nvim_set_keymap('i', '<C-Space>', 'compe#complete()', opts)
-      vim.api.nvim_set_keymap('i', '<Cr>', 'compe#confirm({ "keys": "<Plug>delimitMateCR", "mode": "", "select": v:true })', opts)
-      vim.api.nvim_set_keymap('i', '<C-e>', 'compe#close("<C-e>")', opts)
-      vim.api.nvim_set_keymap('i', '<C-f>', 'compe#scroll({ "delta": +4 })', opts)
-      vim.api.nvim_set_keymap('i', '<C-b>', 'compe#scroll({ "delta": -4 })', opts)
+        snippet = {
+          expand = function(args)
+            vim.fn["UltiSnips#Anon"](args.body)
+          end,
+        },
+        mapping = {
+          ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+          ['<C-f>'] = cmp.mapping.scroll_docs(4),
+          ['<C-Space>'] = cmp.mapping.complete(),
+          ['<C-e>'] = cmp.mapping.close(),
+          ['<CR>'] = cmp.mapping.confirm({ select = true }),
+        },
+        sources = {
+          { name = 'buffer' },
+          { name = 'nvim_lsp' },
+          { name = 'ultisnips' },
+        },
+      })
     end,
   }
   use {
