@@ -17,7 +17,8 @@ require('packer').startup(function()
     'projekt0n/github-nvim-theme',
     config = function()
       require('github-theme').setup({
-        theme_style = 'dark_default',
+        theme_style = 'dark',
+        transparent = false,
         sidebars = { 'qf', 'packer', 'NvimTree', 'vista_kind', 'Trouble' }
       })
     end,
@@ -37,8 +38,6 @@ require('packer').startup(function()
     requires = { 'kyazdani42/nvim-web-devicons', opt = true },
     config = function()
       local sign = require('config').sign
-      vim.g.nvim_tree_width = 40
-      vim.g.nvim_tree_follow = 1
       vim.g.nvim_tree_quit_on_open = 1
       vim.g.nvim_tree_indent_markers = 1
       vim.g.nvim_tree_hide_dotfiles = 0
@@ -46,10 +45,6 @@ require('packer').startup(function()
       vim.g.nvim_tree_git_hl = 1
       vim.g.nvim_tree_add_trailing = 1
       vim.g.nvim_tree_group_empty = 0
-      vim.g.nvim_tree_lsp_diagnostics = 1
-      vim.g.nvim_tree_disable_netrw = 0
-      vim.g.nvim_tree_hijack_netrw = 0
-      vim.g.nvim_tree_update_cwd = 1
       vim.g.nvim_tree_icons = {
         lsp = {
           hint = sign.hint,
@@ -58,6 +53,14 @@ require('packer').startup(function()
           error = sign.error,
         },
       }
+      require('nvim-tree').setup({
+        hijack_cursor = true,
+        update_cwd = true,
+        lsp_diagnostics = true,
+        view = {
+          width = 40,
+        },
+      })
       vim.api.nvim_set_keymap('n', '<C-n>', '<Cmd>NvimTreeToggle<Cr>', { noremap = true, silent = true })
     end,
   }
@@ -167,31 +170,31 @@ require('packer').startup(function()
     config = function()
       local opts = { noremap = true, silent = true }
       -- common finders
-      vim.api.nvim_set_keymap('n', '<C-s>', '<Cmd>Telescope current_buffer_fuzzy_find theme=get_dropdown<Cr>', opts)
-      vim.api.nvim_set_keymap('n', '<Leader>ff', '<Cmd>Telescope find_files find_command=rg,--files theme=get_dropdown<Cr>', opts)
-      vim.api.nvim_set_keymap('n', '<Leader>fF', '<Cmd>Telescope find_files find_command=rg,--ignore,--hidden,--files theme=get_dropdown<Cr>', opts)
-      vim.api.nvim_set_keymap('n', '<Leader>fg', '<Cmd>Telescope live_grep theme=get_dropdown<Cr>', opts)
-      vim.api.nvim_set_keymap('n', '<Leader>fb', '<Cmd>Telescope buffers theme=get_dropdown<Cr>', opts)
-      vim.api.nvim_set_keymap('n', '<Leader>fh', '<Cmd>Telescope help_tags theme=get_dropdown<Cr>', opts)
-      vim.api.nvim_set_keymap('n', '<Leader>fs', '<Cmd>Telescope symbols theme=get_dropdown<Cr>', opts)
+      vim.api.nvim_set_keymap('n', '<C-s>', '<Cmd>Telescope current_buffer_fuzzy_find theme=get_ivy<Cr>', opts)
+      vim.api.nvim_set_keymap('n', '<Leader>ff', '<Cmd>Telescope find_files find_command=rg,--files theme=get_ivy<Cr>', opts)
+      vim.api.nvim_set_keymap('n', '<Leader>fF', '<Cmd>Telescope find_files find_command=rg,--ignore,--hidden,--files theme=get_ivy<Cr>', opts)
+      vim.api.nvim_set_keymap('n', '<Leader>fg', '<Cmd>Telescope live_grep theme=get_ivy<Cr>', opts)
+      vim.api.nvim_set_keymap('n', '<Leader>fb', '<Cmd>Telescope buffers theme=get_ivy<Cr>', opts)
+      vim.api.nvim_set_keymap('n', '<Leader>fh', '<Cmd>Telescope help_tags theme=get_ivy<Cr>', opts)
+      vim.api.nvim_set_keymap('n', '<Leader>fs', '<Cmd>Telescope symbols theme=get_ivy<Cr>', opts)
       -- git actions
-      vim.api.nvim_set_keymap('n', '<Leader>gc', '<Cmd>Telescope git_commits theme=get_dropdown<Cr>', opts)
-      vim.api.nvim_set_keymap('n', '<Leader>gC', '<Cmd>Telescope git_bcommits theme=get_dropdown<Cr>', opts)
-      vim.api.nvim_set_keymap('n', '<Leader>gb', '<Cmd>Telescope git_branches theme=get_dropdown<Cr>', opts)
-      vim.api.nvim_set_keymap('n', '<Leader>gs', '<Cmd>Telescope git_status theme=get_dropdown<Cr>', opts)
-      vim.api.nvim_set_keymap('n', '<Leader>gS', '<Cmd>Telescope git_stash theme=get_dropdown<Cr>', opts)
+      vim.api.nvim_set_keymap('n', '<Leader>gc', '<Cmd>Telescope git_commits theme=get_ivy<Cr>', opts)
+      vim.api.nvim_set_keymap('n', '<Leader>gC', '<Cmd>Telescope git_bcommits theme=get_ivy<Cr>', opts)
+      vim.api.nvim_set_keymap('n', '<Leader>gb', '<Cmd>Telescope git_branches theme=get_ivy<Cr>', opts)
+      vim.api.nvim_set_keymap('n', '<Leader>gs', '<Cmd>Telescope git_status theme=get_ivy<Cr>', opts)
+      vim.api.nvim_set_keymap('n', '<Leader>gS', '<Cmd>Telescope git_stash theme=get_ivy<Cr>', opts)
       -- tree sitter
-      vim.api.nvim_set_keymap('n', '<Leader>ts', '<Cmd>Telescope treesitter theme=get_dropdown<Cr>', opts)
+      vim.api.nvim_set_keymap('n', '<Leader>ts', '<Cmd>Telescope treesitter theme=get_ivy<Cr>', opts)
       -- lsp
-      vim.api.nvim_set_keymap('n', 'gd', '<Cmd>Telescope lsp_definitions theme=get_dropdown<Cr>', opts)
-      vim.api.nvim_set_keymap('n', 'gr', '<Cmd>Telescope lsp_references theme=get_dropdown<Cr>', opts)
-      vim.api.nvim_set_keymap('n', 'gi', '<Cmd>Telescope lsp_implementations theme=get_dropdown<Cr>', opts)
-      vim.api.nvim_set_keymap('n', '<Leader>ls', '<Cmd>Telescope lsp_document_symbols theme=get_dropdown<Cr>', opts)
-      vim.api.nvim_set_keymap('n', '<Leader>lS', '<Cmd>Telescope lsp_workspace_symbols theme=get_dropdown<Cr>', opts)
-      vim.api.nvim_set_keymap('n', '<Leader>la', '<Cmd>Telescope lsp_code_actions theme=get_dropdown<Cr>', opts)
-      vim.api.nvim_set_keymap('n', '<Leader>lA', '<Cmd>Telescope lsp_range_code_actions theme=get_dropdown<Cr>', opts)
-      vim.api.nvim_set_keymap('n', '<Leader>ld', '<Cmd>Telescope lsp_document_diagnostics theme=get_dropdown<Cr>', opts)
-      vim.api.nvim_set_keymap('n', '<Leader>lD', '<Cmd>Telescope lsp_workspace_diagnostics theme=get_dropdown<Cr>', opts)
+      vim.api.nvim_set_keymap('n', 'gd', '<Cmd>Telescope lsp_definitions theme=get_ivy<Cr>', opts)
+      vim.api.nvim_set_keymap('n', 'gr', '<Cmd>Telescope lsp_references theme=get_ivy<Cr>', opts)
+      vim.api.nvim_set_keymap('n', 'gi', '<Cmd>Telescope lsp_implementations theme=get_ivy<Cr>', opts)
+      vim.api.nvim_set_keymap('n', '<Leader>ls', '<Cmd>Telescope lsp_document_symbols theme=get_ivy<Cr>', opts)
+      vim.api.nvim_set_keymap('n', '<Leader>lS', '<Cmd>Telescope lsp_workspace_symbols theme=get_ivy<Cr>', opts)
+      vim.api.nvim_set_keymap('n', '<Leader>la', '<Cmd>Telescope lsp_code_actions theme=get_ivy<Cr>', opts)
+      vim.api.nvim_set_keymap('n', '<Leader>lA', '<Cmd>Telescope lsp_range_code_actions theme=get_ivy<Cr>', opts)
+      vim.api.nvim_set_keymap('n', '<Leader>ld', '<Cmd>Telescope lsp_document_diagnostics theme=get_ivy<Cr>', opts)
+      vim.api.nvim_set_keymap('n', '<Leader>lD', '<Cmd>Telescope lsp_workspace_diagnostics theme=get_ivy<Cr>', opts)
     end
   }
   use {

@@ -1,11 +1,8 @@
 [character]
-success_symbol = '[\(=･ω･\) <](bold green)'
-error_symbol = '[\(=;ω;\) <](bold red)'
+success_symbol = '[\(=･ω･\) ❯](bold green)'
+error_symbol = '[\(=;ω;\) ❯](bold red)'
 
-[battery]
-disabled = true
-
-[docker_context]
+[git_metrics]
 disabled = false
 
 [kubernetes]

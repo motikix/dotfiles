@@ -112,9 +112,16 @@ set -x PATH /mnt/d/bin $PATH
 # aws-vault
 set -x AWS_VAULT_BACKEND pass
 set -x AWS_VAULT_PASS_PREFIX aws-vault
+# nodejs
+set -x NODE_TLS_REJECT_UNAUTHORIZED 0
 
 if not set -q INSIDE_GENIE
   exec genie -s
+end
+
+# starship
+if type -q starship
+  starship init fish | source
 end
 
 # tmux
