@@ -58,7 +58,7 @@ lsp.ccls.setup{
   },
 }
 lsp.gopls.setup{ on_attach = on_attach }
-lsp.rust_analyzer.setup{ on_attach = on_attach }
+lsp.rls.setup{ on_attach = on_attach }
 lsp.denols.setup{
   on_attach = on_attach,
   root_dir = lsp.util.root_pattern('.deno'),
