@@ -50,8 +50,9 @@ vim.o.display = 'lastline'
 vim.o.laststatus = 2
 
 -- Indent
-vim.o.tabstop = 4
-vim.o.shiftwidth = 4
+vim.o.tabstop = 2
+vim.o.softtabstop = -1
+vim.o.shiftwidth = 0
 vim.o.smarttab = true
 vim.o.expandtab = true
 vim.o.autoindent = true

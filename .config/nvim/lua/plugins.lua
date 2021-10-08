@@ -414,6 +414,7 @@ require('packer').startup(function()
           { name = 'buffer' },
           { name = 'nvim_lsp' },
           { name = 'ultisnips' },
+          { name = 'orgmode' },
         },
         formatting = {
           format = function(entry, vim_item)
@@ -472,8 +473,10 @@ require('packer').startup(function()
   }
   use {
     'kristijanhusak/orgmode.nvim',
+    requires = { 'akinsho/org-bullets.nvim' },
     config = function()
-      require('orgmode').setup{}
+      require('org-bullets').setup({})
+      require('orgmode').setup({})
     end,
   }
   use {
