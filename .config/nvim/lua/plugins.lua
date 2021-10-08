@@ -414,7 +414,7 @@ require('packer').startup(function()
           { name = 'buffer' },
           { name = 'nvim_lsp' },
           { name = 'ultisnips' },
-          { name = 'orgmode' },
+          { name = 'neorg' },
         },
         formatting = {
           format = function(entry, vim_item)
@@ -471,12 +471,34 @@ require('packer').startup(function()
       vim.g.vue_pre_processors = 'detect_on_enter'
     end,
   }
-  use {
-    'kristijanhusak/orgmode.nvim',
-    requires = { 'akinsho/org-bullets.nvim' },
+  use { 
+    'nvim-neorg/neorg',
+    requires = { 'nvim-lua/plenary.nvim' },
     config = function()
-      require('org-bullets').setup({})
-      require('orgmode').setup({})
+      require('neorg').setup {
+        load = {
+          ['core.defaults'] = {},
+          ['core.keybinds'] = {
+            config = {
+              default_keybinds = true,
+              neorg_leader = '<Leader>o',
+            },
+          },
+          ['core.norg.concealer'] = {},
+          ['core.norg.dirman'] = {
+            config = {
+              workspaces = {
+                my_workspace = '~/org',
+              },
+            },
+          },
+          ['core.norg.completion'] = {
+            config = {
+              engine = 'nvim-cmp',
+            },
+          },
+        },
+      }
     end,
   }
   use {
