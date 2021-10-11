@@ -48,18 +48,18 @@ require('packer').startup(function()
       vim.g.nvim_tree_git_hl = 1
       vim.g.nvim_tree_add_trailing = 1
       vim.g.nvim_tree_group_empty = 0
-      vim.g.nvim_tree_icons = {
-        lsp = {
-          hint = sign.hint,
-          info = sign.info,
-          warning = sign.warn,
-          error = sign.error,
-        },
-      }
       require('nvim-tree').setup({
         hijack_cursor = true,
         update_cwd = true,
-        lsp_diagnostics = true,
+        diagnostics = {
+          enable = true,
+          icons = {
+            hint = sign.hint,
+            info = sign.info,
+            warning = sign.warn,
+            error = sign.error,
+          },
+        },
         view = {
           width = 40,
         },
@@ -415,6 +415,7 @@ require('packer').startup(function()
           { name = 'buffer' },
           { name = 'nvim_lsp' },
           { name = 'ultisnips' },
+          { name = 'neorg' },
         },
         formatting = {
           format = function(entry, vim_item)
@@ -472,9 +473,33 @@ require('packer').startup(function()
     end,
   }
   use {
-    'kristijanhusak/orgmode.nvim',
+    'nvim-neorg/neorg',
+    requires = { 'nvim-lua/plenary.nvim' },
     config = function()
-      require('orgmode').setup{}
+      require('neorg').setup({
+        load = {
+          ['core.defaults'] = {},
+          ['core.keybinds'] = {
+            config = {
+              default_keybinds = true,
+              neorg_leader = '<Leader>o',
+            },
+          },
+          ['core.norg.concealer'] = {},
+          ['core.norg.dirman'] = {
+            config = {
+              workspaces = {
+                my_workspace = '~/neorg',
+              },
+            },
+          },
+          ['core.norg.completion'] = {
+            config = {
+              engine = 'nvim-cmp',
+            },
+          },
+        },
+      })
     end,
   }
   use {

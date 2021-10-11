@@ -50,8 +50,9 @@ vim.o.display = 'lastline'
 vim.o.laststatus = 2
 
 -- Indent
-vim.o.tabstop = 4
-vim.o.shiftwidth = 4
+vim.o.tabstop = 2
+vim.o.softtabstop = -1
+vim.o.shiftwidth = 0
 vim.o.smarttab = true
 vim.o.expandtab = true
 vim.o.autoindent = true
@@ -80,14 +81,16 @@ vim.api.nvim_set_keymap('n', '<A-j>', '<C-w>j', { noremap = true, silent = true 
 vim.api.nvim_set_keymap('n', '<A-k>', '<C-w>k', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<A-l>', '<C-w>l', { noremap = true, silent = true })
 
--- Cursor move in command mode
-vim.api.nvim_set_keymap('c', '<C-a>', '<Home>', { noremap = true })
-vim.api.nvim_set_keymap('c', '<C-e>', '<End>', { noremap = true })
-vim.api.nvim_set_keymap('c', '<C-b>', '<Left>', { noremap = true })
-vim.api.nvim_set_keymap('c', '<C-f>', '<Right>', { noremap = true })
-vim.api.nvim_set_keymap('c', '<M-b>', '<S-Left>', { noremap = true })
-vim.api.nvim_set_keymap('c', '<M-f>', '<S-Right>', { noremap = true })
-vim.api.nvim_set_keymap('c', '<C-d>', '<Del>', { noremap = true })
+-- Cursor move for insert / command mode
+for _, mode in pairs({ 'i', 'c' }) do
+  vim.api.nvim_set_keymap(mode, '<C-a>', '<Home>', { noremap = true })
+  vim.api.nvim_set_keymap(mode, '<C-e>', '<End>', { noremap = true })
+  vim.api.nvim_set_keymap(mode, '<C-b>', '<Left>', { noremap = true })
+  vim.api.nvim_set_keymap(mode, '<C-f>', '<Right>', { noremap = true })
+  vim.api.nvim_set_keymap(mode, '<M-b>', '<S-Left>', { noremap = true })
+  vim.api.nvim_set_keymap(mode, '<M-f>', '<S-Right>', { noremap = true })
+  vim.api.nvim_set_keymap(mode, '<C-d>', '<Del>', { noremap = true })
+end
 
 -- Buffer delete
 vim.api.nvim_set_keymap('n', '<Leader>bD', '<Cmd>bd<Cr>', { noremap = true, silent = true })
