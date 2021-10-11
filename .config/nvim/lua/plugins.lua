@@ -47,18 +47,18 @@ require('packer').startup(function()
       vim.g.nvim_tree_git_hl = 1
       vim.g.nvim_tree_add_trailing = 1
       vim.g.nvim_tree_group_empty = 0
-      vim.g.nvim_tree_icons = {
-        lsp = {
-          hint = sign.hint,
-          info = sign.info,
-          warning = sign.warn,
-          error = sign.error,
-        },
-      }
       require('nvim-tree').setup({
         hijack_cursor = true,
         update_cwd = true,
-        lsp_diagnostics = true,
+        diagnostics = {
+          enable = true,
+          icons = {
+            hint = sign.hint,
+            info = sign.info,
+            warning = sign.warn,
+            error = sign.error,
+          },
+        },
         view = {
           width = 40,
         },
