@@ -475,7 +475,7 @@ require('packer').startup(function()
     'nvim-neorg/neorg',
     requires = { 'nvim-lua/plenary.nvim' },
     config = function()
-      require('neorg').setup {
+      require('neorg').setup({
         load = {
           ['core.defaults'] = {},
           ['core.keybinds'] = {
@@ -498,7 +498,7 @@ require('packer').startup(function()
             },
           },
         },
-      }
+      })
     end,
   }
   use {

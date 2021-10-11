@@ -82,14 +82,14 @@ vim.api.nvim_set_keymap('n', '<A-k>', '<C-w>k', { noremap = true, silent = true 
 vim.api.nvim_set_keymap('n', '<A-l>', '<C-w>l', { noremap = true, silent = true })
 
 -- Cursor move for insert / command mode
-for _, map in pairs({ 'i', 'c' }) do
-  vim.api.nvim_set_keymap(map, '<C-a>', '<Home>', { noremap = true })
-  vim.api.nvim_set_keymap(map, '<C-e>', '<End>', { noremap = true })
-  vim.api.nvim_set_keymap(map, '<C-b>', '<Left>', { noremap = true })
-  vim.api.nvim_set_keymap(map, '<C-f>', '<Right>', { noremap = true })
-  vim.api.nvim_set_keymap(map, '<M-b>', '<S-Left>', { noremap = true })
-  vim.api.nvim_set_keymap(map, '<M-f>', '<S-Right>', { noremap = true })
-  vim.api.nvim_set_keymap(map, '<C-g>', '<Del>', { noremap = true })
+for _, mode in pairs({ 'i', 'c' }) do
+  vim.api.nvim_set_keymap(mode, '<C-a>', '<Home>', { noremap = true })
+  vim.api.nvim_set_keymap(mode, '<C-e>', '<End>', { noremap = true })
+  vim.api.nvim_set_keymap(mode, '<C-b>', '<Left>', { noremap = true })
+  vim.api.nvim_set_keymap(mode, '<C-f>', '<Right>', { noremap = true })
+  vim.api.nvim_set_keymap(mode, '<M-b>', '<S-Left>', { noremap = true })
+  vim.api.nvim_set_keymap(mode, '<M-f>', '<S-Right>', { noremap = true })
+  vim.api.nvim_set_keymap(mode, '<C-g>', '<Del>', { noremap = true })
 end
 
 -- Buffer delete
