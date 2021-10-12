@@ -33,6 +33,7 @@ require('packer').startup(function()
       require('treesitter')
     end,
   }
+  use 'windwp/nvim-ts-autotag'
 
   -- explorer
   use {
@@ -277,6 +278,7 @@ require('packer').startup(function()
       require('nvim-autopairs').setup({
         disable_filetype = { "TelescopePrompt" , "vim" },
         check_ts = true,
+        map_c_w = true,
       })
       require("nvim-autopairs.completion.cmp").setup({
         map_cr = true,
@@ -354,7 +356,6 @@ require('packer').startup(function()
       vim.api.nvim_set_keymap('n', '[a', '<Plug>(ale_previous_wrap)', { noremap = true, silent = true })
     end,
   }
-
   use {
     'akinsho/nvim-toggleterm.lua',
     config = function()
@@ -499,6 +500,14 @@ require('packer').startup(function()
           },
         },
       })
+    end,
+  }
+  use {
+    'iamcco/markdown-preview.nvim',
+    run = 'cd app && npm install',
+    ft = { 'markdown' },
+    setup = function()
+      vim.g.mkdp_filetypes = { 'markdown' }
     end,
   }
   use {
