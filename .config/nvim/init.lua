@@ -89,7 +89,7 @@ for _, mode in pairs({ 'i', 'c' }) do
   vim.api.nvim_set_keymap(mode, '<C-f>', '<Right>', { noremap = true })
   vim.api.nvim_set_keymap(mode, '<M-b>', '<S-Left>', { noremap = true })
   vim.api.nvim_set_keymap(mode, '<M-f>', '<S-Right>', { noremap = true })
-  vim.api.nvim_set_keymap(mode, '<C-g>', '<Del>', { noremap = true })
+  vim.api.nvim_set_keymap(mode, '<C-k>', '<Del>', { noremap = true })
 end
 
 -- Buffer delete
