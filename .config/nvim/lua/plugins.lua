@@ -475,7 +475,7 @@ require('packer').startup(function()
       vim.g.vue_pre_processors = 'detect_on_enter'
     end,
   }
-  use { 
+  use {
     'nvim-neorg/neorg',
     requires = { 'nvim-lua/plenary.nvim' },
     config = function()
@@ -492,7 +492,7 @@ require('packer').startup(function()
           ['core.norg.dirman'] = {
             config = {
               workspaces = {
-                my_workspace = '~/org',
+                my_workspace = '~/neorg',
               },
             },
           },
