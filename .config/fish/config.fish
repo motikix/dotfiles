@@ -26,6 +26,9 @@ set -x LANG en_US.UTF-8
 # gpg
 set -x GPG_TTY (tty)
 
+# editor
+set -x EDITOR /usr/bin/vim
+
 # xdg base directory specification
 set -x XDG_CONFIG_HOME $HOME/.config
 set -x XDG_CACHE_HOME $HOME/.cache

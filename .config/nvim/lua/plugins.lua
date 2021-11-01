@@ -26,6 +26,12 @@ require('packer').startup(function()
     end,
   }
 
+  -- icons
+  use {
+    'yamatsum/nvim-nonicons',
+    requires = { 'kyazdani42/nvim-web-devicons' },
+  }
+
   -- treesitter
   use {
     'nvim-treesitter/nvim-treesitter',
@@ -38,7 +44,6 @@ require('packer').startup(function()
   -- explorer
   use {
     'kyazdani42/nvim-tree.lua',
-    requires = { 'kyazdani42/nvim-web-devicons', opt = true },
     config = function()
       local sign = require('config').sign
       vim.g.nvim_tree_quit_on_open = 1
@@ -89,7 +94,6 @@ require('packer').startup(function()
   -- bufferline / statusline
   use {
     'akinsho/nvim-bufferline.lua',
-    requires = { 'kyazdani42/nvim-web-devicons', opt = true },
     config = function()
       local sign = require('config').sign
       local ws = ' '
@@ -441,7 +445,6 @@ require('packer').startup(function()
   }
   use {
     'folke/lsp-trouble.nvim',
-    requires = { 'kyazdani42/nvim-web-devicons', opt = true },
     config = function()
       require('trouble').setup{}
       vim.api.nvim_set_keymap('n', '<Leader>d', '<Cmd>LspTroubleToggle lsp_document_diagnostics<Cr>', { noremap = true, silent = true })
