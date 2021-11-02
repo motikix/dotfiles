@@ -27,9 +27,7 @@ require('packer').startup(function()
   }
 
   -- icons
-  use {
-    'kyazdani42/nvim-web-devicons',
-  }
+  use 'kyazdani42/nvim-web-devicons'
 
   -- treesitter
   use {
@@ -282,7 +280,7 @@ require('packer').startup(function()
     requires = { 'hrsh7th/nvim-cmp' },
     config = function()
       local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-      require('cmp').event:on( 'confirm_done', cmp_autopairs.on_confirm_done())
+      require('cmp').event:on('confirm_done', cmp_autopairs.on_confirm_done())
       require('nvim-autopairs').setup({
         disable_filetype = { 'TelescopePrompt' , 'vim' },
         check_ts = false,
@@ -373,7 +371,7 @@ require('packer').startup(function()
       local signs = { Error = sign.error, Warning = sign.warn, Hint = sign.hint, Information = sign.info }
       for type, icon in pairs(signs) do
         local hl = 'LspDiagnosticsSign' .. type
-        vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+        vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = '' })
       end
     end,
   }
