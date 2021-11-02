@@ -109,10 +109,6 @@ end
 
 # company settings (on WSL2)
 
-## proxy
-set -x no_proxy "localhost,127.0.0.1,*.dentsu.co.jp,*.isid.co.jp"
-set -x http_proxy "http://133.158.251.200:8080"
-set -x https_proxy "http://133.158.251.200:8080"
 ## path
 set -x PATH /mnt/d/bin $PATH
 set -x PATH /mnt/d/win32yank $PATH
