@@ -23,7 +23,7 @@
 [mergetool]
 	prompt = false
 [credential]
-	helper = /mnt/c/Program\\ Files/Git/mingw64/libexec/git-core/git-credential-manager-core.exe
+	helper = /mnt/c/Program\\ Files/Git/mingw64/libexec/git-core/git-credential-manager.exe
 [pull]
 	rebase = false
 [alias]
