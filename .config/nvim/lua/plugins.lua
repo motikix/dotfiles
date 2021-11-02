@@ -28,8 +28,7 @@ require('packer').startup(function()
 
   -- icons
   use {
-    'yamatsum/nvim-nonicons',
-    requires = { 'kyazdani42/nvim-web-devicons' },
+    'kyazdani42/nvim-web-devicons',
   }
 
   -- treesitter
