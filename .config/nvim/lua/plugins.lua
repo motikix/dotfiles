@@ -27,10 +27,7 @@ require('packer').startup(function()
   }
 
   -- icons
-  use {
-    'yamatsum/nvim-nonicons',
-    requires = { 'kyazdani42/nvim-web-devicons' },
-  }
+  use 'kyazdani42/nvim-web-devicons'
 
   -- treesitter
   use {
@@ -48,7 +45,6 @@ require('packer').startup(function()
       local sign = require('config').sign
       vim.g.nvim_tree_quit_on_open = 1
       vim.g.nvim_tree_indent_markers = 1
-      vim.g.nvim_tree_hide_dotfiles = 0
       vim.g.nvim_tree_highlight_opened_files = 1
       vim.g.nvim_tree_git_hl = 1
       vim.g.nvim_tree_add_trailing = 1
@@ -64,6 +60,9 @@ require('packer').startup(function()
             warning = sign.warn,
             error = sign.error,
           },
+        },
+        filters = {
+          dotfiles = false,
         },
         view = {
           width = 40,
@@ -100,7 +99,7 @@ require('packer').startup(function()
       require('bufferline').setup{
         options = {
           custom_filter = function(buf_number)
-            if vim.bo[buf_number].filetype ~= "qf" then
+            if vim.bo[buf_number].filetype ~= 'qf' then
               return true
             end
           end,
@@ -278,21 +277,15 @@ require('packer').startup(function()
   }
   use {
     'windwp/nvim-autopairs',
+    requires = { 'hrsh7th/nvim-cmp' },
     config = function()
+      local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+      require('cmp').event:on('confirm_done', cmp_autopairs.on_confirm_done())
       require('nvim-autopairs').setup({
-        disable_filetype = { "TelescopePrompt" , "vim" },
+        disable_filetype = { 'TelescopePrompt' , 'vim' },
         check_ts = true,
+        map_bs = true,
         map_c_w = true,
-      })
-      require("nvim-autopairs.completion.cmp").setup({
-        map_cr = true,
-        map_complete = true,
-        auto_select = true,
-        insert = false,
-        map_char = {
-          all = '(',
-          tex = '{',
-        },
       })
     end,
   }
@@ -302,15 +295,9 @@ require('packer').startup(function()
 
   -- snippets
   use {
-    'SirVer/ultisnips',
-    config = function()
-      vim.g.UltiSnipsExpandTrigger = '<Tab>'
-      vim.g.UltiSnipsJumpForwardTrigger = '<C-f>'
-      vim.g.UltiSnipsJumpBackwardTrigger = '<C-b>'
-      vim.g.UltiSnipsEditSplit = 'vertical'
-    end,
+    'hrsh7th/vim-vsnip',
+    requires = { 'rafamadriz/friendly-snippets' },
   }
-  use 'honza/vim-snippets'
 
   -- syntax check
   use {
@@ -384,8 +371,8 @@ require('packer').startup(function()
       local sign = require('config').sign
       local signs = { Error = sign.error, Warning = sign.warn, Hint = sign.hint, Information = sign.info }
       for type, icon in pairs(signs) do
-        local hl = "LspDiagnosticsSign" .. type
-        vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+        local hl = 'LspDiagnosticsSign' .. type
+        vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = '' })
       end
     end,
   }
@@ -395,18 +382,17 @@ require('packer').startup(function()
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-nvim-lsp',
-      'quangnguyen30192/cmp-nvim-ultisnips',
+      'hrsh7th/cmp-vsnip',
     },
     config = function()
-      local cmp = require'cmp'
-
+      local cmp = require('cmp')
       cmp.setup({
         completion = {
           keyword_length = 2,
         },
         snippet = {
           expand = function(args)
-            vim.fn["UltiSnips#Anon"](args.body)
+            vim.fn['vsnip#anonymous'](args.body)
           end,
         },
         mapping = {
@@ -419,18 +405,18 @@ require('packer').startup(function()
         sources = {
           { name = 'buffer' },
           { name = 'nvim_lsp' },
-          { name = 'ultisnips' },
+          { name = 'vsnip' },
           { name = 'neorg' },
         },
         formatting = {
           format = function(entry, vim_item)
-            vim_item.kind = require("lspkind").presets.default[vim_item.kind] .. " " .. vim_item.kind
+            vim_item.kind = require('lspkind').presets.default[vim_item.kind] .. ' ' .. vim_item.kind
             vim_item.menu = ({
-              buffer = "[Buffer]",
-              nvim_lsp = "[LSP]",
-              luasnip = "[LuaSnip]",
-              nvim_lua = "[Lua]",
-              latex_symbols = "[Latex]",
+              buffer = '[Buffer]',
+              nvim_lsp = '[LSP]',
+              luasnip = '[LuaSnip]',
+              nvim_lua = '[Lua]',
+              latex_symbols = '[Latex]',
             })[entry.source.name]
             return vim_item
           end,
