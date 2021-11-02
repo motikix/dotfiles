@@ -48,7 +48,6 @@ require('packer').startup(function()
       local sign = require('config').sign
       vim.g.nvim_tree_quit_on_open = 1
       vim.g.nvim_tree_indent_markers = 1
-      vim.g.nvim_tree_hide_dotfiles = 0
       vim.g.nvim_tree_highlight_opened_files = 1
       vim.g.nvim_tree_git_hl = 1
       vim.g.nvim_tree_add_trailing = 1
@@ -64,6 +63,9 @@ require('packer').startup(function()
             warning = sign.warn,
             error = sign.error,
           },
+        },
+        filters = {
+          dotfiles = false,
         },
         view = {
           width = 40,
@@ -284,16 +286,6 @@ require('packer').startup(function()
         check_ts = true,
         map_c_w = true,
       })
-      require("nvim-autopairs.completion.cmp").setup({
-        map_cr = true,
-        map_complete = true,
-        auto_select = true,
-        insert = false,
-        map_char = {
-          all = '(',
-          tex = '{',
-        },
-      })
     end,
   }
   use 'editorconfig/editorconfig-vim'
@@ -395,9 +387,10 @@ require('packer').startup(function()
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-nvim-lsp',
       'quangnguyen30192/cmp-nvim-ultisnips',
+      'windwp/nvim-autopairs',
     },
     config = function()
-      local cmp = require'cmp'
+      local cmp = require('cmp')
 
       cmp.setup({
         completion = {
@@ -435,6 +428,9 @@ require('packer').startup(function()
           end,
         },
       })
+
+      local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+      cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done({ map_char = { tex = '' } }))
     end,
   }
   use {
