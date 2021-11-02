@@ -101,7 +101,7 @@ require('packer').startup(function()
       require('bufferline').setup{
         options = {
           custom_filter = function(buf_number)
-            if vim.bo[buf_number].filetype ~= "qf" then
+            if vim.bo[buf_number].filetype ~= 'qf' then
               return true
             end
           end,
@@ -279,10 +279,14 @@ require('packer').startup(function()
   }
   use {
     'windwp/nvim-autopairs',
+    requires = { 'hrsh7th/nvim-cmp' },
     config = function()
+      local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+      require('cmp').event:on( 'confirm_done', cmp_autopairs.on_confirm_done())
       require('nvim-autopairs').setup({
-        disable_filetype = { "TelescopePrompt" , "vim" },
-        check_ts = true,
+        disable_filetype = { 'TelescopePrompt' , 'vim' },
+        check_ts = false,
+        map_bs = true,
         map_c_w = true,
       })
     end,
@@ -292,16 +296,7 @@ require('packer').startup(function()
   use 'andymass/vim-matchup'
 
   -- snippets
-  use {
-    'SirVer/ultisnips',
-    config = function()
-      vim.g.UltiSnipsExpandTrigger = '<Tab>'
-      vim.g.UltiSnipsJumpForwardTrigger = '<C-f>'
-      vim.g.UltiSnipsJumpBackwardTrigger = '<C-b>'
-      vim.g.UltiSnipsEditSplit = 'vertical'
-    end,
-  }
-  use 'honza/vim-snippets'
+  use 'hrsh7th/vim-vsnip'
 
   -- syntax check
   use {
@@ -374,7 +369,7 @@ require('packer').startup(function()
       local sign = require('config').sign
       local signs = { Error = sign.error, Warning = sign.warn, Hint = sign.hint, Information = sign.info }
       for type, icon in pairs(signs) do
-        local hl = "LspDiagnosticsSign" .. type
+        local hl = 'LspDiagnosticsSign' .. type
         vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
       end
     end,
@@ -385,19 +380,17 @@ require('packer').startup(function()
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-nvim-lsp',
-      'quangnguyen30192/cmp-nvim-ultisnips',
-      'windwp/nvim-autopairs',
+      'hrsh7th/cmp-vsnip',
     },
     config = function()
       local cmp = require('cmp')
-
       cmp.setup({
         completion = {
           keyword_length = 2,
         },
         snippet = {
           expand = function(args)
-            vim.fn["UltiSnips#Anon"](args.body)
+            vim.fn['vsnip#anonymous'](args.body)
           end,
         },
         mapping = {
@@ -410,26 +403,23 @@ require('packer').startup(function()
         sources = {
           { name = 'buffer' },
           { name = 'nvim_lsp' },
-          { name = 'ultisnips' },
+          { name = 'vsnip' },
           { name = 'neorg' },
         },
         formatting = {
           format = function(entry, vim_item)
-            vim_item.kind = require("lspkind").presets.default[vim_item.kind] .. " " .. vim_item.kind
+            vim_item.kind = require('lspkind').presets.default[vim_item.kind] .. ' ' .. vim_item.kind
             vim_item.menu = ({
-              buffer = "[Buffer]",
-              nvim_lsp = "[LSP]",
-              luasnip = "[LuaSnip]",
-              nvim_lua = "[Lua]",
-              latex_symbols = "[Latex]",
+              buffer = '[Buffer]',
+              nvim_lsp = '[LSP]',
+              luasnip = '[LuaSnip]',
+              nvim_lua = '[Lua]',
+              latex_symbols = '[Latex]',
             })[entry.source.name]
             return vim_item
           end,
         },
       })
-
-      local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-      cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done({ map_char = { tex = '' } }))
     end,
   }
   use {
