@@ -296,7 +296,10 @@ require('packer').startup(function()
   use 'andymass/vim-matchup'
 
   -- snippets
-  use 'hrsh7th/vim-vsnip'
+  use {
+    'hrsh7th/vim-vsnip',
+    requires = { 'rafamadriz/friendly-snippets' },
+  }
 
   -- syntax check
   use {
