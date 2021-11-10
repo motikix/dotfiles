@@ -283,7 +283,7 @@ require('packer').startup(function()
       require('cmp').event:on('confirm_done', cmp_autopairs.on_confirm_done())
       require('nvim-autopairs').setup({
         disable_filetype = { 'TelescopePrompt' , 'vim' },
-        check_ts = false,
+        check_ts = true,
         map_bs = true,
         map_c_w = true,
       })
