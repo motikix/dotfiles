@@ -130,7 +130,6 @@ if type -q starship
 end
 
 ## tmux
-if status is-interactive
-and not set -q TMUX
-    exec tmux
+if status is-interactive; and not set -q TMUX
+  exec tmux
 end
