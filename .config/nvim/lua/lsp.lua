@@ -34,7 +34,7 @@ local on_attach = function(client, bufnr)
   require('lsp_signature').on_attach({
       bind = true,
       doc_lines = 10,
-      floating_window = false,
+      floating_window = true,
       fix_pos = false,
       hint_enable = true,
       hint_prefix = require('config').sign.hint..' ',
@@ -116,3 +116,11 @@ lsp.sumneko_lua.setup{
     },
   },
 }
+
+-- UI
+
+vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
+  vim.lsp.handlers.hover, {
+    border = 'single',
+  }
+)
