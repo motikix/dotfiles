@@ -2,6 +2,7 @@ export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx
 export SDL_IM_MODULE=fcitx
 export XMODIFIERS=@im=fcitx
+export GLFW_IM_MODULE=ibus
 
 export WINIT_X11_SCALE_FACTOR=1.5
 
