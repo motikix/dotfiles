@@ -311,7 +311,7 @@ require('packer').startup(function()
         typescriptreact = { 'eslint' },
         vue = { 'eslint' },
         svelte = { 'eslint' },
-        go = { 'govet' },
+        go = { 'golint', 'staticcheck' },
         rust = { 'rls' },
         python = { 'flake8', 'mypy' },
         terraform = { 'terraform' },
