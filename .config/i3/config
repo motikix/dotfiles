@@ -13,7 +13,7 @@
 set $mod Mod4
 
 # Terminal emulator
-set $term kitty
+set $term alacritty
 
 # Launcher
 # set $menu "rofi -modi drun,run -show drun"

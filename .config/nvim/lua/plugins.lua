@@ -312,7 +312,7 @@ require('packer').startup(function()
         vue = { 'eslint' },
         svelte = { 'eslint' },
         go = { 'govet' },
-        rust = { 'analyzer' },
+        rust = { 'rls' },
         python = { 'flake8', 'mypy' },
         terraform = { 'terraform' },
       }
