@@ -453,7 +453,9 @@ require('packer').startup(function()
     'sheerun/vim-polyglot',
     setup = function()
       -- disabled filetypes
-      vim.g.polyglot_disabled = {}
+      vim.g.polyglot_disabled = {
+        'jsx',
+      }
       -- markdown behaviors
       vim.g.vim_markdown_conceal = 0
       vim.g.vim_markdown_conceal_code_blocks = 0
