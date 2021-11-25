@@ -455,6 +455,8 @@ require('packer').startup(function()
     setup = function()
       -- disabled filetypes
       vim.g.polyglot_disabled = {
+        'javascript',
+        'typescript',
         'jsx',
       }
       -- markdown behaviors
