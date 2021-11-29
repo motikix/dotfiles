@@ -6,7 +6,6 @@ configuration {
   combi-modi: "drun,run,ssh,window";
   window-format: "{t}";
   font: "Neuropol 24";
-  theme: "Arc-Dark.rasi";
   combi-hide-mode-prefix: true;
   display-window: "Windows";
   display-windowcd: "Windows";
@@ -16,3 +15,5 @@ configuration {
   display-combi: "All";
   display-keys: "Keys";
 }
+
+@theme "Arc-Dark.rasi"
