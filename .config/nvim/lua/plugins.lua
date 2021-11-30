@@ -515,6 +515,6 @@ require('packer').startup(function()
   }
 
   -- analysis
-  use 'wakatime/vim-wakatime'
+  -- use 'wakatime/vim-wakatime'
 
 end)
