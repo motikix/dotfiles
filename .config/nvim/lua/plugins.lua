@@ -513,4 +513,8 @@ require('packer').startup(function()
       vim.g.slimv_repl_split = 2
     end,
   }
+
+  -- analysis
+  use 'wakatime/vim-wakatime'
+
 end)
