@@ -16,13 +16,13 @@ require('packer').startup(function()
   use {
     'projekt0n/github-nvim-theme',
     config = function()
-      require('github-theme').setup({
+      require('github-theme').setup{
         theme_style = 'dimmed',
         transparent = false,
         sidebars = { 'qf', 'vista_kind', 'terminal', 'packer', 'NvimTree' },
         dark_sidebar = true,
         dark_float = true,
-      })
+      }
     end,
   }
 
@@ -49,7 +49,7 @@ require('packer').startup(function()
       vim.g.nvim_tree_git_hl = 1
       vim.g.nvim_tree_add_trailing = 1
       vim.g.nvim_tree_group_empty = 0
-      require('nvim-tree').setup({
+      require('nvim-tree').setup{
         hijack_cursor = true,
         update_cwd = true,
         diagnostics = {
@@ -67,7 +67,7 @@ require('packer').startup(function()
         view = {
           width = 40,
         },
-      })
+      }
       vim.api.nvim_set_keymap('n', '<C-n>', '<Cmd>NvimTreeToggle<Cr>', { noremap = true, silent = true })
     end,
   }
@@ -234,7 +234,7 @@ require('packer').startup(function()
     'lewis6991/gitsigns.nvim',
     requires = { 'nvim-lua/plenary.nvim' },
     config = function()
-      require('gitsigns').setup()
+      require('gitsigns').setup{}
     end,
   }
 
@@ -261,10 +261,24 @@ require('packer').startup(function()
     end,
   }
   use {
-    'scrooloose/nerdcommenter',
+    'numToStr/Comment.nvim',
+    requires = { 'JoosepAlviste/nvim-ts-context-commentstring' },
     config = function()
-      vim.g.NERDSpaceDelims = 1
-      vim.g.NERDDefaultAlign = 'left'
+      require('Comment').setup{
+        pre_hook = function(ctx)
+          local U = require('Comment.utils')
+          local location = nil
+          if ctx.ctype == U.ctype.block then
+            location = require('ts_context_commentstring.utils').get_cursor_location()
+          elseif ctx.cmotion == U.cmotion.v or ctx.cmotion == U.cmotion.V then
+            location = require('ts_context_commentstring.utils').get_visual_start_location()
+          end
+          return require('ts_context_commentstring.internal').calculate_commentstring{
+            key = ctx.ctype == U.ctype.line and '__default' or '__multiline',
+            location = location,
+          }
+        end,
+      }
     end,
   }
   use {
@@ -281,12 +295,12 @@ require('packer').startup(function()
     config = function()
       local cmp_autopairs = require('nvim-autopairs.completion.cmp')
       require('cmp').event:on('confirm_done', cmp_autopairs.on_confirm_done())
-      require('nvim-autopairs').setup({
+      require('nvim-autopairs').setup{
         disable_filetype = { 'TelescopePrompt' , 'vim' },
         check_ts = true,
         map_bs = true,
         map_c_w = true,
-      })
+      }
     end,
   }
   use 'editorconfig/editorconfig-vim'
@@ -386,7 +400,7 @@ require('packer').startup(function()
     },
     config = function()
       local cmp = require('cmp')
-      cmp.setup({
+      cmp.setup{
         completion = {
           keyword_length = 2,
         },
@@ -421,7 +435,7 @@ require('packer').startup(function()
             return vim_item
           end,
         },
-      })
+      }
     end,
   }
   use {
@@ -455,6 +469,7 @@ require('packer').startup(function()
     setup = function()
       -- disabled filetypes
       vim.g.polyglot_disabled = {
+        'autoindent',
         'javascript',
         'typescript',
         'jsx',
@@ -470,7 +485,7 @@ require('packer').startup(function()
     'nvim-neorg/neorg',
     requires = { 'nvim-lua/plenary.nvim' },
     config = function()
-      require('neorg').setup({
+      require('neorg').setup{
         load = {
           ['core.defaults'] = {},
           ['core.keybinds'] = {
@@ -493,7 +508,7 @@ require('packer').startup(function()
             },
           },
         },
-      })
+      }
     end,
   }
   use {
