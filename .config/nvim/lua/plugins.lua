@@ -155,8 +155,8 @@ require('packer').startup(function()
 
         'path',
         'branch',
-        'signify',
-        'builtinlsp.diagnostic_count',
+        'gitsigns',
+        'lsp_status.diagnostics',
 
         'divisor',
 
@@ -165,6 +165,18 @@ require('packer').startup(function()
       }
       vim.g.bubbly_filter = {
         default = { 'qf', 'packer', 'NvimTree', 'vista_kind', 'Trouble' },
+      }
+      local sign = require('config').sign
+      local ws = ' '
+      vim.g.bubbly_symbols = {
+        lsp_status = {
+          diagnostics = {
+            error = sign.error..ws..'%d',
+            warning = sign.warn..ws..'%d',
+            hint = sign.hint..ws..'%d',
+            info = sign.info..ws..'%d',
+          },
+        },
       }
     end
   }
@@ -379,14 +391,14 @@ require('packer').startup(function()
   -- lsp
   use {
     'neovim/nvim-lspconfig',
-    requires = { 'ray-x/lsp_signature.nvim' },
+    requires = { 'nvim-lua/lsp-status.nvim', 'ray-x/lsp_signature.nvim' },
     config = function()
       require('lsp')
       local sign = require('config').sign
-      local signs = { Error = sign.error, Warning = sign.warn, Hint = sign.hint, Information = sign.info }
+      local signs = { Error = sign.error, Warn = sign.warn, Hint = sign.hint, Info = sign.info }
       for type, icon in pairs(signs) do
-        local hl = 'LspDiagnosticsSign' .. type
-        vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = '' })
+        local hl = 'DiagnosticSign' .. type
+        vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
       end
     end,
   }
