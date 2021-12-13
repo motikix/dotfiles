@@ -76,6 +76,10 @@ lsp.tsserver.setup{ on_attach = on_attach }
 lsp.vuels.setup{ on_attach = on_attach }
 lsp.svelte.setup{ on_attach = on_attach }
 lsp.pyright.setup{ on_attach = on_attach }
+lsp.jdtls.setup{
+  on_attach = on_attach,
+  cmd = { 'jdtls' },
+}
 lsp.vimls.setup{ on_attach = on_attach }
 lsp.terraformls.setup{ on_attach = on_attach }
 
