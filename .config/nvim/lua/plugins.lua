@@ -496,6 +496,9 @@ require('packer').startup(function()
   use {
     'nvim-neorg/neorg',
     requires = { 'nvim-lua/plenary.nvim' },
+    setup = vim.cmd('autocmd BufRead,BufNewFile *.norg setlocal filetype=norg'),
+    after = { 'nvim-treesitter' },
+    ft = 'norg',
     config = function()
       require('neorg').setup{
         load = {
