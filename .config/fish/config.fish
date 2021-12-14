@@ -97,9 +97,9 @@ end
 
 ## exa
 if type -q exa
-  alias ls="exa"
-  alias ll="exa -lh -s date -s new --git"
-  alias tree="exa -T"
+  alias ls="exa --icons"
+  alias ll="exa -lh --git --icons"
+  alias tree="exa -T --icons"
 end
 
 ## diff-so-fancy
