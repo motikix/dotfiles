@@ -69,7 +69,7 @@ require('packer').startup(function()
         },
       }
       vim.api.nvim_set_keymap('n', '<C-n>', '<Cmd>NvimTreeToggle<Cr>', { noremap = true, silent = true })
-    end,
+   end,
   }
   use {
     'kevinhwang91/rnvimr',
@@ -218,15 +218,6 @@ require('packer').startup(function()
   use {
     'nvim-telescope/telescope-symbols.nvim',
     requires = { 'nvim-telescope/telescope.nvim' }
-  }
-
-  -- list
-  use {
-    'Valloric/ListToggle',
-    setup = function()
-      vim.g.lt_location_list_toggle_map = '<Leader>ll'
-      vim.g.lt_quickfix_list_toggle_map = '<Leader>qq'
-    end,
   }
 
   -- zen
@@ -460,8 +451,10 @@ require('packer').startup(function()
     'folke/lsp-trouble.nvim',
     config = function()
       require('trouble').setup{}
-      vim.api.nvim_set_keymap('n', '<Leader>d', '<Cmd>LspTroubleToggle lsp_document_diagnostics<Cr>', { noremap = true, silent = true })
-      vim.api.nvim_set_keymap('n', '<Leader>D', '<Cmd>LspTroubleToggle lsp_workspace_diagnostics<Cr>', { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('n', '<Leader>xd', '<Cmd>TroubleToggle document_diagnostics<Cr>', { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('n', '<Leader>xw', '<Cmd>TroubleToggle workspace_diagnostics<Cr>', { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('n', '<Leader>xl', '<Cmd>TroubleToggle loclist<Cr>', { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('n', '<Leader>xq', '<Cmd>TroubleToggle quickfix<Cr>', { noremap = true, silent = true })
     end,
   }
   use {
