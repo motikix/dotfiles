@@ -69,7 +69,7 @@ require('packer').startup(function()
         },
       }
       vim.api.nvim_set_keymap('n', '<C-n>', '<Cmd>NvimTreeToggle<Cr>', { noremap = true, silent = true })
-    end,
+   end,
   }
   use {
     'kevinhwang91/rnvimr',
@@ -218,15 +218,6 @@ require('packer').startup(function()
   use {
     'nvim-telescope/telescope-symbols.nvim',
     requires = { 'nvim-telescope/telescope.nvim' }
-  }
-
-  -- list
-  use {
-    'Valloric/ListToggle',
-    setup = function()
-      vim.g.lt_location_list_toggle_map = '<Leader>ll'
-      vim.g.lt_quickfix_list_toggle_map = '<Leader>qq'
-    end,
   }
 
   -- zen
@@ -459,8 +450,10 @@ require('packer').startup(function()
     'folke/lsp-trouble.nvim',
     config = function()
       require('trouble').setup{}
-      vim.api.nvim_set_keymap('n', '<Leader>d', '<Cmd>LspTroubleToggle lsp_document_diagnostics<Cr>', { noremap = true, silent = true })
-      vim.api.nvim_set_keymap('n', '<Leader>D', '<Cmd>LspTroubleToggle lsp_workspace_diagnostics<Cr>', { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('n', '<Leader>xd', '<Cmd>TroubleToggle document_diagnostics<Cr>', { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('n', '<Leader>xw', '<Cmd>TroubleToggle workspace_diagnostics<Cr>', { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('n', '<Leader>xl', '<Cmd>TroubleToggle loclist<Cr>', { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('n', '<Leader>xq', '<Cmd>TroubleToggle quickfix<Cr>', { noremap = true, silent = true })
     end,
   }
   use {
@@ -495,9 +488,31 @@ require('packer').startup(function()
   use {
     'nvim-neorg/neorg',
     requires = { 'nvim-lua/plenary.nvim' },
-    setup = vim.cmd('autocmd BufRead,BufNewFile *.norg setlocal filetype=norg'),
     after = { 'nvim-treesitter' },
-    ft = 'norg',
+    setup = function()
+      local parser_configs = require('nvim-treesitter.parsers').get_parser_configs()
+      parser_configs.norg = {
+        install_info = {
+          url = 'https://github.com/nvim-neorg/tree-sitter-norg',
+          files = { 'src/parser.c', 'src/scanner.cc' },
+          branch = 'main',
+        },
+      }
+      parser_configs.norg_meta = {
+        install_info = {
+          url = 'https://github.com/nvim-neorg/tree-sitter-norg-meta',
+          files = { 'src/parser.c' },
+          branch = 'main',
+        },
+      }
+      parser_configs.norg_table = {
+        install_info = {
+          url = 'https://github.com/nvim-neorg/tree-sitter-norg-table',
+          files = { 'src/parser.c' },
+          branch = 'main',
+        },
+      }
+    end,
     config = function()
       require('neorg').setup{
         load = {
