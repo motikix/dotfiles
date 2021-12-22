@@ -71,14 +71,6 @@ require('packer').startup(function()
       vim.api.nvim_set_keymap('n', '<C-n>', '<Cmd>NvimTreeToggle<Cr>', { noremap = true, silent = true })
    end,
   }
-  use {
-    'kevinhwang91/rnvimr',
-    cmd = { 'RnvimrToggle' },
-    setup = function()
-      vim.g.rnvimr_ex_enable = 1
-      vim.api.nvim_set_keymap('n', '<Leader>r', '<Cmd>RnvimrToggle<Cr>', { noremap = true, silent = true })
-    end,
-  }
 
   -- buffer
   use {
@@ -557,6 +549,36 @@ require('packer').startup(function()
       vim.g.slimv_lisp = 'ros run'
       vim.g.slimv_impl = 'sbcl'
       vim.g.slimv_repl_split = 2
+    end,
+  }
+
+  -- rest client
+  use {
+    'NTBBloodbath/rest.nvim',
+    requires = { 'nvim-lua/plenary.nvim' },
+    after = { 'nvim-treesitter' },
+    ft = { 'http' },
+    config = function()
+      require('rest-nvim').setup({
+        result_split_horizontal = false,
+        skip_ssl_verification = true,
+        highlight = {
+          enabled = true,
+          timeout = 150,
+        },
+        result = {
+          show_url = true,
+          show_http_info = true,
+          show_headers = true,
+        },
+        jump_to_request = false,
+        env_file = '.env',
+        custom_dynamic_variables = {},
+        yank_dry_run = true,
+      })
+      vim.api.nvim_set_keymap('n', '<Leader>rr', '<Plug>RestNvim', {})
+      vim.api.nvim_set_keymap('n', '<Leader>rp', '<Plug>RestNvimPreview', {})
+      vim.api.nvim_set_keymap('n', '<Leader>rl', '<Plug>RestNvimLast', {})
     end,
   }
 
