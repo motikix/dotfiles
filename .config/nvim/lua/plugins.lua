@@ -19,7 +19,7 @@ require('packer').startup(function()
       require('github-theme').setup{
         theme_style = 'dimmed',
         transparent = false,
-        sidebars = { 'qf', 'vista_kind', 'terminal', 'packer', 'NvimTree' },
+        sidebars = { 'qf', 'vista_kind', 'terminal', 'packer', 'NvimTree', 'Trouble' },
         dark_sidebar = true,
         dark_float = true,
       }
@@ -49,6 +49,18 @@ require('packer').startup(function()
       vim.g.nvim_tree_git_hl = 1
       vim.g.nvim_tree_add_trailing = 1
       vim.g.nvim_tree_group_empty = 0
+      vim.g.nvim_tree_window_picker_exclude = {
+        filetype = {
+          'notify',
+          'packer',
+          'qf',
+          'Trouble',
+          'vista_kind',
+        },
+        buftype = {
+          'terminal',
+        },
+      }
       require('nvim-tree').setup{
         hijack_cursor = true,
         update_cwd = true,
@@ -63,6 +75,10 @@ require('packer').startup(function()
         },
         filters = {
           dotfiles = false,
+        },
+        git = {
+          enable = true,
+          ignore = false,
         },
         view = {
           width = 40,
