@@ -1,3 +1,6 @@
+# suppress greeting message
+set fish_greeting
+
 # theme (GitHub Dimmed)
 set -x BACKGROUND_COLOR '#22272e'
 set -x FOREGROUND_COLOR '#768390'
