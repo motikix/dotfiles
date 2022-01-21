@@ -64,8 +64,8 @@ set -x PATH $GOPATH/bin $PATH
 set -x PATH $HOME/.cargo/bin $PATH
 
 ## haskell
-# set -x PATH $HOME/.cabal/bin $PATH
-# set -x PATH $HOME/.ghcup/bin $PATH
+set -x PATH $HOME/.cabal/bin $PATH
+set -x PATH $HOME/.ghcup/bin $PATH
 
 ## node
 set -x NPM_CONFIG_PREFIX $HOME/.local
