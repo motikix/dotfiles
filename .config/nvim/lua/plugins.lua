@@ -376,6 +376,7 @@ require('packer').startup({
       end,
     }
 
+    -- terminal
     use {
       'akinsho/nvim-toggleterm.lua',
       config = function()
@@ -387,6 +388,17 @@ require('packer').startup({
           shade_terminals = false,
           shade_filetypes = { 'none' },
         }
+      end,
+    }
+
+    -- window
+    use {
+      'https://gitlab.com/yorickpeterse/nvim-window.git',
+      config = function()
+        require('nvim-window').setup({
+          chars = { 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l' },
+        })
+        vim.api.nvim_set_keymap('n', '<Leader>w', ':lua require("nvim-window").pick()<Cr>', { noremap = true, silent = true })
       end,
     }
 
