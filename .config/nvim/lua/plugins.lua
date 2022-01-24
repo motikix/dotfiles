@@ -13,6 +13,7 @@ require('packer').startup({
 
     -- improve startup time
     use 'lewis6991/impatient.nvim'
+    use 'nathom/filetype.nvim'
 
     -- color
     use {
