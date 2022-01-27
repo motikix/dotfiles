@@ -446,7 +446,6 @@ require('packer').startup({
             { name = 'buffer' },
             { name = 'nvim_lsp' },
             { name = 'vsnip' },
-            { name = 'neorg' },
           },
           formatting = {
             format = function(entry, vim_item)
@@ -507,61 +506,6 @@ require('packer').startup({
         vim.g.vim_markdown_conceal_code_blocks = 0
         -- vue behaviors
         vim.g.vue_pre_processors = 'detect_on_enter'
-      end,
-    }
-    use {
-      'nvim-neorg/neorg',
-      requires = { 'nvim-lua/plenary.nvim' },
-      after = { 'nvim-treesitter' },
-      setup = function()
-        local parser_configs = require('nvim-treesitter.parsers').get_parser_configs()
-        parser_configs.norg = {
-          install_info = {
-            url = 'https://github.com/nvim-neorg/tree-sitter-norg',
-            files = { 'src/parser.c', 'src/scanner.cc' },
-            branch = 'main',
-          },
-        }
-        parser_configs.norg_meta = {
-          install_info = {
-            url = 'https://github.com/nvim-neorg/tree-sitter-norg-meta',
-            files = { 'src/parser.c' },
-            branch = 'main',
-          },
-        }
-        parser_configs.norg_table = {
-          install_info = {
-            url = 'https://github.com/nvim-neorg/tree-sitter-norg-table',
-            files = { 'src/parser.c' },
-            branch = 'main',
-          },
-        }
-      end,
-      config = function()
-        require('neorg').setup{
-          load = {
-            ['core.defaults'] = {},
-            ['core.keybinds'] = {
-              config = {
-                default_keybinds = true,
-                neorg_leader = '<Leader>o',
-              },
-            },
-            ['core.norg.concealer'] = {},
-            ['core.norg.dirman'] = {
-              config = {
-                workspaces = {
-                  my_workspace = '~/neorg',
-                },
-              },
-            },
-            ['core.norg.completion'] = {
-              config = {
-                engine = 'nvim-cmp',
-              },
-            },
-          },
-        }
       end,
     }
     use {
