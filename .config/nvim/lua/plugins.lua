@@ -19,13 +19,13 @@ require('packer').startup({
     use {
       'projekt0n/github-nvim-theme',
       config = function()
-        require('github-theme').setup{
+        require('github-theme').setup({
           theme_style = 'dimmed',
           transparent = false,
           sidebars = { 'qf', 'vista_kind', 'terminal', 'packer', 'NvimTree', 'Trouble' },
           dark_sidebar = true,
           dark_float = true,
-        }
+        })
       end,
     }
 
@@ -64,7 +64,7 @@ require('packer').startup({
             'terminal',
           },
         }
-        require('nvim-tree').setup{
+        require('nvim-tree').setup({
           hijack_cursor = true,
           update_cwd = true,
           diagnostics = {
@@ -86,9 +86,9 @@ require('packer').startup({
           view = {
             width = 40,
           },
-        }
+        })
         vim.api.nvim_set_keymap('n', '<C-n>', '<Cmd>NvimTreeToggle<Cr>', { noremap = true, silent = true })
-     end,
+      end,
     }
 
     -- buffer
@@ -107,7 +107,7 @@ require('packer').startup({
       config = function()
         local sign = require('config').sign
         local ws = ' '
-        require('bufferline').setup{
+        require('bufferline').setup({
           options = {
             custom_filter = function(buf_number)
               if vim.bo[buf_number].filetype ~= 'qf' then
@@ -129,7 +129,7 @@ require('packer').startup({
               return s
             end,
           },
-        }
+        })
         local opts = { noremap = true, silent = true }
         vim.api.nvim_set_keymap('n', '<Leader>bs', '<Cmd>BufferLinePick<Cr>', opts)
         vim.api.nvim_set_keymap('n', '<Leader>bp', '<Cmd>BufferLineCyclePrev<Cr>', opts)
@@ -189,7 +189,7 @@ require('packer').startup({
             },
           },
         }
-      end
+      end,
     }
 
     -- finder
@@ -224,7 +224,7 @@ require('packer').startup({
         vim.api.nvim_set_keymap('n', '<Leader>lA', '<Cmd>Telescope lsp_range_code_actions theme=get_ivy<Cr>', opts)
         vim.api.nvim_set_keymap('n', '<Leader>ld', '<Cmd>Telescope lsp_document_diagnostics theme=get_ivy<Cr>', opts)
         vim.api.nvim_set_keymap('n', '<Leader>lD', '<Cmd>Telescope lsp_workspace_diagnostics theme=get_ivy<Cr>', opts)
-      end
+      end,
     }
     use {
       'nvim-telescope/telescope-symbols.nvim',
@@ -248,7 +248,7 @@ require('packer').startup({
       'lewis6991/gitsigns.nvim',
       requires = { 'nvim-lua/plenary.nvim' },
       config = function()
-        require('gitsigns').setup{}
+        require('gitsigns').setup()
       end,
     }
 
@@ -278,7 +278,7 @@ require('packer').startup({
       'numToStr/Comment.nvim',
       requires = { 'JoosepAlviste/nvim-ts-context-commentstring' },
       config = function()
-        require('Comment').setup{
+        require('Comment').setup({
           pre_hook = function(ctx)
             local U = require('Comment.utils')
             local location = nil
@@ -292,14 +292,14 @@ require('packer').startup({
               location = location,
             }
           end,
-        }
+        })
       end,
     }
     use {
       'folke/todo-comments.nvim',
       requires = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope.nvim' },
       config = function()
-        require('todo-comments').setup{}
+        require('todo-comments').setup()
         vim.api.nvim_set_keymap('n', '<Leader>ft', '<Cmd>TodoTelescope<Cr>', { noremap = true, silent = true })
       end,
     }
@@ -309,12 +309,12 @@ require('packer').startup({
       config = function()
         local cmp_autopairs = require('nvim-autopairs.completion.cmp')
         require('cmp').event:on('confirm_done', cmp_autopairs.on_confirm_done())
-        require('nvim-autopairs').setup{
+        require('nvim-autopairs').setup({
           disable_filetype = { 'TelescopePrompt' , 'vim' },
           check_ts = true,
           map_bs = true,
           map_c_w = true,
-        }
+        })
       end,
     }
     use 'editorconfig/editorconfig-vim'
@@ -380,14 +380,14 @@ require('packer').startup({
     use {
       'akinsho/nvim-toggleterm.lua',
       config = function()
-        require('toggleterm').setup{
+        require('toggleterm').setup({
           size = 20,
           open_mapping = [[<C-\>]],
           hide_numbers = true,
           direction = 'horizontal',
           shade_terminals = false,
           shade_filetypes = { 'none' },
-        }
+        })
       end,
     }
 
@@ -472,7 +472,7 @@ require('packer').startup({
     use {
       'folke/lsp-trouble.nvim',
       config = function()
-        require('trouble').setup{}
+        require('trouble').setup()
         vim.api.nvim_set_keymap('n', '<Leader>xd', '<Cmd>TroubleToggle document_diagnostics<Cr>', { noremap = true, silent = true })
         vim.api.nvim_set_keymap('n', '<Leader>xw', '<Cmd>TroubleToggle workspace_diagnostics<Cr>', { noremap = true, silent = true })
         vim.api.nvim_set_keymap('n', '<Leader>xl', '<Cmd>TroubleToggle loclist<Cr>', { noremap = true, silent = true })
@@ -496,7 +496,6 @@ require('packer').startup({
       setup = function()
         -- disabled filetypes
         vim.g.polyglot_disabled = {
-          'autoindent',
           'javascript',
           'typescript',
           'jsx',
@@ -561,5 +560,5 @@ require('packer').startup({
     use 'wakatime/vim-wakatime'
 
     require('packer_compiled')
-  end
+  end,
 })

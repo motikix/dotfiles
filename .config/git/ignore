@@ -1,9 +1,6 @@
 # For mac
 .DS_Store
 
-# For (n)vim
-.nvimrc
-
 # For python
 pyrightconfig.json
 
