@@ -466,7 +466,7 @@ require('packer').startup({
     use {
       'onsails/lspkind-nvim',
       config = function()
-        require('lspkind').init()
+        require('lspkind').init({})
       end,
     }
     use {
