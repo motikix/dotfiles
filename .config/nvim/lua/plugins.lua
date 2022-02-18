@@ -248,7 +248,16 @@ require('packer').startup({
       'lewis6991/gitsigns.nvim',
       requires = { 'nvim-lua/plenary.nvim' },
       config = function()
-        require('gitsigns').setup()
+        require('gitsigns').setup({
+          on_attach = function(bufnr)
+            local function map(mode, lhs, rhs, opts)
+              opts = vim.tbl_extend('force', { noremap = true, silent = true }, opts or {})
+              vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
+            end
+            map('n', ']c', "&diff ? ']c' : '<Cmd>Gitsigns next_hunk<Cr>'", { expr = true })
+            map('n', '[c', "&diff ? '[c' : '<Cmd>Gitsigns prev_hunk<Cr>'", { expr = true })
+          end,
+        })
       end,
     }
 
