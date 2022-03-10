@@ -57,8 +57,15 @@ lsp.ccls.setup{
   },
 }
 lsp.gopls.setup{ on_attach = on_attach }
-lsp.rust_analyzer.setup{
+lsp.rls.setup{
   on_attach = on_attach,
+  settings = {
+    rust = {
+      unstable_features = true,
+      build_on_save = false,
+      all_features = true,
+    },
+  },
 }
 lsp.denols.setup{
   on_attach = on_attach,

@@ -46,24 +46,11 @@ require('packer').startup({
       'kyazdani42/nvim-tree.lua',
       config = function()
         local sign = require('config').sign
-        vim.g.nvim_tree_quit_on_open = 1
         vim.g.nvim_tree_indent_markers = 1
         vim.g.nvim_tree_highlight_opened_files = 1
         vim.g.nvim_tree_git_hl = 1
         vim.g.nvim_tree_add_trailing = 1
         vim.g.nvim_tree_group_empty = 0
-        vim.g.nvim_tree_window_picker_exclude = {
-          filetype = {
-            'notify',
-            'packer',
-            'qf',
-            'Trouble',
-            'vista_kind',
-          },
-          buftype = {
-            'terminal',
-          },
-        }
         require('nvim-tree').setup({
           hijack_cursor = true,
           update_cwd = true,
@@ -85,6 +72,25 @@ require('packer').startup({
           },
           view = {
             width = 40,
+          },
+          actions = {
+            open_file = {
+              quit_on_open = true,
+              window_picker = {
+                exclude = {
+                  filetype = {
+                    'notify',
+                    'packer',
+                    'qf',
+                    'Trouble',
+                    'vista_kind',
+                  },
+                  buftype = {
+                    'terminal',
+                  },
+                },
+              },
+            },
           },
         })
         vim.api.nvim_set_keymap('n', '<C-n>', '<Cmd>NvimTreeToggle<Cr>', { noremap = true, silent = true })
