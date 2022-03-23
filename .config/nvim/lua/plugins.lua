@@ -16,16 +16,62 @@ require('packer').startup({
     use 'nathom/filetype.nvim'
 
     -- color
+    -- use {
+    --   'projekt0n/github-nvim-theme',
+    --   config = function()
+    --     require('github-theme').setup({
+    --       theme_style = 'dimmed',
+    --       transparent = false,
+    --       sidebars = { 'qf', 'vista_kind', 'terminal', 'packer', 'NvimTree', 'Trouble' },
+    --       dark_sidebar = true,
+    --       dark_float = true,
+    --     })
+    --   end,
+    -- }
     use {
-      'projekt0n/github-nvim-theme',
+      'marko-cerovac/material.nvim',
       config = function()
-        require('github-theme').setup({
-          theme_style = 'dimmed',
-          transparent = false,
-          sidebars = { 'qf', 'vista_kind', 'terminal', 'packer', 'NvimTree', 'Trouble' },
-          dark_sidebar = true,
-          dark_float = true,
+        vim.g.material_style = 'deep ocean'
+        require('material').setup({
+          contrast = {
+            sidebars = true,
+            floating_windows = true,
+            line_numbers = true,
+            sign_column = true,
+            cursor_line = true,
+            non_current_windows = false,
+            popup_menu = true,
+          },
+          italics = {
+            comments = true,
+            keywords = true,
+            functions = true,
+            strings = false,
+            variables = false,
+          },
+          contrast_filetypes = {
+            'qf',
+            'vista_kind',
+            'terminal',
+            'packer',
+            'NvimTree',
+            'Trouble',
+          },
+          high_visibility = {
+            lighter = true,
+            darker = true,
+          },
+          disable = {
+            borders = true,
+            background = false,
+            term_colors = false,
+            eob_lines = true,
+          },
+          lualine_style = 'default',
+          async_loading = true,
+          custom_highlights = {},
         })
+        vim.cmd [[colorscheme material]]
       end,
     }
 
