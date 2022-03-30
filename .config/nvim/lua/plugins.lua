@@ -369,11 +369,13 @@ require('packer').startup({
       requires = { 'hrsh7th/nvim-cmp' },
       config = function()
         local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-        require('cmp').event:on('confirm_done', cmp_autopairs.on_confirm_done())
+        require('cmp').event:on('confirm_done', cmp_autopairs.on_confirm_done({ map_char = { tex = '' } }))
         require('nvim-autopairs').setup({
           disable_filetype = { 'TelescopePrompt' , 'vim' },
           check_ts = true,
+          map_cr = true,
           map_bs = true,
+          map_c_h = true,
           map_c_w = true,
         })
       end,
@@ -556,11 +558,7 @@ require('packer').startup({
       'sheerun/vim-polyglot',
       setup = function()
         -- disabled filetypes
-        vim.g.polyglot_disabled = {
-          'javascript',
-          'typescript',
-          'jsx',
-        }
+        vim.g.polyglot_disabled = {}
         -- markdown behaviors
         vim.g.vim_markdown_conceal = 0
         vim.g.vim_markdown_conceal_code_blocks = 0
