@@ -17,7 +17,7 @@ treesitter.setup{
   },
   indent = {
     enable = true,
-    disable = { 'go', 'python' },
+    disable = { 'go', 'rust', 'python' },
   },
   autotag = {
     enable = true,
