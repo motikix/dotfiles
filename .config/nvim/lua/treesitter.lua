@@ -16,10 +16,8 @@ treesitter.setup{
     },
   },
   indent = {
-    enable = false,
-  },
-  autopairs = {
     enable = true,
+    disable = { 'go', 'python' },
   },
   autotag = {
     enable = true,
