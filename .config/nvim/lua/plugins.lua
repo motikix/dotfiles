@@ -85,6 +85,7 @@ require('packer').startup({
         require('treesitter')
       end,
     }
+    use 'yioneko/nvim-yati'
     use 'windwp/nvim-ts-autotag'
 
     -- explorer
@@ -92,7 +93,6 @@ require('packer').startup({
       'kyazdani42/nvim-tree.lua',
       config = function()
         local sign = require('config').sign
-        vim.g.nvim_tree_indent_markers = 1
         vim.g.nvim_tree_highlight_opened_files = 1
         vim.g.nvim_tree_git_hl = 1
         vim.g.nvim_tree_add_trailing = 1
@@ -118,6 +118,11 @@ require('packer').startup({
           },
           view = {
             width = 40,
+          },
+          renderer = {
+            indent_markers = {
+              enable = true,
+            },
           },
           actions = {
             open_file = {
