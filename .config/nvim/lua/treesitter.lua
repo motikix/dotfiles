@@ -1,7 +1,7 @@
 local treesitter = require('nvim-treesitter.configs')
 
 treesitter.setup{
-  ensure_installed = 'maintained',
+  ensure_installed = 'all',
   highlight = {
     enable = true,
     disable = {},
@@ -16,8 +16,10 @@ treesitter.setup{
     },
   },
   indent = {
+    enable = false,
+  },
+  yati = {
     enable = true,
-    disable = { 'go', 'rust', 'python' },
   },
   autotag = {
     enable = true,
