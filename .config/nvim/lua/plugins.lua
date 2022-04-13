@@ -497,6 +497,7 @@ require('packer').startup({
         'hrsh7th/cmp-buffer',
         'hrsh7th/cmp-nvim-lsp',
         'hrsh7th/cmp-vsnip',
+        'hrsh7th/cmp-path',
       },
       config = function()
         local cmp = require('cmp')
@@ -520,6 +521,7 @@ require('packer').startup({
             { name = 'buffer' },
             { name = 'nvim_lsp' },
             { name = 'vsnip' },
+            { name = 'path' },
           },
           formatting = {
             format = function(entry, vim_item)
