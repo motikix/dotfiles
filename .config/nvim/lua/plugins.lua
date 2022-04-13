@@ -385,9 +385,15 @@ require('packer').startup({
         })
       end,
     }
-    use 'editorconfig/editorconfig-vim'
+    use 'gpanders/editorconfig.nvim'
     use 'tpope/vim-surround'
     use 'andymass/vim-matchup'
+    use {
+      'norcalli/nvim-colorizer.lua',
+      config = function()
+        require('colorizer').setup()
+      end,
+    }
 
     -- snippets
     use {
@@ -622,6 +628,9 @@ require('packer').startup({
 
     -- analysis
     -- use 'wakatime/vim-wakatime'
+
+    -- etc
+    use 'segeljakt/vim-silicon'
 
     require('packer_compiled')
   end,
