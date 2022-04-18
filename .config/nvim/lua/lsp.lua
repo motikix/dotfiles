@@ -46,10 +46,13 @@ local on_attach = function(client, bufnr)
     })
 end
 
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+
 -- lsp providers
 
 lsp.ccls.setup{
   on_attach = on_attach,
+  capabilities = capabilities,
   init_options = {
     cache = {
       directory = '/tmp/ccls-cache',
@@ -59,6 +62,7 @@ lsp.ccls.setup{
 lsp.gopls.setup{ on_attach = on_attach }
 lsp.rls.setup{
   on_attach = on_attach,
+  capabilities = capabilities,
   settings = {
     rust = {
       unstable_features = true,
@@ -69,22 +73,40 @@ lsp.rls.setup{
 }
 lsp.denols.setup{
   on_attach = on_attach,
+  capabilities = capabilities,
   root_dir = lsp.util.root_pattern('deno.json', 'deno.jsonc'),
   init_options = { enable = true, lint = true, unstable = true },
 }
 lsp.tsserver.setup{
   on_attach = on_attach,
+  capabilities = capabilities,
   root_dir = lsp.util.root_pattern('package.json'),
 }
-lsp.vuels.setup{ on_attach = on_attach }
-lsp.svelte.setup{ on_attach = on_attach }
-lsp.pyright.setup{ on_attach = on_attach }
+lsp.vuels.setup{
+  on_attach = on_attach,
+  capabilities = capabilities,
+}
+lsp.svelte.setup{
+  on_attach = on_attach,
+  capabilities = capabilities,
+}
+lsp.pyright.setup{
+  on_attach = on_attach,
+  capabilities = capabilities,
+}
 lsp.jdtls.setup{
   on_attach = on_attach,
+  capabilities = capabilities,
   cmd = { 'jdtls' },
 }
-lsp.vimls.setup{ on_attach = on_attach }
-lsp.terraformls.setup{ on_attach = on_attach }
+lsp.vimls.setup{
+  on_attach = on_attach,
+  capabilities = capabilities,
+}
+lsp.terraformls.setup{
+  on_attach = on_attach,
+  capabilities = capabilities,
+}
 
 -- lsp provider lua
 
