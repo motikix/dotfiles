@@ -643,7 +643,7 @@ require('packer').startup({
     }
 
     -- analysis
-    -- use 'wakatime/vim-wakatime'
+    use 'wakatime/vim-wakatime'
 
     -- etc
     use 'segeljakt/vim-silicon'
