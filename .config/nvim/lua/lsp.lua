@@ -1,10 +1,14 @@
 -- locals
+local M = {}
 local opts = { noremap = true, silent = true }
 
 -- nvim-lspconfig
 
 local lsp = require('lspconfig')
 local on_attach = function(client, bufnr)
+  client.resolved_capabilities.document_formatting = false
+  client.resolved_capabilities.document_range_formatting = false
+
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
 
   if client.resolved_capabilities.document_formatting then
@@ -16,6 +20,7 @@ local on_attach = function(client, bufnr)
 
   buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
   buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  buf_set_keymap('i', '<m-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   buf_set_keymap('n', '<Leader>lr', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
   buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
@@ -45,6 +50,8 @@ local on_attach = function(client, bufnr)
       decorator = { '`', '`' },
     })
 end
+
+M.on_attach = on_attach
 
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
@@ -161,3 +168,5 @@ vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
     border = 'single',
   }
 )
+
+return M

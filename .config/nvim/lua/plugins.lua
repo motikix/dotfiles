@@ -16,18 +16,6 @@ require('packer').startup({
     use 'nathom/filetype.nvim'
 
     -- color
-    -- use {
-    --   'projekt0n/github-nvim-theme',
-    --   config = function()
-    --     require('github-theme').setup({
-    --       theme_style = 'dimmed',
-    --       transparent = false,
-    --       sidebars = { 'qf', 'vista_kind', 'terminal', 'packer', 'NvimTree', 'Trouble' },
-    --       dark_sidebar = true,
-    --       dark_float = true,
-    --     })
-    --   end,
-    -- }
     use {
       'marko-cerovac/material.nvim',
       config = function()
@@ -401,55 +389,6 @@ require('packer').startup({
       requires = { 'rafamadriz/friendly-snippets' },
     }
 
-    -- syntax check
-    use {
-      'dense-analysis/ale',
-      config = function()
-        local sign = require('config').sign
-        vim.g.ale_linters = {
-          javascript = { 'eslint' },
-          javascriptreact = { 'eslint' },
-          typescript = { 'eslint' },
-          typescriptreact = { 'eslint' },
-          vue = { 'eslint' },
-          svelte = { 'eslint' },
-          go = { 'govet' },
-          rust = { 'rls' },
-          python = { 'flake8', 'mypy' },
-          terraform = { 'terraform' },
-        }
-        vim.g.ale_fixers = {
-          javascript = { 'eslint', 'prettier' },
-          javascriptreact = { 'eslint', 'prettier' },
-          typescript = { 'eslint', 'prettier' },
-          typescriptreact = { 'eslint', 'prettier' },
-          vue = { 'eslint', 'prettier' },
-          svelte = { 'eslint' },
-          go = { 'goimports' },
-          rust = { 'rustfmt' },
-          python = { 'black', 'isort' },
-          terraform = { 'terraform' },
-        }
-        vim.g.ale_disable_lsp = 0
-        vim.g.ale_linters_explicit = 1
-        vim.g.ale_sign_column_always = 1
-        vim.g.ale_fix_on_save = 1
-        vim.g.ale_completion_enabled = 0
-        vim.g.ale_echo_msg_error_str = 'E'
-        vim.g.ale_echo_msg_warning_str = 'W'
-        vim.g.ale_echo_msg_format = '[%linter%] %s [%severity%]'
-        vim.g.ale_sign_error = sign.error
-        vim.g.ale_sign_warning = sign.warn
-        vim.g.ale_sign_info = sign.info
-        vim.g.ale_set_loclist = 1
-        vim.g.ale_set_quickfix = 0
-        vim.g.ale_open_list = 0
-        vim.g.ale_keep_list_window_open = 0
-        vim.api.nvim_set_keymap('n', ']a', '<Plug>(ale_next_wrap)', { noremap = true, silent = true })
-        vim.api.nvim_set_keymap('n', '[a', '<Plug>(ale_previous_wrap)', { noremap = true, silent = true })
-      end,
-    }
-
     -- terminal
     use {
       'akinsho/nvim-toggleterm.lua',
@@ -586,6 +525,58 @@ require('packer').startup({
         vim.g.vista_icon_indent = { '╰─▸ ', '├─▸ ' }
         vim.api.nvim_set_keymap('n', '<Leader>vv', '<Cmd>Vista!!<Cr>', { noremap = true, silent = true })
         vim.api.nvim_set_keymap('n', '<Leader>vf', '<Cmd>Vista finder<Cr>', { noremap = true, silent = true })
+      end,
+    }
+    use {
+      'jose-elias-alvarez/null-ls.nvim',
+      requires = { 'nvim-lua/plenary.nvim' },
+      config = function()
+        local nls = require('null-ls')
+        local is_deno = function(utils)
+          return utils.root_has_file({ 'deno.json', 'deno.jsonc' })
+        end
+        local is_tssrv = function(utils)
+          return utils.root_has_file({ 'package.json', 'tsconfig.json' })
+        end
+        nls.setup({
+          sources = {
+            -- rust
+            nls.builtins.formatting.rustfmt,
+            -- go
+            nls.builtins.diagnostics.staticcheck,
+            nls.builtins.formatting.goimports,
+            -- javascript, typescript, jsx, tsx, vue
+            nls.builtins.diagnostics.eslint.with({ condition = is_tssrv }),
+            nls.builtins.formatting.prettier.with({ condition = is_tssrv }),
+            -- css,sass,scss,less
+            nls.builtins.diagnostics.stylelint,
+            -- deno
+            nls.builtins.formatting.deno_fmt.with({ condition = is_deno }),
+            -- python
+            nls.builtins.diagnostics.flake8.with({ prefer_local = true }),
+            nls.builtins.diagnostics.mypy.with({ prefer_local = true }),
+            nls.builtins.formatting.black.with({ prefer_local = true }),
+            nls.builtins.formatting.isort.with({ prefer_local = true }),
+            -- json
+            nls.builtins.diagnostics.jsonlint,
+            -- yaml
+            nls.builtins.diagnostics.yamllint,
+            -- markdown
+            nls.builtins.diagnostics.markdownlint,
+            -- terraform
+            nls.builtins.formatting.terraform_fmt,
+          },
+          on_attach = function(client)
+            if client.resolved_capabilities.document_formatting then
+              vim.cmd([[
+              augroup LspFormatting
+                autocmd! * <buffer>
+                autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
+              augroup END
+              ]])
+            end
+          end,
+        })
       end,
     }
 
