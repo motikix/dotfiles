@@ -92,17 +92,13 @@ for _, mode in pairs({ 'i', 'c' }) do
   vim.api.nvim_set_keymap(mode, '<C-k>', '<Del>', { noremap = true })
 end
 
--- Buffer delete
-vim.api.nvim_set_keymap('n', '<Leader>bD', '<Cmd>bd<Cr>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<Leader>baD', ':bufdo :bd<Cr>', { noremap = true, silent = true })
-
 -- Search
 vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.incsearch = true
 vim.o.wrapscan = true
 vim.o.hlsearch = true
-vim.api.nvim_set_keymap('n', '<Esc><Esc>', '<Cmd>nohlsearch<Cr><Esc>', {})
+vim.api.nvim_set_keymap('n', '<Esc><Esc>', ':nohl<Cr>', {})
 
 -- Diff
 vim.o.diffopt = 'internal,vertical,filler,algorithm:histogram,indent-heuristic'

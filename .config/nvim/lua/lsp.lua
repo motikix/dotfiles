@@ -12,18 +12,18 @@ local on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
 
   if client.resolved_capabilities.document_formatting then
-    buf_set_keymap("n", "<leader><leader>f", "<Cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+    buf_set_keymap("n", "<leader><leader>f", ":lua vim.lsp.buf.formatting()<Cr>", opts)
   end
   if client.resolved_capabilities.document_range_formatting then
-    buf_set_keymap("v", "<leader><leader>f", "<Cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
+    buf_set_keymap("v", "<leader><leader>f", ":lua vim.lsp.buf.range_formatting()<Cr>", opts)
   end
 
-  buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  buf_set_keymap('i', '<m-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  buf_set_keymap('n', '<Leader>lr', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  buf_set_keymap('n', 'K', ':lua vim.lsp.buf.hover()<Cr>', opts)
+  buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<Cr>', opts)
+  buf_set_keymap('i', '<M-k>', '<cmd>lua vim.lsp.buf.signature_help()<Cr>', opts)
+  buf_set_keymap('n', '<Leader>lr', '<cmd>lua vim.lsp.buf.rename()<Cr>', opts)
+  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<Cr>', opts)
+  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<Cr>', opts)
 
   if client.resolved_capabilities.document_highlight then
     vim.api.nvim_exec([[

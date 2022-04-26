@@ -132,17 +132,25 @@ require('packer').startup({
             },
           },
         })
-        vim.api.nvim_set_keymap('n', '<C-n>', '<Cmd>NvimTreeToggle<Cr>', { noremap = true, silent = true })
+        vim.api.nvim_set_keymap('n', '<C-n>', ':NvimTreeToggle<Cr>', { noremap = true, silent = true })
       end,
     }
+    use 'wsdjeg/vim-fetch'
 
     -- buffer
     use {
       'moll/vim-bbye',
-      cmd = { 'Bdelete' },
       setup = function()
-        vim.api.nvim_set_keymap('n', '<Leader>bd', '<Cmd>Bdelete<Cr>', { noremap = true, silent = true })
+        vim.api.nvim_set_keymap('n', '<Leader>bd', ':Bdelete<Cr>', { noremap = true, silent = true })
         vim.api.nvim_set_keymap('n', '<Leader>bad', ':bufdo :Bdelete<Cr>', { noremap = true, silent = true })
+        vim.api.nvim_set_keymap('n', '<Leader>bD', ':bd<Cr>', { noremap = true, silent = true })
+        vim.api.nvim_set_keymap('n', '<Leader>baD', ':bufdo :bd<Cr>', { noremap = true, silent = true })
+      end,
+    }
+    use {
+      'kwkarlwang/bufresize.nvim',
+      config = function()
+        require('bufresize').setup()
       end,
     }
 
@@ -176,13 +184,13 @@ require('packer').startup({
           },
         })
         local opts = { noremap = true, silent = true }
-        vim.api.nvim_set_keymap('n', '<Leader>bs', '<Cmd>BufferLinePick<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>bp', '<Cmd>BufferLineCyclePrev<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>bn', '<Cmd>BufferLineCycleNext<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<A-,>', '<Cmd>BufferLineCyclePrev<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<A-.>', '<Cmd>BufferLineCycleNext<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<A-<>', '<Cmd>BufferLineMovePrev<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<A->>', '<Cmd>BufferLineMoveNext<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>bs', ':BufferLinePick<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>bp', ':BufferLineCyclePrev<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>bn', ':BufferLineCycleNext<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<A-,>', ':BufferLineCyclePrev<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<A-.>', ':BufferLineCycleNext<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<A-<>', ':BufferLineMovePrev<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<A->>', ':BufferLineMoveNext<Cr>', opts)
       end,
     }
     use {
@@ -244,31 +252,31 @@ require('packer').startup({
       config = function()
         local opts = { noremap = true, silent = true }
         -- common finders
-        vim.api.nvim_set_keymap('n', '<C-s>', '<Cmd>Telescope current_buffer_fuzzy_find theme=get_ivy<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>ff', '<Cmd>Telescope find_files find_command=rg,--files theme=get_ivy<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>fF', '<Cmd>Telescope find_files find_command=rg,--ignore,--hidden,--files theme=get_ivy<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>fg', '<Cmd>Telescope live_grep theme=get_ivy<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>fb', '<Cmd>Telescope buffers theme=get_ivy<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>fh', '<Cmd>Telescope help_tags theme=get_ivy<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>fs', '<Cmd>Telescope symbols theme=get_ivy<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<C-s>', ':Telescope current_buffer_fuzzy_find theme=get_ivy<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>ff', ':Telescope find_files find_command=rg,--files theme=get_ivy<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>fF', ':Telescope find_files find_command=rg,--ignore,--hidden,--files theme=get_ivy<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>fg', ':Telescope live_grep theme=get_ivy<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>fb', ':Telescope buffers theme=get_ivy<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>fh', ':Telescope help_tags theme=get_ivy<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>fs', ':Telescope symbols theme=get_ivy<Cr>', opts)
         -- git actions
-        vim.api.nvim_set_keymap('n', '<Leader>gc', '<Cmd>Telescope git_commits theme=get_ivy<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>gC', '<Cmd>Telescope git_bcommits theme=get_ivy<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>gb', '<Cmd>Telescope git_branches theme=get_ivy<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>gs', '<Cmd>Telescope git_status theme=get_ivy<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>gS', '<Cmd>Telescope git_stash theme=get_ivy<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>gc', ':Telescope git_commits theme=get_ivy<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>gC', ':Telescope git_bcommits theme=get_ivy<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>gb', ':Telescope git_branches theme=get_ivy<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>gs', ':Telescope git_status theme=get_ivy<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>gS', ':Telescope git_stash theme=get_ivy<Cr>', opts)
         -- tree sitter
-        vim.api.nvim_set_keymap('n', '<Leader>ts', '<Cmd>Telescope treesitter theme=get_ivy<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>ts', ':Telescope treesitter theme=get_ivy<Cr>', opts)
         -- lsp
-        vim.api.nvim_set_keymap('n', 'gd', '<Cmd>Telescope lsp_definitions theme=get_ivy<Cr>', opts)
-        vim.api.nvim_set_keymap('n', 'gr', '<Cmd>Telescope lsp_references theme=get_ivy<Cr>', opts)
-        vim.api.nvim_set_keymap('n', 'gi', '<Cmd>Telescope lsp_implementations theme=get_ivy<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>ls', '<Cmd>Telescope lsp_document_symbols theme=get_ivy<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>lS', '<Cmd>Telescope lsp_workspace_symbols theme=get_ivy<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>la', '<Cmd>Telescope lsp_code_actions theme=get_ivy<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>lA', '<Cmd>Telescope lsp_range_code_actions theme=get_ivy<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>ld', '<Cmd>Telescope lsp_document_diagnostics theme=get_ivy<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>lD', '<Cmd>Telescope lsp_workspace_diagnostics theme=get_ivy<Cr>', opts)
+        vim.api.nvim_set_keymap('n', 'gd', ':Telescope lsp_definitions theme=get_ivy<Cr>', opts)
+        vim.api.nvim_set_keymap('n', 'gr', ':Telescope lsp_references theme=get_ivy<Cr>', opts)
+        vim.api.nvim_set_keymap('n', 'gi', ':Telescope lsp_implementations theme=get_ivy<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>ls', ':Telescope lsp_document_symbols theme=get_ivy<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>lS', ':Telescope lsp_workspace_symbols theme=get_ivy<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>la', ':Telescope lsp_code_actions theme=get_cursor<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>lA', ':Telescope lsp_range_code_actions theme=get_cursor<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>ld', ':Telescope lsp_document_diagnostics theme=get_ivy<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>lD', ':Telescope lsp_workspace_diagnostics theme=get_ivy<Cr>', opts)
       end,
     }
     use {
@@ -299,8 +307,8 @@ require('packer').startup({
               opts = vim.tbl_extend('force', { noremap = true, silent = true }, opts or {})
               vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
             end
-            map('n', ']c', "&diff ? ']c' : '<Cmd>Gitsigns next_hunk<Cr>'", { expr = true })
-            map('n', '[c', "&diff ? '[c' : '<Cmd>Gitsigns prev_hunk<Cr>'", { expr = true })
+            map('n', ']c', "&diff ? ']c' : ':Gitsigns next_hunk<Cr>'", { expr = true })
+            map('n', '[c', "&diff ? '[c' : ':Gitsigns prev_hunk<Cr>'", { expr = true })
           end,
         })
       end,
@@ -354,7 +362,7 @@ require('packer').startup({
       requires = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope.nvim' },
       config = function()
         require('todo-comments').setup()
-        vim.api.nvim_set_keymap('n', '<Leader>ft', '<Cmd>TodoTelescope<Cr>', { noremap = true, silent = true })
+        vim.api.nvim_set_keymap('n', '<Leader>ft', ':TodoTelescope<Cr>', { noremap = true, silent = true })
       end,
     }
     use {
@@ -382,6 +390,52 @@ require('packer').startup({
         require('colorizer').setup()
       end,
     }
+    use {
+      'petertriho/nvim-scrollbar',
+      config = function()
+        require('scrollbar').setup()
+      end,
+    }
+    use {
+      'kevinhwang91/nvim-hlslens',
+      config = function()
+        local opts = { noremap = true, silent = true }
+        vim.api.nvim_set_keymap('n', 'n', [[:execute('normal! ' . v:count1 . 'n')<Cr>:lua require('hlslens').start()<Cr>]], opts)
+        vim.api.nvim_set_keymap('n', 'N', [[:execute('normal! ' . v:count1 . 'N')<Cr>:lua require('hlslens').start()<Cr>]], opts)
+      end,
+    }
+    use {
+      'haya14busa/vim-asterisk',
+      config = function()
+        vim.api.nvim_set_keymap('n', '*', [[<Plug>(asterisk-z*):lua require('hlslens').start()<Cr>]], {})
+        vim.api.nvim_set_keymap('n', '#', [[<Plug>(asterisk-z#):lua require('hlslens').start()<Cr>]], {})
+        vim.api.nvim_set_keymap('n', 'g*', [[<Plug>(asterisk-gz*):lua require('hlslens').start()<Cr>]], {})
+        vim.api.nvim_set_keymap('n', 'g#', [[<Plug>(asterisk-gz#):lua require('hlslens').start()<Cr>]], {})
+        vim.api.nvim_set_keymap('x', '*', [[<Plug>(asterisk-z*):lua require('hlslens').start()<Cr>]], {})
+        vim.api.nvim_set_keymap('x', '#', [[<Plug>(asterisk-z#):lua require('hlslens').start()<Cr>]], {})
+        vim.api.nvim_set_keymap('x', 'g*', [[<Plug>(asterisk-gz*):lua require('hlslens').start()<Cr>]], {})
+        vim.api.nvim_set_keymap('x', 'g#', [[<Plug>(asterisk-gz#):lua require('hlslens').start()<Cr>]], {})
+      end,
+    }
+    use {
+      'danymat/neogen',
+      requires = { 'nvim-treesitter/nvim-treesitter' },
+      config = function()
+        require('neogen').setup()
+        local opts = { noremap = true, silent = true }
+        vim.api.nvim_set_keymap('n', '<Leader>nf', ":lua require('neogen').generate()<Cr>", opts)
+      end,
+    }
+    use 'lambdalisue/readablefold.vim'
+    use {
+      'chentau/marks.nvim',
+      config = function()
+        require('marks').setup({
+          default_mappings = true,
+        })
+      end,
+    }
+    use 'haya14busa/vim-metarepeat'
 
     -- snippets
     use {
@@ -455,7 +509,7 @@ require('packer').startup({
             ['<C-f>'] = cmp.mapping.scroll_docs(4),
             ['<C-Space>'] = cmp.mapping.complete(),
             ['<C-e>'] = cmp.mapping.close(),
-            ['<CR>'] = cmp.mapping.confirm({ select = true }),
+            ['<Cr>'] = cmp.mapping.confirm({ select = true }),
           }),
           sources = cmp.config.sources({
             { name = 'nvim_lsp' },
@@ -511,10 +565,10 @@ require('packer').startup({
       'folke/lsp-trouble.nvim',
       config = function()
         require('trouble').setup()
-        vim.api.nvim_set_keymap('n', '<Leader>xd', '<Cmd>TroubleToggle document_diagnostics<Cr>', { noremap = true, silent = true })
-        vim.api.nvim_set_keymap('n', '<Leader>xw', '<Cmd>TroubleToggle workspace_diagnostics<Cr>', { noremap = true, silent = true })
-        vim.api.nvim_set_keymap('n', '<Leader>xl', '<Cmd>TroubleToggle loclist<Cr>', { noremap = true, silent = true })
-        vim.api.nvim_set_keymap('n', '<Leader>xq', '<Cmd>TroubleToggle quickfix<Cr>', { noremap = true, silent = true })
+        vim.api.nvim_set_keymap('n', '<Leader>xd', ':TroubleToggle document_diagnostics<Cr>', { noremap = true, silent = true })
+        vim.api.nvim_set_keymap('n', '<Leader>xw', ':TroubleToggle workspace_diagnostics<Cr>', { noremap = true, silent = true })
+        vim.api.nvim_set_keymap('n', '<Leader>xl', ':TroubleToggle loclist<Cr>', { noremap = true, silent = true })
+        vim.api.nvim_set_keymap('n', '<Leader>xq', ':TroubleToggle quickfix<Cr>', { noremap = true, silent = true })
       end,
     }
     use {
@@ -523,8 +577,8 @@ require('packer').startup({
       setup = function()
         vim.g.vista_default_executive = 'nvim_lsp'
         vim.g.vista_icon_indent = { '╰─▸ ', '├─▸ ' }
-        vim.api.nvim_set_keymap('n', '<Leader>vv', '<Cmd>Vista!!<Cr>', { noremap = true, silent = true })
-        vim.api.nvim_set_keymap('n', '<Leader>vf', '<Cmd>Vista finder<Cr>', { noremap = true, silent = true })
+        vim.api.nvim_set_keymap('n', '<Leader>vv', ':Vista!!<Cr>', { noremap = true, silent = true })
+        vim.api.nvim_set_keymap('n', '<Leader>vf', ':Vista finder<Cr>', { noremap = true, silent = true })
       end,
     }
     use {
@@ -577,6 +631,12 @@ require('packer').startup({
             end
           end,
         })
+      end,
+    }
+    use {
+      'j-hui/fidget.nvim',
+      config = function()
+        require('fidget').setup()
       end,
     }
 
