@@ -248,8 +248,29 @@ require('packer').startup({
     -- finder
     use {
       'nvim-telescope/telescope.nvim',
-      requires = { 'nvim-lua/plenary.nvim', 'nvim-lua/popup.nvim' },
+      requires = {
+        'nvim-lua/plenary.nvim',
+        'nvim-lua/popup.nvim',
+        'nvim-telescope/telescope-symbols.nvim',
+        'tknightz/telescope-termfinder.nvim',
+      },
       config = function()
+        local telescope = require('telescope')
+        telescope.setup({
+          extensions = {
+            termfinder = {
+              mappings = {
+                rename_term = '<C-t>',
+                delete_term = '<C-x>',
+                vertical_term = '<C-v>',
+                horizontal_term = '<C-h>',
+                float_term = '<C-f>',
+              },
+            },
+          },
+        })
+        telescope.load_extension('termfinder')
+
         local opts = { noremap = true, silent = true }
         -- common finders
         vim.api.nvim_set_keymap('n', '<C-s>', ':Telescope current_buffer_fuzzy_find theme=get_ivy<Cr>', opts)
@@ -277,11 +298,9 @@ require('packer').startup({
         vim.api.nvim_set_keymap('n', '<Leader>lA', ':Telescope lsp_range_code_actions theme=get_cursor<Cr>', opts)
         vim.api.nvim_set_keymap('n', '<Leader>ld', ':Telescope lsp_document_diagnostics theme=get_ivy<Cr>', opts)
         vim.api.nvim_set_keymap('n', '<Leader>lD', ':Telescope lsp_workspace_diagnostics theme=get_ivy<Cr>', opts)
+        -- termfinder
+        vim.api.nvim_set_keymap('n', '<Leader>tf', ':Telescope termfinder find theme=get_ivy<Cr>', opts)
       end,
-    }
-    use {
-      'nvim-telescope/telescope-symbols.nvim',
-      requires = { 'nvim-telescope/telescope.nvim' }
     }
 
     -- zen
