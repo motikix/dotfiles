@@ -619,8 +619,10 @@ require('packer').startup({
             nls.builtins.diagnostics.staticcheck,
             nls.builtins.formatting.goimports,
             -- javascript, typescript, jsx, tsx, vue
-            nls.builtins.diagnostics.eslint.with({ condition = is_tssrv }),
-            nls.builtins.formatting.prettier.with({ condition = is_tssrv }),
+            nls.builtins.code_actions.eslint_d.with({ condition = is_tssrv }),
+            nls.builtins.diagnostics.eslint_d.with({ condition = is_tssrv }),
+            nls.builtins.formatting.eslint_d.with({ condition = is_tssrv }),
+            nls.builtins.formatting.prettierd.with({ condition = is_tssrv }),
             -- css,sass,scss,less
             nls.builtins.diagnostics.stylelint,
             -- deno

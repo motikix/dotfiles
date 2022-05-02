@@ -66,6 +66,8 @@ set -x PATH $HOME/.ghcup/bin $PATH
 
 ## node
 set -x NPM_CONFIG_PREFIX $HOME/.local
+set -x ESLINT_D_LOCAL_ESLINT_ONLY true
+set -x PRETTIERD_LOCAL_PRETTIER_ONLY true
 
 ## deno
 set -x DENO_INSTALL_ROOT $HOME/.local
