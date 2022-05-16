@@ -447,7 +447,7 @@ require('packer').startup({
     }
     use 'lambdalisue/readablefold.vim'
     use {
-      'chentau/marks.nvim',
+      'chentoast/marks.nvim',
       config = function()
         require('marks').setup({
           default_mappings = true,
