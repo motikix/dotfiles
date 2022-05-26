@@ -11,9 +11,18 @@ require('packer').startup({
     -- package manager
     use 'wbthomason/packer.nvim'
 
-    -- improve startup time
+    -- improve
     use 'lewis6991/impatient.nvim'
     use 'nathom/filetype.nvim'
+    use 'antoinemadec/FixCursorHold.nvim'
+
+    -- notification
+    use {
+      'rcarriga/nvim-notify',
+      config = function()
+        vim.notify = require('notify')
+      end,
+    }
 
     -- color
     use {
@@ -252,12 +261,16 @@ require('packer').startup({
         'nvim-lua/plenary.nvim',
         'nvim-lua/popup.nvim',
         'nvim-telescope/telescope-symbols.nvim',
+        'nvim-telescope/telescope-ui-select.nvim',
         'tknightz/telescope-termfinder.nvim',
       },
       config = function()
         local telescope = require('telescope')
         telescope.setup({
           extensions = {
+            ['ui-select'] = {
+              require('telescope.themes').get_dropdown()
+            },
             termfinder = {
               mappings = {
                 rename_term = '<C-t>',
@@ -269,38 +282,41 @@ require('packer').startup({
             },
           },
         })
+        telescope.load_extension('ui-select')
         telescope.load_extension('termfinder')
+        telescope.load_extension('notify')
 
         local opts = { noremap = true, silent = true }
         -- common finders
-        vim.api.nvim_set_keymap('n', '<C-s>', ':Telescope current_buffer_fuzzy_find theme=get_ivy<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>ff', ':Telescope find_files find_command=rg,--files theme=get_ivy<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>fF', ':Telescope find_files find_command=rg,--ignore,--hidden,--files theme=get_ivy<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>fg', ':Telescope live_grep theme=get_ivy<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>fb', ':Telescope buffers theme=get_ivy<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>fh', ':Telescope help_tags theme=get_ivy<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>fs', ':Telescope symbols theme=get_ivy<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<C-s>', ':Telescope current_buffer_fuzzy_find theme=get_dropdown<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>ff', ':Telescope find_files find_command=rg,--files theme=get_dropdown<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>fF', ':Telescope find_files find_command=rg,--ignore,--hidden,--files theme=get_dropdown<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>fg', ':Telescope live_grep theme=get_dropdown<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>fb', ':Telescope buffers theme=get_dropdown<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>fh', ':Telescope help_tags theme=get_dropdown<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>fs', ':Telescope symbols theme=get_dropdown<Cr>', opts)
         -- git actions
-        vim.api.nvim_set_keymap('n', '<Leader>gc', ':Telescope git_commits theme=get_ivy<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>gC', ':Telescope git_bcommits theme=get_ivy<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>gb', ':Telescope git_branches theme=get_ivy<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>gs', ':Telescope git_status theme=get_ivy<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>gS', ':Telescope git_stash theme=get_ivy<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>gc', ':Telescope git_commits theme=get_dropdown<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>gC', ':Telescope git_bcommits theme=get_dropdown<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>gb', ':Telescope git_branches theme=get_dropdown<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>gs', ':Telescope git_status theme=get_dropdown<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>gS', ':Telescope git_stash theme=get_dropdown<Cr>', opts)
         -- tree sitter
-        vim.api.nvim_set_keymap('n', '<Leader>ts', ':Telescope treesitter theme=get_ivy<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>ts', ':Telescope treesitter theme=get_dropdown<Cr>', opts)
         -- lsp
-        vim.api.nvim_set_keymap('n', 'gd', ':Telescope lsp_definitions theme=get_ivy<Cr>', opts)
-        vim.api.nvim_set_keymap('n', 'gr', ':Telescope lsp_references theme=get_ivy<Cr>', opts)
-        vim.api.nvim_set_keymap('n', 'gi', ':Telescope lsp_implementations theme=get_ivy<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>ls', ':Telescope lsp_document_symbols theme=get_ivy<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>lS', ':Telescope lsp_workspace_symbols theme=get_ivy<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>la', ':Telescope lsp_code_actions theme=get_cursor<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>lA', ':Telescope lsp_range_code_actions theme=get_cursor<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>ld', ':Telescope lsp_document_diagnostics theme=get_ivy<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>lD', ':Telescope lsp_workspace_diagnostics theme=get_ivy<Cr>', opts)
+        vim.api.nvim_set_keymap('n', 'gd', ':Telescope lsp_definitions theme=get_dropdown<Cr>', opts)
+        vim.api.nvim_set_keymap('n', 'gr', ':Telescope lsp_references theme=get_dropdown<Cr>', opts)
+        vim.api.nvim_set_keymap('n', 'gi', ':Telescope lsp_implementations theme=get_dropdown<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>ls', ':Telescope lsp_document_symbols theme=get_dropdown<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>lS', ':Telescope lsp_workspace_symbols theme=get_dropdown<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>ld', ':Telescope lsp_document_diagnostics theme=get_dropdown<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>lD', ':Telescope lsp_workspace_diagnostics theme=get_dropdown<Cr>', opts)
         -- termfinder
-        vim.api.nvim_set_keymap('n', '<Leader>tf', ':Telescope termfinder find theme=get_ivy<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>tf', ':Telescope termfinder find theme=get_dropdown<Cr>', opts)
       end,
+    }
+    use {
+      'stevearc/dressing.nvim',
     }
 
     -- zen
@@ -627,6 +643,8 @@ require('packer').startup({
             nls.builtins.diagnostics.stylelint,
             -- deno
             nls.builtins.formatting.deno_fmt.with({ condition = is_deno }),
+            -- dart
+            nls.builtins.formatting.dart_format,
             -- python
             nls.builtins.diagnostics.flake8.with({ prefer_local = true }),
             nls.builtins.diagnostics.mypy.with({ prefer_local = true }),
@@ -641,14 +659,20 @@ require('packer').startup({
             -- terraform
             nls.builtins.formatting.terraform_fmt,
           },
-          on_attach = function(client)
+          on_attach = function(client, bufnr)
             if client.resolved_capabilities.document_formatting then
-              vim.cmd([[
-              augroup LspFormatting
-                autocmd! * <buffer>
-                autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
-              augroup END
-              ]])
+              vim.api.nvim_create_augroup('LspFormatting', {
+                clear = false,
+              })
+              vim.api.nvim_clear_autocmds({
+                buffer = bufnr,
+                group = 'LspFormatting',
+              })
+              vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
+                group = 'LspFormatting',
+                buffer = bufnr,
+                callback = vim.lsp.buf.formatting_sync,
+              })
             end
           end,
         })
