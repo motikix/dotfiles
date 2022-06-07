@@ -88,6 +88,7 @@ set -x FZF_DEFAULT_OPTS '--height 40% --layout=reverse --border --preview "head 
 ## neovim
 if type -q nvim
   alias vim="nvim"
+  alias vi="nvim -u NONE -c 'syntax on' -c 'se nu'"
 end
 
 ## colordiff

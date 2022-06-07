@@ -90,10 +90,6 @@ require('packer').startup({
       'kyazdani42/nvim-tree.lua',
       config = function()
         local sign = require('config').sign
-        vim.g.nvim_tree_highlight_opened_files = 1
-        vim.g.nvim_tree_git_hl = 1
-        vim.g.nvim_tree_add_trailing = 1
-        vim.g.nvim_tree_group_empty = 0
         require('nvim-tree').setup({
           hijack_cursor = true,
           update_cwd = true,
@@ -117,6 +113,10 @@ require('packer').startup({
             width = 40,
           },
           renderer = {
+            add_trailing = true,
+            group_empty = false,
+            highlight_git = true,
+            highlight_opened_files = 'icon',
             indent_markers = {
               enable = true,
             },

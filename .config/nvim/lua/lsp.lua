@@ -73,16 +73,9 @@ lsp.gopls.setup{
   on_attach = on_attach,
   capabilities = capabilities,
 }
-lsp.rls.setup{
+lsp.rust_analyzer.setup{
   on_attach = on_attach,
   capabilities = capabilities,
-  settings = {
-    rust = {
-      unstable_features = true,
-      build_on_save = false,
-      all_features = true,
-    },
-  },
 }
 lsp.denols.setup{
   on_attach = on_attach,
