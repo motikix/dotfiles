@@ -38,11 +38,6 @@ set -x XDG_STATE_HOME $HOME/.local/state
 ## bin
 set -x PATH $HOME/.local/bin $PATH
 
-## ssh-agent
-if type -q ssh-agent
-  eval (ssh-agent -c) > /dev/null
-end
-
 ## asdf
 if test -d $HOME/.asdf
   source $HOME/.asdf/asdf.fish
@@ -82,6 +77,9 @@ set -x PATH $HOME/flutter/bin $PATH
 set -x FZF_LEGACY_KEYBINDINGS 1
 set -x FZF_DEFAULT_COMMAND 'rg --files --hidden --glob "!.git"'
 set -x FZF_DEFAULT_OPTS '--height 40% --layout=reverse --border --preview "head -n 30 {}"'
+
+## wakatime
+set -x WAKATIME_HOME $HOME/.local/share/wakatime
 
 # aliases
 
