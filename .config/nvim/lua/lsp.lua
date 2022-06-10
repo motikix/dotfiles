@@ -12,7 +12,6 @@ local on_attach = function(client, bufnr)
 
   buf_set_keymap('n', 'K', ':lua vim.lsp.buf.hover()<Cr>', opts)
   buf_set_keymap('n', '<C-k>', '<Cmd>lua vim.lsp.buf.signature_help()<Cr>', opts)
-  buf_set_keymap('i', '<M-k>', '<Cmd>lua vim.lsp.buf.signature_help()<Cr>', opts)
   buf_set_keymap('n', '<Leader>lr', '<Cmd>lua vim.lsp.buf.rename()<Cr>', opts)
   buf_set_keymap('n', '<Leader>la', '<Cmd>lua vim.lsp.buf.code_action()<Cr>', opts)
   buf_set_keymap('n', '<Leader>lA', '<Cmd>lua vim.lsp.buf.range_code_action()<Cr>', opts)
@@ -100,9 +99,33 @@ lsp.svelte.setup{
   on_attach = on_attach,
   capabilities = capabilities,
 }
+lsp.astro.setup{
+  on_attach = on_attach,
+  capabilities = capabilities,
+}
 lsp.pyright.setup{
   on_attach = on_attach,
   capabilities = capabilities,
+}
+lsp.sumneko_lua.setup{
+  on_attach = on_attach,
+  capabilities = capabilities,
+  settings = {
+    Lua = {
+      runtime = {
+        version = 'LuaJIT',
+      },
+      diagnostics = {
+        globals = { 'vim' },
+      },
+      workspace = {
+        library = vim.api.nvim_get_runtime_file('', true),
+      },
+      telemetry = {
+        enable = false,
+      },
+    },
+  },
 }
 lsp.jdtls.setup{
   on_attach = on_attach,
@@ -116,52 +139,6 @@ lsp.vimls.setup{
 lsp.terraformls.setup{
   on_attach = on_attach,
   capabilities = capabilities,
-}
-
--- lsp provider lua
-
-local system_name
-if vim.fn.has("mac") == 1 then
-  system_name = "macOS"
-elseif vim.fn.has("unix") == 1 then
-  system_name = "Linux"
-elseif vim.fn.has('win32') == 1 then
-  system_name = "Windows"
-else
-  print("Unsupported system for sumneko")
-end
-
--- set the path to the sumneko installation; if you previously installed via the now deprecated :LspInstall, use
-local sumneko_root_path = vim.fn.stdpath('cache')..'/lspconfig/sumneko_lua/lua-language-server'
-local sumneko_binary = sumneko_root_path.."/bin/"..system_name.."/lua-language-server"
-
-lsp.sumneko_lua.setup{
-  cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"};
-  settings = {
-    Lua = {
-      runtime = {
-        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-        version = 'LuaJIT',
-        -- Setup your lua path
-        path = vim.split(package.path, ';'),
-      },
-      diagnostics = {
-        -- Get the language server to recognize the `vim` global
-        globals = {'vim'},
-      },
-      workspace = {
-        -- Make the server aware of Neovim runtime files
-        library = {
-          [vim.fn.expand('$VIMRUNTIME/lua')] = true,
-          [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
-        },
-      },
-      -- Do not send telemetry data containing a randomized but unique identifier
-      telemetry = {
-        enable = false,
-      },
-    },
-  },
 }
 
 -- UI

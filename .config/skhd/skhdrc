@@ -77,25 +77,26 @@
 # ############################################################### #
 
 # terminal
-alt - return : open /Applications/iTerm.app
+#alt - return : open /Applications/Alacritty.app
+alt - return : /Applications/Alacritty.app/Contents/MacOS/alacritty
 
 # focus window
-alt - h : yabai -m window --focus west
-alt - j : yabai -m window --focus south
-alt - k : yabai -m window --focus north
-alt - l : yabai -m window --focus east
+alt - j : yabai -m window --focus west
+alt - k : yabai -m window --focus south
+alt - l : yabai -m window --focus north
+alt - 0x29 : yabai -m window --focus east
 
 # move managed window
-ctrl + alt - h : yabai -m window --warp west
-ctrl + alt - j : yabai -m window --warp south
-ctrl + alt - k : yabai -m window --warp north
-ctrl + alt - l : yabai -m window --warp east
+ctrl + alt - j : yabai -m window --warp west
+ctrl + alt - k : yabai -m window --warp south
+ctrl + alt - l : yabai -m window --warp north
+ctrl + alt - 0x29 : yabai -m window --warp east
 
 # swap managed window
-shift + alt - h : yabai -m window --swap west
-shift + alt - j : yabai -m window --swap south
-shift + alt - k : yabai -m window --swap north
-shift + alt - l : yabai -m window --swap east
+shift + alt - j : yabai -m window --swap west
+shift + alt - k : yabai -m window --swap south
+shift + alt - l : yabai -m window --swap north
+shift + alt - 0x29 : yabai -m window --swap east
 
 # balance size of windows
 alt - b : yabai -m space --balance

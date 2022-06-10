@@ -67,10 +67,6 @@ vim.wo.signcolumn = 'yes'
 -- No wrap word
 vim.wo.wrap = false
 
--- Text concealing
-vim.wo.conceallevel = 2
-vim.wo.concealcursor = 'nc'
-
 -- Split window direction
 vim.o.splitbelow = true
 vim.o.splitright = true

@@ -29,6 +29,9 @@ set -x LANG en_US.UTF-8
 ## gpg
 set -x GPG_TTY (tty)
 
+## editor
+set -x EDITOR vim
+
 # xdg base directory specification
 set -x XDG_CONFIG_HOME $HOME/.config
 set -x XDG_CACHE_HOME $HOME/.cache
@@ -74,9 +77,22 @@ set -x PIPENV_VENV_IN_PROJECT true
 set -x PATH $HOME/flutter/bin $PATH
 
 ## fzf
-set -x FZF_LEGACY_KEYBINDINGS 1
-set -x FZF_DEFAULT_COMMAND 'rg --files --hidden --glob "!.git"'
-set -x FZF_DEFAULT_OPTS '--height 40% --layout=reverse --border --preview "head -n 30 {}"'
+set -x FZF_LEGACY_KEYBINDINGS 0
+set -x FZF_COMPLETE 1
+set -x FZF_ENABLE_OPEN_PREVIEW 1
+set -x FZF_PREVIEW_FILE_CMD 'bat --color=always --style=numbers'
+set -x FZF_PREVIEW_DIR_CMD 'exa -l'
+set -x FZF_DEFAULT_COMMAND 'fd --hidden --follow --exclude .git'
+set -x FZF_FIND_FILE_COMMAND "$FZF_DEFAULT_COMMAND --type f . \$dir"
+set -x FZF_CD_COMMAND "$FZF_DEFAULT_COMMAND --type d --no-hidden . \$dir"
+set -x FZF_CD_WITH_HIDDEN_COMMAND "$FZF_DEFAULT_COMMAND --type d . \$dir"
+set -x FZF_OPEN_COMMAND "$FZF_DEFAULT_COMMAND --type f --type d . \$dir"
+set -x FZF_DEFAULT_OPTS '--height 40% --layout=reverse --border --bind ctrl-u:preview-up,ctrl-d:preview-down'
+set -x FZF_FIND_FILE_OPTS "--preview '$FZF_PREVIEW_FILE_CMD {}'"
+set -x FZF_CD_OPTS "--preview '$FZF_PREVIEW_DIR_CMD {}'"
+
+## ghq
+set -x GHQ_SELECTOR_OPTS --preview "$FZF_PREVIEW_DIR_CMD {}"
 
 ## wakatime
 set -x WAKATIME_HOME $HOME/.local/share/wakatime
@@ -107,6 +123,12 @@ end
 if type -q diff-so-fancy
   alias dsf="diff-so-fancy"
 end
+
+# key binds
+
+## fzf
+### overwrite https://github.com/jorgebucaran/autopair.fish/blob/main/conf.d/autopair.fish#L18
+bind \t '__fzf_complete'
 
 # launch
 

@@ -196,10 +196,10 @@ require('packer').startup({
         vim.api.nvim_set_keymap('n', '<Leader>bs', ':BufferLinePick<Cr>', opts)
         vim.api.nvim_set_keymap('n', '<Leader>bp', ':BufferLineCyclePrev<Cr>', opts)
         vim.api.nvim_set_keymap('n', '<Leader>bn', ':BufferLineCycleNext<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<A-,>', ':BufferLineCyclePrev<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<A-.>', ':BufferLineCycleNext<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<A-<>', ':BufferLineMovePrev<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<A->>', ':BufferLineMoveNext<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<M-,>', ':BufferLineCyclePrev<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<M-.>', ':BufferLineCycleNext<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<M-<>', ':BufferLineMovePrev<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<M->>', ':BufferLineMoveNext<Cr>', opts)
       end,
     }
     use {
@@ -353,12 +353,14 @@ require('packer').startup({
     use {
       'lukas-reineke/indent-blankline.nvim',
       config = function()
-        vim.g.indent_blankline_char = '│'
-        vim.g.indent_blankline_use_treesitter = true
-        vim.g.indent_blankline_show_trailing_blankline_indent = false
-        vim.g.indent_blankline_show_current_context = true
-        vim.g.indent_blankline_context_patterns = { '' }
-        vim.g.indent_blankline_filetype_exclude = { 'toggleterm' }
+        require('indent_blankline').setup({
+          char = '|',
+          use_treesitter = true,
+          show_trailing_blankline_indent = false,
+          show_current_context = true,
+          context_patterns = { '' },
+          filetype_exclude = { 'toggleterm' },
+        })
       end,
     }
     use {
@@ -640,16 +642,17 @@ require('packer').startup({
             nls.builtins.formatting.eslint_d.with({ condition = is_tssrv }),
             nls.builtins.formatting.prettierd.with({ condition = is_tssrv }),
             -- css,sass,scss,less
-            nls.builtins.diagnostics.stylelint,
+            nls.builtins.diagnostics.stylelint.with({ prefer_local = 'node_modules/.bin' }),
+            nls.builtins.formatting.stylelint.with({ prefer_local = 'node_modules/.bin' }),
             -- deno
             nls.builtins.formatting.deno_fmt.with({ condition = is_deno }),
             -- dart
             nls.builtins.formatting.dart_format,
             -- python
-            nls.builtins.diagnostics.flake8.with({ prefer_local = true }),
-            nls.builtins.diagnostics.mypy.with({ prefer_local = true }),
-            nls.builtins.formatting.black.with({ prefer_local = true }),
-            nls.builtins.formatting.isort.with({ prefer_local = true }),
+            nls.builtins.diagnostics.flake8.with({ prefer_local = '.venv/bin' }),
+            nls.builtins.diagnostics.mypy.with({ prefer_local = '.venv/bin' }),
+            nls.builtins.formatting.black.with({ prefer_local = '.venv/bin' }),
+            nls.builtins.formatting.isort.with({ prefer_local = '.venv/bin' }),
             -- json
             nls.builtins.diagnostics.jsonlint,
             -- yaml
@@ -678,12 +681,6 @@ require('packer').startup({
         })
       end,
     }
-    use {
-      'j-hui/fidget.nvim',
-      config = function()
-        require('fidget').setup()
-      end,
-    }
 
     -- syntax highlight / language supports
     use {
@@ -691,11 +688,17 @@ require('packer').startup({
       setup = function()
         -- disabled filetypes
         vim.g.polyglot_disabled = {}
-        -- markdown behaviors
-        vim.g.vim_markdown_conceal = 0
-        vim.g.vim_markdown_conceal_code_blocks = 0
         -- vue behaviors
         vim.g.vue_pre_processors = 'detect_on_enter'
+        -- markdown behaviors
+        vim.g.vim_markdown_conceal = 0
+        vim.g.vim_markdown_math = 1
+        vim.g.vim_markdown_frontmatter = 1
+        vim.g.vim_markdown_toml_frontmatter = 1
+        vim.g.vim_markdown_json_frontmatter = 1
+        vim.g.vim_markdown_strikethrough = 1
+        -- csv behaviors
+        vim.g.csv_no_conceal = 1
       end,
     }
     use {
