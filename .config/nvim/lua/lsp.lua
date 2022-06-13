@@ -57,7 +57,7 @@ local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protoco
 
 -- lsp providers
 
-lsp.ccls.setup{
+lsp.ccls.setup({
   on_attach = on_attach,
   capabilities = capabilities,
   init_options = {
@@ -65,47 +65,47 @@ lsp.ccls.setup{
       directory = '/tmp/ccls-cache',
     },
   },
-}
-lsp.gopls.setup{
+})
+lsp.gopls.setup({
   on_attach = on_attach,
   capabilities = capabilities,
-}
-lsp.rust_analyzer.setup{
+})
+lsp.rust_analyzer.setup({
   on_attach = on_attach,
   capabilities = capabilities,
-}
-lsp.denols.setup{
+})
+lsp.denols.setup({
   on_attach = on_attach,
   capabilities = capabilities,
   root_dir = lsp.util.root_pattern('deno.json', 'deno.jsonc'),
   init_options = { enable = true, lint = true, unstable = true },
-}
-lsp.tsserver.setup{
+})
+lsp.tsserver.setup({
   on_attach = on_attach,
   capabilities = capabilities,
   root_dir = lsp.util.root_pattern('package.json'),
-}
-lsp.dartls.setup{
+})
+lsp.dartls.setup({
   on_attach = on_attach,
   capabilities = capabilities,
-}
-lsp.vuels.setup{
+})
+lsp.vuels.setup({
   on_attach = on_attach,
   capabilities = capabilities,
-}
-lsp.svelte.setup{
+})
+lsp.svelte.setup({
   on_attach = on_attach,
   capabilities = capabilities,
-}
-lsp.astro.setup{
+})
+lsp.astro.setup({
   on_attach = on_attach,
   capabilities = capabilities,
-}
-lsp.pyright.setup{
+})
+lsp.pyright.setup({
   on_attach = on_attach,
   capabilities = capabilities,
-}
-lsp.sumneko_lua.setup{
+})
+lsp.sumneko_lua.setup({
   on_attach = on_attach,
   capabilities = capabilities,
   settings = {
@@ -124,20 +124,20 @@ lsp.sumneko_lua.setup{
       },
     },
   },
-}
-lsp.jdtls.setup{
+})
+lsp.jdtls.setup({
   on_attach = on_attach,
   capabilities = capabilities,
   cmd = { 'jdtls' },
-}
-lsp.vimls.setup{
+})
+lsp.vimls.setup({
   on_attach = on_attach,
   capabilities = capabilities,
-}
-lsp.terraformls.setup{
+})
+lsp.terraformls.setup({
   on_attach = on_attach,
   capabilities = capabilities,
-}
+})
 
 -- UI
 
