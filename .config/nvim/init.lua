@@ -27,7 +27,7 @@ vim.o.autoread = true
 vim.o.showcmd = true
 
 -- Don't show Splash
-vim.o.shortmess = vim.o.shortmess..'I'
+vim.o.shortmess = vim.o.shortmess .. 'I'
 
 -- Show line number
 vim.wo.number = true

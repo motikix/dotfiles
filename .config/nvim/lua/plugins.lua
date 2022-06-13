@@ -185,7 +185,7 @@ require('packer').startup({
               local s = ' '
               for e, n in pairs(diagnostics_dict) do
                 local sym = e == 'error' and sign.error .. ws
-                  or (e == 'warning' and sign.warn .. ws or sign.info .. ws)
+                    or (e == 'warning' and sign.warn .. ws or sign.info .. ws)
                 s = s .. n .. sym
               end
               return s
@@ -246,8 +246,8 @@ require('packer').startup({
             diagnostics = {
               error = sign.error .. ws .. '%d',
               warning = sign.warn .. ws .. '%d',
-              hint = sign.hint..ws .. '%d',
-              info = sign.info..ws .. '%d',
+              hint = sign.hint .. ws .. '%d',
+              info = sign.info .. ws .. '%d',
             },
           },
         }
@@ -289,8 +289,10 @@ require('packer').startup({
         local opts = { noremap = true, silent = true }
         -- common finders
         vim.api.nvim_set_keymap('n', '<C-s>', ':Telescope current_buffer_fuzzy_find theme=get_dropdown<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>ff', ':Telescope find_files find_command=rg,--files theme=get_dropdown<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>fF', ':Telescope find_files find_command=rg,--ignore,--hidden,--files theme=get_dropdown<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>ff', ':Telescope find_files find_command=rg,--files theme=get_dropdown<Cr>'
+          , opts)
+        vim.api.nvim_set_keymap('n', '<Leader>fF',
+          ':Telescope find_files find_command=rg,--ignore,--hidden,--files theme=get_dropdown<Cr>', opts)
         vim.api.nvim_set_keymap('n', '<Leader>fg', ':Telescope live_grep theme=get_dropdown<Cr>', opts)
         vim.api.nvim_set_keymap('n', '<Leader>fb', ':Telescope buffers theme=get_dropdown<Cr>', opts)
         vim.api.nvim_set_keymap('n', '<Leader>fh', ':Telescope help_tags theme=get_dropdown<Cr>', opts)
@@ -342,6 +344,7 @@ require('packer').startup({
               opts = vim.tbl_extend('force', { noremap = true, silent = true }, opts or {})
               vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
             end
+
             map('n', ']c', "&diff ? ']c' : ':Gitsigns next_hunk<Cr>'", { expr = true })
             map('n', '[c', "&diff ? '[c' : ':Gitsigns prev_hunk<Cr>'", { expr = true })
           end,
@@ -409,7 +412,7 @@ require('packer').startup({
         local cmp_autopairs = require('nvim-autopairs.completion.cmp')
         require('cmp').event:on('confirm_done', cmp_autopairs.on_confirm_done({ map_char = { tex = '' } }))
         require('nvim-autopairs').setup({
-          disable_filetype = { 'TelescopePrompt' , 'vim' },
+          disable_filetype = { 'TelescopePrompt', 'vim' },
           check_ts = true,
           map_cr = true,
           map_bs = true,
@@ -437,8 +440,10 @@ require('packer').startup({
       'kevinhwang91/nvim-hlslens',
       config = function()
         local opts = { noremap = true, silent = true }
-        vim.api.nvim_set_keymap('n', 'n', [[:execute('normal! ' . v:count1 . 'n')<Cr>:lua require('hlslens').start()<Cr>]], opts)
-        vim.api.nvim_set_keymap('n', 'N', [[:execute('normal! ' . v:count1 . 'N')<Cr>:lua require('hlslens').start()<Cr>]], opts)
+        vim.api.nvim_set_keymap('n', 'n',
+          [[:execute('normal! ' . v:count1 . 'n')<Cr>:lua require('hlslens').start()<Cr>]], opts)
+        vim.api.nvim_set_keymap('n', 'N',
+          [[:execute('normal! ' . v:count1 . 'N')<Cr>:lua require('hlslens').start()<Cr>]], opts)
       end,
     }
     use {
@@ -502,14 +507,15 @@ require('packer').startup({
         require('nvim-window').setup({
           chars = { 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l' },
         })
-        vim.api.nvim_set_keymap('n', '<Leader>w', ':lua require("nvim-window").pick()<Cr>', { noremap = true, silent = true })
+        vim.api.nvim_set_keymap('n', '<Leader>w', ':lua require("nvim-window").pick()<Cr>',
+          { noremap = true, silent = true })
       end,
     }
 
     -- lsp
     use {
       'neovim/nvim-lspconfig',
-      requires = { 'nvim-lua/lsp-status.nvim', 'ray-x/lsp_signature.nvim' },
+      requires = { 'nvim-lua/lsp-status.nvim' },
       config = function()
         require('lsp')
         local sign = require('config').sign
@@ -593,6 +599,24 @@ require('packer').startup({
       end,
     }
     use {
+      'ray-x/lsp_signature.nvim',
+      config = function()
+        require('lsp_signature').setup({
+          bind = true,
+          doc_lines = 10,
+          floating_window = true,
+          fix_pos = false,
+          hint_enable = true,
+          hint_prefix = require('config').sign.hint .. ' ',
+          use_lspsaga = false,
+          handler_opts = {
+            border = 'single',
+          },
+          -- decorator = { '`', '`' },
+        })
+      end,
+    }
+    use {
       'onsails/lspkind-nvim',
       config = function()
         require('lspkind').init({})
@@ -602,8 +626,10 @@ require('packer').startup({
       'folke/lsp-trouble.nvim',
       config = function()
         require('trouble').setup()
-        vim.api.nvim_set_keymap('n', '<Leader>xd', ':TroubleToggle document_diagnostics<Cr>', { noremap = true, silent = true })
-        vim.api.nvim_set_keymap('n', '<Leader>xw', ':TroubleToggle workspace_diagnostics<Cr>', { noremap = true, silent = true })
+        vim.api.nvim_set_keymap('n', '<Leader>xd', ':TroubleToggle document_diagnostics<Cr>',
+          { noremap = true, silent = true })
+        vim.api.nvim_set_keymap('n', '<Leader>xw', ':TroubleToggle workspace_diagnostics<Cr>',
+          { noremap = true, silent = true })
         vim.api.nvim_set_keymap('n', '<Leader>xl', ':TroubleToggle loclist<Cr>', { noremap = true, silent = true })
         vim.api.nvim_set_keymap('n', '<Leader>xq', ':TroubleToggle quickfix<Cr>', { noremap = true, silent = true })
       end,

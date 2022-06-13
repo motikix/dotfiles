@@ -1,6 +1,6 @@
 local treesitter = require('nvim-treesitter.configs')
 
-treesitter.setup{
+treesitter.setup({
   ensure_installed = 'all',
   highlight = {
     enable = true,
@@ -31,4 +31,4 @@ treesitter.setup{
     enable = true,
     enable_autocmd = false,
   },
-}
+})

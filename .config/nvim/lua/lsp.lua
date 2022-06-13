@@ -5,9 +5,6 @@ local opts = { noremap = true, silent = true }
 
 local lsp = require('lspconfig')
 local on_attach = function(client, bufnr)
-  client.resolved_capabilities.document_formatting = false
-  client.resolved_capabilities.document_range_formatting = false
-
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
 
   buf_set_keymap('n', 'K', ':lua vim.lsp.buf.hover()<Cr>', opts)
@@ -37,20 +34,26 @@ local on_attach = function(client, bufnr)
     })
   end
 
-  -- signature help
-  require('lsp_signature').on_attach({
-      bind = true,
-      doc_lines = 10,
-      floating_window = true,
-      fix_pos = false,
-      hint_enable = true,
-      hint_prefix = require('config').sign.hint..' ',
-      use_lspsaga = false,
-      handler_opts = {
-        border = 'single',
-      },
-      decorator = { '`', '`' },
+  -- format on save
+  if client.resolved_capabilities.document_formatting then
+    vim.api.nvim_create_augroup('LspFormatting', {
+      clear = false,
     })
+    vim.api.nvim_clear_autocmds({
+      buffer = bufnr,
+      group = 'LspFormatting',
+    })
+    vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
+      group = 'LspFormatting',
+      buffer = bufnr,
+      callback = vim.lsp.buf.formatting_sync,
+    })
+  end
+end
+local with_no_lspfmt = function(client, bufnr)
+  client.resolved_capabilities.document_formatting = false
+  client.resolved_capabilities.document_range_formatting = false
+  on_attach(client, bufnr)
 end
 
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
@@ -67,34 +70,34 @@ lsp.ccls.setup({
   },
 })
 lsp.gopls.setup({
-  on_attach = on_attach,
+  on_attach = with_no_lspfmt,
   capabilities = capabilities,
 })
 lsp.rust_analyzer.setup({
-  on_attach = on_attach,
+  on_attach = with_no_lspfmt,
   capabilities = capabilities,
 })
 lsp.denols.setup({
-  on_attach = on_attach,
+  on_attach = with_no_lspfmt,
   capabilities = capabilities,
   root_dir = lsp.util.root_pattern('deno.json', 'deno.jsonc'),
   init_options = { enable = true, lint = true, unstable = true },
 })
 lsp.tsserver.setup({
-  on_attach = on_attach,
+  on_attach = with_no_lspfmt,
   capabilities = capabilities,
   root_dir = lsp.util.root_pattern('package.json'),
 })
 lsp.dartls.setup({
-  on_attach = on_attach,
+  on_attach = with_no_lspfmt,
   capabilities = capabilities,
 })
 lsp.vuels.setup({
-  on_attach = on_attach,
+  on_attach = with_no_lspfmt,
   capabilities = capabilities,
 })
 lsp.svelte.setup({
-  on_attach = on_attach,
+  on_attach = with_no_lspfmt,
   capabilities = capabilities,
 })
 lsp.astro.setup({
@@ -102,7 +105,7 @@ lsp.astro.setup({
   capabilities = capabilities,
 })
 lsp.pyright.setup({
-  on_attach = on_attach,
+  on_attach = with_no_lspfmt,
   capabilities = capabilities,
 })
 lsp.sumneko_lua.setup({
@@ -135,14 +138,15 @@ lsp.vimls.setup({
   capabilities = capabilities,
 })
 lsp.terraformls.setup({
-  on_attach = on_attach,
+  on_attach = with_no_lspfmt,
   capabilities = capabilities,
 })
 
 -- UI
 
 vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
-  vim.lsp.handlers.hover, {
+  vim.lsp.handlers.hover,
+  {
     border = 'single',
   }
 )
