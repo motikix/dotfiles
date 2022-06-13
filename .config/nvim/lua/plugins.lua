@@ -2,7 +2,7 @@ vim.cmd [[packadd packer.nvim]]
 
 require('packer').startup({
   config = {
-    compile_path = vim.fn.stdpath('config')..'/lua/packer_compiled.lua',
+    compile_path = vim.fn.stdpath('config') .. '/lua/packer_compiled.lua',
     display = {
       open_fn = require('packer.util').float,
     },
@@ -184,9 +184,9 @@ require('packer').startup({
             diagnostics_indicator = function(_, _, diagnostics_dict, _)
               local s = ' '
               for e, n in pairs(diagnostics_dict) do
-                local sym = e == 'error' and sign.error..ws
-                  or (e == 'warning' and sign.warn..ws or sign.info..ws)
-                s = s..n..sym
+                local sym = e == 'error' and sign.error .. ws
+                  or (e == 'warning' and sign.warn .. ws or sign.info .. ws)
+                s = s .. n .. sym
               end
               return s
             end,
@@ -244,10 +244,10 @@ require('packer').startup({
         vim.g.bubbly_symbols = {
           lsp_status = {
             diagnostics = {
-              error = sign.error..ws..'%d',
-              warning = sign.warn..ws..'%d',
-              hint = sign.hint..ws..'%d',
-              info = sign.info..ws..'%d',
+              error = sign.error .. ws .. '%d',
+              warning = sign.warn .. ws .. '%d',
+              hint = sign.hint..ws .. '%d',
+              info = sign.info..ws .. '%d',
             },
           },
         }
@@ -458,7 +458,7 @@ require('packer').startup({
       'danymat/neogen',
       requires = { 'nvim-treesitter/nvim-treesitter' },
       config = function()
-        require('neogen').setup()
+        require('neogen').setup({})
         local opts = { noremap = true, silent = true }
         vim.api.nvim_set_keymap('n', '<Leader>nf', ":lua require('neogen').generate()<Cr>", opts)
       end,
@@ -532,7 +532,7 @@ require('packer').startup({
       config = function()
         vim.o.completeopt = 'menu,menuone,noselect'
         local cmp = require('cmp')
-        cmp.setup{
+        cmp.setup({
           completion = {
             keyword_length = 2,
           },
@@ -568,7 +568,7 @@ require('packer').startup({
               return vim_item
             end,
           },
-        }
+        })
         cmp.setup.filetype('gitcommit', {
           sources = cmp.config.sources({
             { name = 'cmp_git' },
