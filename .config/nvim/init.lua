@@ -74,20 +74,12 @@ vim.wo.wrap = false
 vim.o.splitbelow = true
 vim.o.splitright = true
 
--- Window move
-vim.api.nvim_set_keymap('n', '<A-h>', '<C-w>h', opts)
-vim.api.nvim_set_keymap('n', '<A-j>', '<C-w>j', opts)
-vim.api.nvim_set_keymap('n', '<A-k>', '<C-w>k', opts)
-vim.api.nvim_set_keymap('n', '<A-l>', '<C-w>l', opts)
-
 -- Cursor move for insert / command mode
 for _, mode in pairs({ 'i', 'c' }) do
   vim.api.nvim_set_keymap(mode, '<C-a>', '<Home>', opts)
   vim.api.nvim_set_keymap(mode, '<C-e>', '<End>', opts)
   vim.api.nvim_set_keymap(mode, '<C-b>', '<Left>', opts)
   vim.api.nvim_set_keymap(mode, '<C-f>', '<Right>', opts)
-  vim.api.nvim_set_keymap(mode, '<M-b>', '<S-Left>', opts)
-  vim.api.nvim_set_keymap(mode, '<M-f>', '<S-Right>', opts)
   vim.api.nvim_set_keymap(mode, '<C-k>', '<Del>', opts)
 end
 
