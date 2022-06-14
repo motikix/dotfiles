@@ -26,49 +26,19 @@ require('packer').startup({
 
     -- color
     use {
-      'marko-cerovac/material.nvim',
+      'folke/tokyonight.nvim',
       config = function()
-        vim.g.material_style = 'deep ocean'
-        require('material').setup({
-          contrast = {
-            sidebars = true,
-            floating_windows = true,
-            line_numbers = true,
-            sign_column = true,
-            cursor_line = true,
-            non_current_windows = false,
-            popup_menu = true,
-          },
-          italics = {
-            comments = true,
-            keywords = true,
-            functions = true,
-            strings = false,
-            variables = false,
-          },
-          contrast_filetypes = {
-            'qf',
-            'vista_kind',
-            'terminal',
-            'packer',
-            'NvimTree',
-            'Trouble',
-          },
-          high_visibility = {
-            lighter = true,
-            darker = true,
-          },
-          disable = {
-            borders = true,
-            background = false,
-            term_colors = false,
-            eob_lines = true,
-          },
-          lualine_style = 'default',
-          async_loading = true,
-          custom_highlights = {},
-        })
-        vim.cmd [[colorscheme material]]
+        vim.g.tokyonight_style = 'storm'
+        vim.g.tokyonight_italic_functions = true
+        vim.g.tokyonight_sidebars = {
+          'qf',
+          'vista_kind',
+          'terminal',
+          'packer',
+          'NvimTree',
+          'Trouble',
+        }
+        vim.cmd [[colorscheme tokyonight]]
       end,
     }
 
@@ -494,7 +464,7 @@ require('packer').startup({
           open_mapping = [[<C-\>]],
           hide_numbers = true,
           direction = 'horizontal',
-          shade_terminals = false,
+          shade_terminals = true,
           shade_filetypes = { 'none' },
         })
       end,
@@ -612,7 +582,6 @@ require('packer').startup({
           handler_opts = {
             border = 'single',
           },
-          -- decorator = { '`', '`' },
         })
       end,
     }
@@ -634,6 +603,7 @@ require('packer').startup({
         vim.api.nvim_set_keymap('n', '<Leader>xq', ':TroubleToggle quickfix<Cr>', { noremap = true, silent = true })
       end,
     }
+    use 'folke/lsp-colors.nvim'
     use {
       'liuchengxu/vista.vim',
       cmd = { 'Vista' },

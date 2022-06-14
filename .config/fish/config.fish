@@ -1,25 +1,61 @@
 # suppress greeting message
 set fish_greeting
 
-# theme (Material Ocean)
-set -x BACKGROUND_COLOR '#0f111a'
-set -x FOREGROUND_COLOR '#a6accd'
-set -x BLACK_COLOR '#000000'
-set -x RED_COLOR '#f07178'
-set -x GREEN_COLOR '#c3e88d'
-set -x YELLOW_COLOR '#ffcb6b'
-set -x BLUE_COLOR '#82aaff'
-set -x MAGENTA_COLOR '#bb80b3'
-set -x CYAN_COLOR '#89ddff'
-set -x WHITE_COLOR '#ffffff'
-set -x BRIGHT_BLACK_COLOR '#464b5d'
-set -x BRIGHT_RED_COLOR '#f07178'
-set -x BRIGHT_GREEN_COLOR '#c3e88d'
-set -x BRIGHT_YELLOW_COLOR '#ffcb6b'
-set -x BRIGHT_BLUE_COLOR '#82aaff'
-set -x BRIGHT_MAGENTA_COLOR '#bb80b3'
-set -x BRIGHT_CYAN_COLOR '#89ddff'
-set -x BRIGHT_WHITE_COLOR '#ffffff'
+# theme
+
+## Tokyo night storm
+set -x BACKGROUND_COLOR '#24283b'
+set -x FOREGROUND_COLOR '#c0caf5'
+set -x BLACK_COLOR '#1d202f'
+set -x RED_COLOR '#f7768e'
+set -x GREEN_COLOR '#9ece6a'
+set -x YELLOW_COLOR '#e0af68'
+set -x BLUE_COLOR '#7aa2f7'
+set -x MAGENTA_COLOR '#bb9af7'
+set -x CYAN_COLOR '#7dcfff'
+set -x WHITE_COLOR '#a9b1d6'
+set -x BRIGHT_BLACK_COLOR '#414868'
+set -x BRIGHT_RED_COLOR '#f7768e'
+set -x BRIGHT_GREEN_COLOR '#9ece6a'
+set -x BRIGHT_YELLOW_COLOR '#e0af68'
+set -x BRIGHT_BLUE_COLOR '#7aa2f7'
+set -x BRIGHT_MAGENTA_COLOR '#bb9af7'
+set -x BRIGHT_CYAN_COLOR '#7dcfff'
+set -x BRIGHT_WHITE_COLOR '#c0caf5'
+
+## tokyonight color palette
+set -l foreground c0caf5
+set -l selection 364a82
+set -l comment 565f89
+set -l red f7768e
+set -l orange ff9e64
+set -l yellow e0af68
+set -l green 9ece6a
+set -l purple 9d7cd8
+set -l cyan 7dcfff
+set -l pink bb9af7
+
+## syntax highlighting colors
+set -g fish_color_normal $foreground
+set -g fish_color_command $cyan
+set -g fish_color_keyword $pink
+set -g fish_color_quote $yellow
+set -g fish_color_redirection $foreground
+set -g fish_color_end $orange
+set -g fish_color_error $red
+set -g fish_color_param $purple
+set -g fish_color_comment $comment
+set -g fish_color_selection --background=$selection
+set -g fish_color_search_match --background=$selection
+set -g fish_color_operator $green
+set -g fish_color_escape $pink
+set -g fish_color_autosuggestion $comment
+
+## completion pager colors
+set -g fish_pager_color_progress $comment
+set -g fish_pager_color_prefix $cyan
+set -g fish_pager_color_completion $foreground
+set -g fish_pager_color_description $comment
 
 # environments
 

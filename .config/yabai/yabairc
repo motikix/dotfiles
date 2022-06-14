@@ -38,10 +38,11 @@ yabai -m config right_padding                20
 yabai -m config window_gap                   15
 
 # labeling spaces
-yabai -m space 1 --label web
-yabai -m space 2 --label dev
+yabai -m space 1 --label dev
+yabai -m space 2 --label web
 yabai -m space 3 --label social
-yabai -m space 4 --label media
-yabai -m space 5 --label misc
+yabai -m space 4 --label chat
+yabai -m space 5 --label media
+yabai -m space 6 --label misc
 
 echo "yabai configuration loaded.."

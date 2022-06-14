@@ -114,6 +114,8 @@ vim.g.node_host_prog = '/usr/bin/neovim-node-host'
 
 -- Colors
 vim.o.termguicolors = true
+vim.o['t_8f'] = '^[[38;2;%lu;%lu;%lum'
+vim.o['t_8b'] = '^[[48;2;%lu;%lu;%lum'
 
 -- Terminal
 vim.api.nvim_set_keymap('t', '<Esc>', '<C-\\><C-n>', opts)
