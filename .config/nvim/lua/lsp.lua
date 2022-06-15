@@ -1,5 +1,5 @@
 -- locals
-local opts = { noremap = true, silent = true }
+local opts = require('config').opts
 
 -- nvim-lspconfig
 

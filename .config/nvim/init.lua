@@ -1,5 +1,7 @@
 -- locals
-local opts = { noremap = true, silent = true }
+local config = require('config')
+local opts = config.opts
+local opts_noremap = config.opts_noremap
 
 -- Leader
 vim.g.mapleader = ' '
@@ -76,11 +78,11 @@ vim.o.splitright = true
 
 -- Cursor move for insert / command mode
 for _, mode in pairs({ 'i', 'c' }) do
-  vim.api.nvim_set_keymap(mode, '<C-a>', '<Home>', opts)
-  vim.api.nvim_set_keymap(mode, '<C-e>', '<End>', opts)
-  vim.api.nvim_set_keymap(mode, '<C-b>', '<Left>', opts)
-  vim.api.nvim_set_keymap(mode, '<C-f>', '<Right>', opts)
-  vim.api.nvim_set_keymap(mode, '<C-k>', '<Del>', opts)
+  vim.api.nvim_set_keymap(mode, '<C-a>', '<Home>', opts_noremap)
+  vim.api.nvim_set_keymap(mode, '<C-e>', '<End>', opts_noremap)
+  vim.api.nvim_set_keymap(mode, '<C-b>', '<Left>', opts_noremap)
+  vim.api.nvim_set_keymap(mode, '<C-f>', '<Right>', opts_noremap)
+  vim.api.nvim_set_keymap(mode, '<C-k>', '<Del>', opts_noremap)
 end
 
 -- Search

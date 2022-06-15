@@ -138,6 +138,7 @@ require('packer').startup({
       'akinsho/nvim-bufferline.lua',
       config = function()
         local sign = require('config').sign
+        local opts = require('config').opts
         local ws = ' '
         require('bufferline').setup({
           options = {
@@ -162,7 +163,6 @@ require('packer').startup({
             end,
           },
         })
-        local opts = { noremap = true, silent = true }
         vim.api.nvim_set_keymap('n', '<Leader>bs', ':BufferLinePick<Cr>', opts)
         vim.api.nvim_set_keymap('n', '<Leader>bp', ':BufferLineCyclePrev<Cr>', opts)
         vim.api.nvim_set_keymap('n', '<Leader>bn', ':BufferLineCycleNext<Cr>', opts)
@@ -235,6 +235,7 @@ require('packer').startup({
         'tknightz/telescope-termfinder.nvim',
       },
       config = function()
+        local opts = require('config').opts
         local telescope = require('telescope')
         telescope.setup({
           extensions = {
@@ -256,7 +257,6 @@ require('packer').startup({
         telescope.load_extension('termfinder')
         telescope.load_extension('notify')
 
-        local opts = { noremap = true, silent = true }
         -- common finders
         vim.api.nvim_set_keymap('n', '<C-s>', ':Telescope current_buffer_fuzzy_find theme=get_dropdown<Cr>', opts)
         vim.api.nvim_set_keymap('n', '<Leader>ff', ':Telescope find_files find_command=rg,--files theme=get_dropdown<Cr>'
@@ -311,7 +311,7 @@ require('packer').startup({
         require('gitsigns').setup({
           on_attach = function(bufnr)
             local function map(mode, lhs, rhs, opts)
-              opts = vim.tbl_extend('force', { noremap = true, silent = true }, opts or {})
+              opts = vim.tbl_extend('force', require('config').opts, opts or {})
               vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
             end
 
@@ -339,11 +339,12 @@ require('packer').startup({
     use {
       'easymotion/vim-easymotion',
       config = function()
+        local opts_silent = require('config').opts_silent
         vim.g.EasyMotion_do_mapping = 0
         vim.g.EasyMotion_smartcase = 0
         vim.g.EasyMotion_use_migemo = 1
-        vim.api.nvim_set_keymap('n', 's', '<Plug>(easymotion-bd-f2)', {})
-        vim.api.nvim_set_keymap('n', 'S', '<Plug>(easymotion-overwin-f2)', {})
+        vim.api.nvim_set_keymap('n', 's', '<Plug>(easymotion-bd-f2)', opts_silent)
+        vim.api.nvim_set_keymap('n', 'S', '<Plug>(easymotion-overwin-f2)', opts_silent)
       end,
     }
     use {
@@ -409,7 +410,7 @@ require('packer').startup({
     use {
       'kevinhwang91/nvim-hlslens',
       config = function()
-        local opts = { noremap = true, silent = true }
+        local opts = require('config').opts
         vim.api.nvim_set_keymap('n', 'n',
           [[:execute('normal! ' . v:count1 . 'n')<Cr>:lua require('hlslens').start()<Cr>]], opts)
         vim.api.nvim_set_keymap('n', 'N',
@@ -419,22 +420,23 @@ require('packer').startup({
     use {
       'haya14busa/vim-asterisk',
       config = function()
-        vim.api.nvim_set_keymap('n', '*', [[<Plug>(asterisk-z*):lua require('hlslens').start()<Cr>]], {})
-        vim.api.nvim_set_keymap('n', '#', [[<Plug>(asterisk-z#):lua require('hlslens').start()<Cr>]], {})
-        vim.api.nvim_set_keymap('n', 'g*', [[<Plug>(asterisk-gz*):lua require('hlslens').start()<Cr>]], {})
-        vim.api.nvim_set_keymap('n', 'g#', [[<Plug>(asterisk-gz#):lua require('hlslens').start()<Cr>]], {})
-        vim.api.nvim_set_keymap('x', '*', [[<Plug>(asterisk-z*):lua require('hlslens').start()<Cr>]], {})
-        vim.api.nvim_set_keymap('x', '#', [[<Plug>(asterisk-z#):lua require('hlslens').start()<Cr>]], {})
-        vim.api.nvim_set_keymap('x', 'g*', [[<Plug>(asterisk-gz*):lua require('hlslens').start()<Cr>]], {})
-        vim.api.nvim_set_keymap('x', 'g#', [[<Plug>(asterisk-gz#):lua require('hlslens').start()<Cr>]], {})
+        local opts_silent = require('config').opts_silent
+        vim.api.nvim_set_keymap('n', '*', [[<Plug>(asterisk-z*):lua require('hlslens').start()<Cr>]], opts_silent)
+        vim.api.nvim_set_keymap('n', '#', [[<Plug>(asterisk-z#):lua require('hlslens').start()<Cr>]], opts_silent)
+        vim.api.nvim_set_keymap('n', 'g*', [[<Plug>(asterisk-gz*):lua require('hlslens').start()<Cr>]], opts_silent)
+        vim.api.nvim_set_keymap('n', 'g#', [[<Plug>(asterisk-gz#):lua require('hlslens').start()<Cr>]], opts_silent)
+        vim.api.nvim_set_keymap('x', '*', [[<Plug>(asterisk-z*):lua require('hlslens').start()<Cr>]], opts_silent)
+        vim.api.nvim_set_keymap('x', '#', [[<Plug>(asterisk-z#):lua require('hlslens').start()<Cr>]], opts_silent)
+        vim.api.nvim_set_keymap('x', 'g*', [[<Plug>(asterisk-gz*):lua require('hlslens').start()<Cr>]], opts_silent)
+        vim.api.nvim_set_keymap('x', 'g#', [[<Plug>(asterisk-gz#):lua require('hlslens').start()<Cr>]], opts_silent)
       end,
     }
     use {
       'danymat/neogen',
       requires = { 'nvim-treesitter/nvim-treesitter' },
       config = function()
+        local opts = require('config').opts
         require('neogen').setup({})
-        local opts = { noremap = true, silent = true }
         vim.api.nvim_set_keymap('n', '<Leader>nf', ":lua require('neogen').generate()<Cr>", opts)
       end,
     }
@@ -723,6 +725,7 @@ require('packer').startup({
       after = { 'nvim-treesitter' },
       ft = { 'http' },
       config = function()
+        local opts_silent = require('config').opts_silent
         require('rest-nvim').setup({
           result_split_horizontal = false,
           skip_ssl_verification = true,
@@ -740,9 +743,9 @@ require('packer').startup({
           custom_dynamic_variables = {},
           yank_dry_run = true,
         })
-        vim.api.nvim_set_keymap('n', '<Leader>rr', '<Plug>RestNvim', {})
-        vim.api.nvim_set_keymap('n', '<Leader>rp', '<Plug>RestNvimPreview', {})
-        vim.api.nvim_set_keymap('n', '<Leader>rl', '<Plug>RestNvimLast', {})
+        vim.api.nvim_set_keymap('n', '<Leader>rr', '<Plug>RestNvim', opts_silent)
+        vim.api.nvim_set_keymap('n', '<Leader>rp', '<Plug>RestNvimPreview', opts_silent)
+        vim.api.nvim_set_keymap('n', '<Leader>rl', '<Plug>RestNvimLast', opts_silent)
       end,
     }
 
