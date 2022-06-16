@@ -77,8 +77,7 @@
 # ############################################################### #
 
 # terminal
-#alt - return : open /Applications/Alacritty.app
-alt - return : /Applications/Alacritty.app/Contents/MacOS/alacritty
+alt - return : /Applications/kitty.app/Contents/MacOS/kitty ~
 
 # focus window
 alt - j : yabai -m window --focus west
