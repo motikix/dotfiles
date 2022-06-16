@@ -42,4 +42,5 @@ local function handler(event)
   end
 end
 
-hs.eventtap.new({ keyDown, flagsChanged }, handler):start()
+Tap = hs.eventtap.new({ keyDown, flagsChanged }, handler)
+Tap:start()
