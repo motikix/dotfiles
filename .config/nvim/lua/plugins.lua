@@ -501,15 +501,17 @@ require('packer').startup({
     use {
       'hrsh7th/nvim-cmp',
       requires = {
-        'hrsh7th/cmp-nvim-lsp',
         'hrsh7th/cmp-buffer',
-        'hrsh7th/cmp-nvim-lsp',
-        'hrsh7th/cmp-vsnip',
+        'hrsh7th/cmp-cmdline',
         'hrsh7th/cmp-path',
+        'hrsh7th/cmp-vsnip',
+        'hrsh7th/cmp-nvim-lsp',
+        'hrsh7th/cmp-nvim-lsp-signature-help',
       },
       config = function()
         vim.o.completeopt = 'menu,menuone,noselect'
         local cmp = require('cmp')
+        local lspkind = require('lspkind')
         cmp.setup({
           completion = {
             keyword_length = 2,
@@ -519,6 +521,10 @@ require('packer').startup({
               vim.fn['vsnip#anonymous'](args.body)
             end,
           },
+          window = {
+            completion = cmp.config.window.bordered(),
+            documentation = cmp.config.window.bordered(),
+          },
           mapping = cmp.mapping.preset.insert({
             ['<C-b>'] = cmp.mapping.scroll_docs(-4),
             ['<C-f>'] = cmp.mapping.scroll_docs(4),
@@ -527,62 +533,36 @@ require('packer').startup({
             ['<Cr>'] = cmp.mapping.confirm({ select = true }),
           }),
           sources = cmp.config.sources({
+            { name = 'nvim_lsp_signature_help' },
             { name = 'nvim_lsp' },
             { name = 'vsnip' },
-            { name = 'buffer' },
-          }, {
             { name = 'path' },
+          }, {
+            { name = 'buffer' },
           }),
           formatting = {
-            format = function(entry, vim_item)
-              vim_item.kind = require('lspkind').presets.default[vim_item.kind] .. ' ' .. vim_item.kind
-              vim_item.menu = ({
+            format = lspkind.cmp_format({
+              mode = 'symbol_text',
+              menu = {
                 buffer = '[Buffer]',
                 nvim_lsp = '[LSP]',
-                luasnip = '[LuaSnip]',
+                vsnip = '[VSnip]',
                 nvim_lua = '[Lua]',
                 latex_symbols = '[Latex]',
-              })[entry.source.name]
-              return vim_item
-            end,
+              },
+            }),
           },
         })
-        cmp.setup.filetype('gitcommit', {
-          sources = cmp.config.sources({
-            { name = 'cmp_git' },
-          }, {
-            { name = 'buffer' },
-          })
+        cmp.setup.cmdline(':', {
+          mapping = cmp.mapping.preset.cmdline(),
+          sources = {
+            { name = 'cmdline' },
+          },
         })
         cmp.setup.cmdline('/', {
           mapping = cmp.mapping.preset.cmdline(),
           sources = {
             { name = 'buffer' },
-          }
-        })
-        cmp.setup.cmdline(':', {
-          mapping = cmp.mapping.preset.cmdline(),
-          sources = cmp.config.sources({
-            { name = 'path' },
-          }, {
-            { name = 'cmdline' },
-          })
-        })
-      end,
-    }
-    use {
-      'ray-x/lsp_signature.nvim',
-      config = function()
-        require('lsp_signature').setup({
-          bind = true,
-          doc_lines = 10,
-          floating_window = true,
-          fix_pos = false,
-          hint_enable = true,
-          hint_prefix = require('config').sign.hint .. ' ',
-          use_lspsaga = false,
-          handler_opts = {
-            border = 'single',
           },
         })
       end,
