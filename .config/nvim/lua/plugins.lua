@@ -16,6 +16,21 @@ require('packer').startup({
     use 'nathom/filetype.nvim'
     use 'antoinemadec/FixCursorHold.nvim'
 
+    -- project local config
+    use {
+      'klen/nvim-config-local',
+      config = function()
+        require('config-local').setup({
+          config_files = { '.vimrc.lua', '.vimrc' },
+          hashfile = vim.fn.stdpath('data') .. '/config-local',
+          autocommands_create = true,
+          commands_create = true,
+          silent = false,
+          lookup_parents = true,
+        })
+      end
+    }
+
     -- notification
     use {
       'rcarriga/nvim-notify',
