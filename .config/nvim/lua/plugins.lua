@@ -45,23 +45,13 @@ require('packer').startup({
       config = function()
         vim.g.material_style = 'deep ocean'
         require('material').setup({
-          contrast = {
-            sidebars = true,
-            floating_windows = true,
-            popup_menu = true,
-          },
           italics = {
             comments = true,
             keywords = true,
             functions = true,
           },
-          contrast_filetypes = {
-            'qf',
-            'vista_kind',
-            'terminal',
-            'packer',
-            'NvimTree',
-            'Trouble',
+          disable = {
+            background = true,
           },
         })
         vim.cmd [[colorscheme material]]
