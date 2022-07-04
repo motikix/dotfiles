@@ -3,41 +3,41 @@ set fish_greeting
 
 # theme
 
-## Dracula
-set -x BACKGROUND_COLOR '#282a36'
-set -x FOREGROUND_COLOR '#f8f8f2'
-set -x SELECTION_COLOR '#44475a'
-set -x BLACK_COLOR '#21222c'
-set -x COMMENT_COLOR '#6272a4'
-set -x RED_COLOR '#ff5555'
-set -x GREEN_COLOR '#50fa7b'
-set -x YELLOW_COLOR '#f1fa8c'
-set -x BLUE_COLOR '#bd93f9'
-set -x MAGENTA_COLOR '#ff79c6'
-set -x CYAN_COLOR '#8be9fd'
-set -x WHITE_COLOR '#f8f8f2'
-set -x BRIGHT_BLACK_COLOR '#6272a4'
-set -x BRIGHT_RED_COLOR '#ff6e6e'
-set -x BRIGHT_GREEN_COLOR '#69ff94'
-set -x BRIGHT_YELLOW_COLOR '#ffffa5'
-set -x BRIGHT_BLUE_COLOR '#d6acff'
-set -x BRIGHT_MAGENTA_COLOR '#ff92df'
-set -x BRIGHT_CYAN_COLOR '#a4ffff'
-set -x BRIGHT_WHITE_COLOR '#ffffff'
+## TokyoNight
+set -x BACKGROUND_COLOR '#1a1b26'
+set -x FOREGROUND_COLOR '#a9b1d6'
+set -x SELECTION_COLOR '#33467c'
+set -x COMMENT_COLOR '#565f89'
+set -x BLACK_COLOR '#15161e'
+set -x RED_COLOR '#f7768e'
+set -x GREEN_COLOR '#9ece6a'
+set -x YELLOW_COLOR '#e0af68'
+set -x BLUE_COLOR '#7aa2f7'
+set -x MAGENTA_COLOR '#bb9af7'
+set -x CYAN_COLOR '#7dcfff'
+set -x WHITE_COLOR '#a9b1d6'
+set -x BRIGHT_BLACK_COLOR '#414868'
+set -x BRIGHT_RED_COLOR '#f7768e'
+set -x BRIGHT_GREEN_COLOR '#9ece6a'
+set -x BRIGHT_YELLOW_COLOR '#e0af68'
+set -x BRIGHT_BLUE_COLOR '#7aa2f7'
+set -x BRIGHT_MAGENTA_COLOR '#bb9af7'
+set -x BRIGHT_CYAN_COLOR '#7dcfff'
+set -x BRIGHT_WHITE_COLOR '#c0caf5'
 
-# Dracula Color Palette
-set -l foreground f8f8f2
-set -l selection 44475a
-set -l comment 6272a4
-set -l red ff5555
-set -l orange ffb86c
-set -l yellow f1fa8c
-set -l green 50fa7b
-set -l purple bd93f9
-set -l cyan 8be9fd
-set -l pink ff79c6
+## TokyoNight Color Palette
+set -l foreground c0caf5
+set -l selection 33467c
+set -l comment 565f89
+set -l red f7768e
+set -l orange ff9e64
+set -l yellow e0af68
+set -l green 9ece6a
+set -l purple 9d7cd8
+set -l cyan 7dcfff
+set -l pink bb9af7
 
-# Syntax Highlighting Colors
+## Syntax Highlighting Colors
 set -g fish_color_normal $foreground
 set -g fish_color_command $cyan
 set -g fish_color_keyword $pink
@@ -53,7 +53,7 @@ set -g fish_color_operator $green
 set -g fish_color_escape $pink
 set -g fish_color_autosuggestion $comment
 
-# Completion Pager Colors
+## Completion Pager Colors
 set -g fish_pager_color_progress $comment
 set -g fish_pager_color_prefix $cyan
 set -g fish_pager_color_completion $foreground

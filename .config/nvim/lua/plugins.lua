@@ -41,11 +41,19 @@ require('packer').startup({
 
     -- color
     use {
-      'Mofiqul/dracula.nvim',
+      'folke/tokyonight.nvim',
       config = function()
-        vim.g.dracula_transparent_bg = true
-        vim.g.dracula_italic_comment = true
-        vim.cmd [[colorscheme dracula]]
+        vim.g.tokyonight_style = 'night'
+        vim.g.tokyonight_italic_functions = true
+        vim.g.tokyonight_sidebars = {
+          'qf',
+          'vista_kind',
+          'terminal',
+          'packer',
+          'NvimTree',
+          'Trouble',
+        }
+        vim.cmd [[colorscheme tokyonight]]
       end,
     }
 
