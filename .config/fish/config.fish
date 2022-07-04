@@ -3,39 +3,39 @@ set fish_greeting
 
 # theme
 
-## TokyoNight
-set -x BACKGROUND_COLOR '#1a1b26'
-set -x FOREGROUND_COLOR '#a9b1d6'
-set -x SELECTION_COLOR '#33467c'
-set -x COMMENT_COLOR '#565f89'
-set -x BLACK_COLOR '#15161e'
-set -x RED_COLOR '#f7768e'
-set -x GREEN_COLOR '#9ece6a'
-set -x YELLOW_COLOR '#e0af68'
-set -x BLUE_COLOR '#7aa2f7'
-set -x MAGENTA_COLOR '#bb9af7'
-set -x CYAN_COLOR '#7dcfff'
-set -x WHITE_COLOR '#a9b1d6'
-set -x BRIGHT_BLACK_COLOR '#414868'
-set -x BRIGHT_RED_COLOR '#f7768e'
-set -x BRIGHT_GREEN_COLOR '#9ece6a'
-set -x BRIGHT_YELLOW_COLOR '#e0af68'
-set -x BRIGHT_BLUE_COLOR '#7aa2f7'
-set -x BRIGHT_MAGENTA_COLOR '#bb9af7'
-set -x BRIGHT_CYAN_COLOR '#7dcfff'
-set -x BRIGHT_WHITE_COLOR '#c0caf5'
+## Material Deep Ocean (https://github.com/material-theme/vsc-material-theme/blob/d8e1accd08a55948174410a470e1f1fc9889d6f6/scripts/generator/settings/specific/ocean.ts)
+set -x BACKGROUND_COLOR '#0f111a'
+set -x FOREGROUND_COLOR '#a6accd'
+set -x SELECTION_COLOR '#717cb4'
+set -x COMMENT_COLOR '#464b5d'
+set -x BLACK_COLOR '#000000'
+set -x RED_COLOR '#f07178'
+set -x GREEN_COLOR '#c3e88d'
+set -x YELLOW_COLOR '#ffcb6b'
+set -x BLUE_COLOR '#82aaff'
+set -x MAGENTA_COLOR '#c792ea'
+set -x CYAN_COLOR '#89ddff'
+set -x WHITE_COLOR '#ffffff'
+set -x BRIGHT_BLACK_COLOR '#000000'
+set -x BRIGHT_RED_COLOR '#f07178'
+set -x BRIGHT_GREEN_COLOR '#c3e88d'
+set -x BRIGHT_YELLOW_COLOR '#ffcb6b'
+set -x BRIGHT_BLUE_COLOR '#82aaff'
+set -x BRIGHT_MAGENTA_COLOR '#c792ea'
+set -x BRIGHT_CYAN_COLOR '#89ddff'
+set -x BRIGHT_WHITE_COLOR '#ffffff'
 
-## TokyoNight Color Palette
-set -l foreground c0caf5
-set -l selection 33467c
-set -l comment 565f89
-set -l red f7768e
-set -l orange ff9e64
-set -l yellow e0af68
-set -l green 9ece6a
-set -l purple 9d7cd8
-set -l cyan 7dcfff
-set -l pink bb9af7
+## Material Deep Ocean Color Palette
+set -l foreground a6accd
+set -l selection 717cb4
+set -l comment 464b5d
+set -l red f07178
+set -l orange f78c6c
+set -l yellow ffcb6b
+set -l green c3e88d
+set -l purple c792ea
+set -l cyan 89ddff
+set -l pink ff9cac
 
 ## Syntax Highlighting Colors
 set -g fish_color_normal $foreground

@@ -41,19 +41,30 @@ require('packer').startup({
 
     -- color
     use {
-      'folke/tokyonight.nvim',
+      'marko-cerovac/material.nvim',
       config = function()
-        vim.g.tokyonight_style = 'night'
-        vim.g.tokyonight_italic_functions = true
-        vim.g.tokyonight_sidebars = {
-          'qf',
-          'vista_kind',
-          'terminal',
-          'packer',
-          'NvimTree',
-          'Trouble',
-        }
-        vim.cmd [[colorscheme tokyonight]]
+        vim.g.material_style = 'deep ocean'
+        require('material').setup({
+          contrast = {
+            sidebars = true,
+            floating_windows = true,
+            popup_menu = true,
+          },
+          italics = {
+            comments = true,
+            keywords = true,
+            functions = true,
+          },
+          contrast_filetypes = {
+            'qf',
+            'vista_kind',
+            'terminal',
+            'packer',
+            'NvimTree',
+            'Trouble',
+          },
+        })
+        vim.cmd [[colorscheme material]]
       end,
     }
 
