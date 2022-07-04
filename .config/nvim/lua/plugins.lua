@@ -41,19 +41,11 @@ require('packer').startup({
 
     -- color
     use {
-      'folke/tokyonight.nvim',
+      'Mofiqul/dracula.nvim',
       config = function()
-        vim.g.tokyonight_style = 'storm'
-        vim.g.tokyonight_italic_functions = true
-        vim.g.tokyonight_sidebars = {
-          'qf',
-          'vista_kind',
-          'terminal',
-          'packer',
-          'NvimTree',
-          'Trouble',
-        }
-        vim.cmd [[colorscheme tokyonight]]
+        vim.g.dracula_transparent_bg = true
+        vim.g.dracula_italic_comment = true
+        vim.cmd [[colorscheme dracula]]
       end,
     }
 
@@ -202,8 +194,8 @@ require('packer').startup({
           purple = vim.env.MAGENTA_COLOR,
           cyan = vim.env.CYAN_COLOR,
           white = vim.env.WHITE_COLOR,
-          lightgrey = '#57595e',
-          darkgrey = '#404247',
+          lightgrey = vim.env.SELECTION_COLOR,
+          darkgrey = vim.env.BACKGROUND_COLOR,
         }
         vim.g.bubbly_statusline = {
           'mode',
