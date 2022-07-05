@@ -245,6 +245,7 @@ require('packer').startup({
       'nvim-telescope/telescope.nvim',
       requires = {
         'nvim-lua/plenary.nvim',
+        { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
         'nvim-lua/popup.nvim',
         'nvim-telescope/telescope-symbols.nvim',
         'nvim-telescope/telescope-ui-select.nvim',
@@ -269,6 +270,7 @@ require('packer').startup({
             },
           },
         })
+        telescope.load_extension('fzf')
         telescope.load_extension('ui-select')
         telescope.load_extension('termfinder')
         telescope.load_extension('notify')
@@ -318,6 +320,47 @@ require('packer').startup({
       end,
     }
 
+    -- quickfix
+    use {
+      'stevearc/qf_helper.nvim',
+      config = function()
+        local opts = require('config').opts
+        require('qf_helper').setup()
+        vim.api.nvim_set_keymap('n', '<Leader>q', '<Cmd>QFToggle<Cr>', opts)
+      end,
+    }
+    use {
+      'gabrielpoca/replacer.nvim',
+      config = function()
+        local opts_silent = require('config').opts_silent
+        vim.api.nvim_set_keymap('n', '<Leader>h',
+          ':lua if vim.bo.filetype == "qf" then require("replacer").run({ rename_files = false }) end <Cr>',
+          opts_silent)
+      end,
+    }
+    use {
+      'https://gitlab.com/yorickpeterse/nvim-pqf.git',
+      config = function()
+        local sign = require('config').sign
+        require('pqf').setup({
+          signs = {
+            error = sign.error,
+            warning = sign.warn,
+            info = sign.info,
+            hint = sign.hint,
+          },
+        })
+      end,
+    }
+    use {
+      'kevinhwang91/nvim-bqf',
+      requires = {
+        'nvim-treesitter/nvim-treesitter',
+        { 'junegunn/fzf', run = function() vim.fn['fzf#install']() end },
+      },
+      ft = 'qf',
+    }
+
     -- git support
     use 'tpope/vim-fugitive'
     use {
@@ -335,6 +378,12 @@ require('packer').startup({
             map('n', '[c', "&diff ? '[c' : ':Gitsigns prev_hunk<Cr>'", { expr = true })
           end,
         })
+      end,
+    }
+    use {
+      'akinsho/git-conflict.nvim',
+      config = function()
+        require('git-conflict').setup()
       end,
     }
 
@@ -593,12 +642,10 @@ require('packer').startup({
       'folke/lsp-trouble.nvim',
       config = function()
         require('trouble').setup()
-        vim.api.nvim_set_keymap('n', '<Leader>xd', ':TroubleToggle document_diagnostics<Cr>',
+        vim.api.nvim_set_keymap('n', '<Leader>d', ':TroubleToggle document_diagnostics<Cr>',
           { noremap = true, silent = true })
-        vim.api.nvim_set_keymap('n', '<Leader>xw', ':TroubleToggle workspace_diagnostics<Cr>',
+        vim.api.nvim_set_keymap('n', '<Leader>D', ':TroubleToggle workspace_diagnostics<Cr>',
           { noremap = true, silent = true })
-        vim.api.nvim_set_keymap('n', '<Leader>xl', ':TroubleToggle loclist<Cr>', { noremap = true, silent = true })
-        vim.api.nvim_set_keymap('n', '<Leader>xq', ':TroubleToggle quickfix<Cr>', { noremap = true, silent = true })
       end,
     }
     use 'folke/lsp-colors.nvim'
