@@ -261,7 +261,7 @@ require('packer').startup({
             },
             termfinder = {
               mappings = {
-                rename_term = '<C-t>',
+                rename_term = '<C-r>',
                 delete_term = '<C-x>',
                 vertical_term = '<C-v>',
                 horizontal_term = '<C-h>',
@@ -318,47 +318,6 @@ require('packer').startup({
         vim.g.goyo_height = '85%'
         vim.g.goyo_linenr = 0
       end,
-    }
-
-    -- quickfix
-    use {
-      'stevearc/qf_helper.nvim',
-      config = function()
-        local opts = require('config').opts
-        require('qf_helper').setup()
-        vim.api.nvim_set_keymap('n', '<Leader>q', '<Cmd>QFToggle<Cr>', opts)
-      end,
-    }
-    use {
-      'gabrielpoca/replacer.nvim',
-      config = function()
-        local opts_silent = require('config').opts_silent
-        vim.api.nvim_set_keymap('n', '<Leader>h',
-          ':lua if vim.bo.filetype == "qf" then require("replacer").run({ rename_files = false }) end <Cr>',
-          opts_silent)
-      end,
-    }
-    use {
-      'https://gitlab.com/yorickpeterse/nvim-pqf.git',
-      config = function()
-        local sign = require('config').sign
-        require('pqf').setup({
-          signs = {
-            error = sign.error,
-            warning = sign.warn,
-            info = sign.info,
-            hint = sign.hint,
-          },
-        })
-      end,
-    }
-    use {
-      'kevinhwang91/nvim-bqf',
-      requires = {
-        'nvim-treesitter/nvim-treesitter',
-        { 'junegunn/fzf', run = function() vim.fn['fzf#install']() end },
-      },
-      ft = 'qf',
     }
 
     -- git support
@@ -438,7 +397,7 @@ require('packer').startup({
       requires = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope.nvim' },
       config = function()
         require('todo-comments').setup()
-        vim.api.nvim_set_keymap('n', '<Leader>ft', ':TodoTelescope<Cr>', { noremap = true, silent = true })
+        vim.api.nvim_set_keymap('n', '<Leader>tt', ':TodoTrouble<Cr>', { noremap = true, silent = true })
       end,
     }
     use {
@@ -515,6 +474,13 @@ require('packer').startup({
       end,
     }
     use 'haya14busa/vim-metarepeat'
+    use {
+      's1n7ax/nvim-comment-frame',
+      requires = { 'nvim-treesitter/nvim-treesitter' },
+      config = function()
+        require('nvim-comment-frame').setup()
+      end,
+    }
 
     -- snippets
     use {
@@ -564,75 +530,6 @@ require('packer').startup({
       end,
     }
     use {
-      'hrsh7th/nvim-cmp',
-      requires = {
-        'hrsh7th/cmp-buffer',
-        'hrsh7th/cmp-cmdline',
-        'hrsh7th/cmp-path',
-        'hrsh7th/cmp-vsnip',
-        'hrsh7th/cmp-nvim-lsp',
-        'hrsh7th/cmp-nvim-lsp-signature-help',
-      },
-      config = function()
-        vim.o.completeopt = 'menu,menuone,noselect'
-        local cmp = require('cmp')
-        local lspkind = require('lspkind')
-        cmp.setup({
-          completion = {
-            keyword_length = 2,
-          },
-          snippet = {
-            expand = function(args)
-              vim.fn['vsnip#anonymous'](args.body)
-            end,
-          },
-          window = {
-            completion = cmp.config.window.bordered(),
-            documentation = cmp.config.window.bordered(),
-          },
-          mapping = cmp.mapping.preset.insert({
-            ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-            ['<C-f>'] = cmp.mapping.scroll_docs(4),
-            ['<C-Space>'] = cmp.mapping.complete(),
-            ['<C-e>'] = cmp.mapping.close(),
-            ['<Cr>'] = cmp.mapping.confirm({ select = true }),
-          }),
-          sources = cmp.config.sources({
-            { name = 'nvim_lsp_signature_help' },
-            { name = 'nvim_lsp' },
-            { name = 'vsnip' },
-            { name = 'path' },
-          }, {
-            { name = 'buffer' },
-          }),
-          formatting = {
-            format = lspkind.cmp_format({
-              mode = 'symbol_text',
-              menu = {
-                buffer = '[Buffer]',
-                nvim_lsp = '[LSP]',
-                vsnip = '[VSnip]',
-                nvim_lua = '[Lua]',
-                latex_symbols = '[Latex]',
-              },
-            }),
-          },
-        })
-        cmp.setup.cmdline(':', {
-          mapping = cmp.mapping.preset.cmdline(),
-          sources = {
-            { name = 'cmdline' },
-          },
-        })
-        cmp.setup.cmdline('/', {
-          mapping = cmp.mapping.preset.cmdline(),
-          sources = {
-            { name = 'buffer' },
-          },
-        })
-      end,
-    }
-    use {
       'onsails/lspkind-nvim',
       config = function()
         require('lspkind').init({})
@@ -642,9 +539,11 @@ require('packer').startup({
       'folke/lsp-trouble.nvim',
       config = function()
         require('trouble').setup()
-        vim.api.nvim_set_keymap('n', '<Leader>d', ':TroubleToggle document_diagnostics<Cr>',
+        vim.api.nvim_set_keymap('n', '<Leader>xx', ':TroubleToggle quickfix<Cr>',
           { noremap = true, silent = true })
-        vim.api.nvim_set_keymap('n', '<Leader>D', ':TroubleToggle workspace_diagnostics<Cr>',
+        vim.api.nvim_set_keymap('n', '<Leader>xd', ':TroubleToggle document_diagnostics<Cr>',
+          { noremap = true, silent = true })
+        vim.api.nvim_set_keymap('n', '<Leader>xw', ':TroubleToggle workspace_diagnostics<Cr>',
           { noremap = true, silent = true })
       end,
     }
@@ -720,6 +619,85 @@ require('packer').startup({
             end
           end,
         })
+      end,
+    }
+
+    -- completion
+    use {
+      'hrsh7th/nvim-cmp',
+      requires = {
+        'hrsh7th/cmp-buffer',
+        'hrsh7th/cmp-cmdline',
+        'hrsh7th/cmp-path',
+        'hrsh7th/cmp-vsnip',
+        'hrsh7th/cmp-nvim-lsp',
+        'hrsh7th/cmp-nvim-lsp-signature-help',
+      },
+      config = function()
+        vim.o.completeopt = 'menu,menuone,noselect'
+        local cmp = require('cmp')
+        local lspkind = require('lspkind')
+        cmp.setup({
+          completion = {
+            keyword_length = 2,
+          },
+          snippet = {
+            expand = function(args)
+              vim.fn['vsnip#anonymous'](args.body)
+            end,
+          },
+          window = {
+            completion = cmp.config.window.bordered(),
+            documentation = cmp.config.window.bordered(),
+          },
+          mapping = cmp.mapping.preset.insert({
+            ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+            ['<C-f>'] = cmp.mapping.scroll_docs(4),
+            ['<C-Space>'] = cmp.mapping.complete(),
+            ['<C-e>'] = cmp.mapping.close(),
+            ['<Cr>'] = cmp.mapping.confirm({ select = true }),
+          }),
+          sources = cmp.config.sources({
+            { name = 'nvim_lsp_signature_help' },
+            { name = 'nvim_lsp' },
+            { name = 'vsnip' },
+            { name = 'path' },
+          }, {
+            { name = 'buffer' },
+          }),
+          formatting = {
+            format = function(entry, vim_item)
+              return lspkind.cmp_format({
+                mode = 'symbol_text',
+                menu = {
+                  buffer = '[Buffer]',
+                  nvim_lsp = '[LSP]',
+                  vsnip = '[VSnip]',
+                  nvim_lua = '[Lua]',
+                  latex_symbols = '[Latex]',
+                },
+              })(entry, vim_item)
+            end
+          },
+        })
+        cmp.setup.cmdline(':', {
+          mapping = cmp.mapping.preset.cmdline(),
+          sources = {
+            { name = 'cmdline' },
+          },
+        })
+        cmp.setup.cmdline('/', {
+          mapping = cmp.mapping.preset.cmdline(),
+          sources = {
+            { name = 'buffer' },
+          },
+        })
+      end,
+    }
+    use {
+      'github/copilot.vim',
+      setup = function()
+        vim.g.copilot_node_command = '~/.asdf/installs/nodejs/17.9.1/bin/node'
       end,
     }
 
