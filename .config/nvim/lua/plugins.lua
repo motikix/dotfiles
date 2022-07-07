@@ -638,9 +638,6 @@ require('packer').startup({
         local cmp = require('cmp')
         local lspkind = require('lspkind')
         cmp.setup({
-          completion = {
-            keyword_length = 2,
-          },
           snippet = {
             expand = function(args)
               vim.fn['vsnip#anonymous'](args.body)
