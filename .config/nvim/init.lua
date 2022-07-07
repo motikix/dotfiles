@@ -112,6 +112,8 @@ vim.api.nvim_create_autocmd({ 'QuickfixCmdPost' }, {
   command = 'copen',
   nested = true,
 })
+vim.api.nvim_set_keymap('n', '[q', '<Cmd>cp<Cr>', opts)
+vim.api.nvim_set_keymap('n', ']q', '<Cmd>cn<Cr>', opts)
 
 -- Nvim clients
 vim.g.python_host_prog = '/usr/bin/python2'

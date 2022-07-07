@@ -329,7 +329,9 @@ require('packer').startup({
       'lewis6991/gitsigns.nvim',
       requires = { 'nvim-lua/plenary.nvim' },
       config = function()
+        local mopts = require('config').opts
         require('gitsigns').setup({
+          trouble = false,
           on_attach = function(bufnr)
             local function map(mode, lhs, rhs, opts)
               opts = vim.tbl_extend('force', require('config').opts, opts or {})
@@ -340,6 +342,7 @@ require('packer').startup({
             map('n', '[c', "&diff ? '[c' : ':Gitsigns prev_hunk<Cr>'", { expr = true })
           end,
         })
+        vim.api.nvim_set_keymap('n', '<Leader>gq', ':Gitsigns setqflist<Cr>', mopts)
       end,
     }
     use {
