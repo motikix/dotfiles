@@ -36,6 +36,9 @@ require('packer').startup({
       'rcarriga/nvim-notify',
       config = function()
         vim.notify = require('notify')
+        require('notify').setup({
+          background_colour = '#000000',
+        })
       end,
     }
 
@@ -397,7 +400,7 @@ require('packer').startup({
       requires = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope.nvim' },
       config = function()
         require('todo-comments').setup()
-        vim.api.nvim_set_keymap('n', '<Leader>tt', ':TodoTrouble<Cr>', { noremap = true, silent = true })
+        vim.api.nvim_set_keymap('n', '<Leader>tq', ':TodoQuickFix<Cr>', { noremap = true, silent = true })
       end,
     }
     use {
@@ -515,6 +518,51 @@ require('packer').startup({
       end,
     }
 
+    -- quickfix
+    use {
+      'stevearc/qf_helper.nvim',
+      config = function()
+        local opts = require('config').opts
+        vim.api.nvim_set_keymap('n', '<Leader>q', '<Cmd>QFToggle<Cr>', opts)
+      end,
+    }
+    use {
+      'https://gitlab.com/yorickpeterse/nvim-pqf.git',
+      config = function()
+        local sign = require('config').sign
+        require('pqf').setup({
+          signs = {
+            error = sign.error,
+            warning = sign.warn,
+            info = sign.info,
+            hint = sign.hint,
+          },
+        })
+      end,
+    }
+    use {
+      'kevinhwang91/nvim-bqf',
+      requires = {
+        { 'junegunn/fzf', run = function() vim.fn['fzf#install']() end },
+        'nvim-treesitter/nvim-treesitter'
+      },
+      ft = 'qf',
+      config = function()
+        require('bqf').setup({
+          auto_resize_height = true,
+        })
+      end,
+    }
+    use {
+      'gabrielpoca/replacer.nvim',
+      config = function()
+        local opts = require('config').opts
+        vim.api.nvim_set_keymap('n', '<Leader>h',
+          ':lua if vim.bo.filetype == "qf" then require("replacer").run({ rename_files = false }) end<Cr>'
+          , opts)
+      end,
+    }
+
     -- lsp
     use {
       'neovim/nvim-lspconfig',
@@ -539,11 +587,7 @@ require('packer').startup({
       'folke/lsp-trouble.nvim',
       config = function()
         require('trouble').setup()
-        vim.api.nvim_set_keymap('n', '<Leader>xx', ':TroubleToggle quickfix<Cr>',
-          { noremap = true, silent = true })
-        vim.api.nvim_set_keymap('n', '<Leader>xd', ':TroubleToggle document_diagnostics<Cr>',
-          { noremap = true, silent = true })
-        vim.api.nvim_set_keymap('n', '<Leader>xw', ':TroubleToggle workspace_diagnostics<Cr>',
+        vim.api.nvim_set_keymap('n', '<Leader>d', ':TroubleToggle document_diagnostics<Cr>',
           { noremap = true, silent = true })
       end,
     }
@@ -627,7 +671,6 @@ require('packer').startup({
       'hrsh7th/nvim-cmp',
       requires = {
         'hrsh7th/cmp-buffer',
-        'hrsh7th/cmp-cmdline',
         'hrsh7th/cmp-path',
         'hrsh7th/cmp-vsnip',
         'hrsh7th/cmp-nvim-lsp',
@@ -646,6 +689,9 @@ require('packer').startup({
           window = {
             completion = cmp.config.window.bordered(),
             documentation = cmp.config.window.bordered(),
+          },
+          view = {
+            entries = 'custom',
           },
           mapping = cmp.mapping.preset.insert({
             ['<C-b>'] = cmp.mapping.scroll_docs(-4),
@@ -675,18 +721,6 @@ require('packer').startup({
                 },
               })(entry, vim_item)
             end
-          },
-        })
-        cmp.setup.cmdline(':', {
-          mapping = cmp.mapping.preset.cmdline(),
-          sources = {
-            { name = 'cmdline' },
-          },
-        })
-        cmp.setup.cmdline('/', {
-          mapping = cmp.mapping.preset.cmdline(),
-          sources = {
-            { name = 'buffer' },
           },
         })
       end,

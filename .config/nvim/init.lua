@@ -93,12 +93,25 @@ vim.o.wrapscan = true
 vim.o.hlsearch = true
 vim.api.nvim_set_keymap('n', '<Esc><Esc>', ':nohl<Cr>', opts)
 
+-- very magic as default
+vim.api.nvim_set_keymap('n', '/', '/\\v', opts_noremap)
+vim.api.nvim_set_keymap('n', '?', '?\\v', opts_noremap)
+vim.api.nvim_set_keymap('n', '<Leader>/', '/', opts_noremap)
+vim.api.nvim_set_keymap('n', '<Leader>?', '?', opts_noremap)
+
 -- Diagnostic
 vim.api.nvim_set_keymap('n', '[d', '<Cmd>lua vim.diagnostic.goto_prev()<Cr>', opts)
 vim.api.nvim_set_keymap('n', ']d', '<Cmd>lua vim.diagnostic.goto_next()<Cr>', opts)
 
 -- Diff
 vim.o.diffopt = 'internal,vertical,filler,algorithm:histogram,indent-heuristic'
+
+-- QuickFix
+vim.api.nvim_create_autocmd({ 'QuickfixCmdPost' }, {
+  pattern = { 'make', '*grep*' },
+  command = 'copen',
+  nested = true,
+})
 
 -- Nvim clients
 vim.g.python_host_prog = '/usr/bin/python2'
