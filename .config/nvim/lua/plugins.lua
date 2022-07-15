@@ -623,6 +623,8 @@ require('packer').startup({
             -- go
             nls.builtins.diagnostics.staticcheck,
             nls.builtins.formatting.goimports,
+            -- zig
+            nls.builtins.formatting.zigfmt,
             -- javascript, typescript, jsx, tsx, vue
             nls.builtins.code_actions.eslint_d.with({ condition = is_tssrv }),
             nls.builtins.diagnostics.eslint_d.with({ condition = is_tssrv }),

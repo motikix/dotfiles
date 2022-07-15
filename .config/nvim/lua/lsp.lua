@@ -77,6 +77,10 @@ lsp.rust_analyzer.setup({
   on_attach = with_no_lspfmt,
   capabilities = capabilities,
 })
+lsp.zls.setup({
+  on_attach = with_no_lspfmt,
+  capabilities = capabilities,
+})
 lsp.denols.setup({
   on_attach = with_no_lspfmt,
   capabilities = capabilities,
