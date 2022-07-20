@@ -14,7 +14,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<Leader>lA', '<Cmd>lua vim.lsp.buf.range_code_action()<Cr>', opts)
 
   -- document highlighting
-  if client.resolved_capabilities.document_highlight then
+  if client.server_capabilities.documentHighlightProvider then
     vim.api.nvim_create_augroup('lsp_document_highlight', {
       clear = false,
     })
@@ -35,7 +35,7 @@ local on_attach = function(client, bufnr)
   end
 
   -- format on save
-  if client.resolved_capabilities.document_formatting then
+  if client.server_capabilities.documentFormattingProvider then
     vim.api.nvim_create_augroup('LspFormatting', {
       clear = false,
     })
@@ -46,13 +46,15 @@ local on_attach = function(client, bufnr)
     vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
       group = 'LspFormatting',
       buffer = bufnr,
-      callback = vim.lsp.buf.formatting_sync,
+      callback = function()
+        vim.lsp.buf.format({ bufnr = bufnr, async = true })
+      end,
     })
   end
 end
 local with_no_lspfmt = function(client, bufnr)
-  client.resolved_capabilities.document_formatting = false
-  client.resolved_capabilities.document_range_formatting = false
+  client.server_capabilities.documentFormattingProvider = false
+  client.server_capabilities.documentRangeFormattingProvider = false
   on_attach(client, bufnr)
 end
 

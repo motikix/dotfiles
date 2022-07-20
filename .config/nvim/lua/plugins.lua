@@ -643,7 +643,7 @@ require('packer').startup({
             nls.builtins.formatting.terraform_fmt,
           },
           on_attach = function(client, bufnr)
-            if client.resolved_capabilities.document_formatting then
+            if client.server_capabilities.documentFormattingProvider then
               vim.api.nvim_create_augroup('LspFormatting', {
                 clear = false,
               })
@@ -654,7 +654,9 @@ require('packer').startup({
               vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
                 group = 'LspFormatting',
                 buffer = bufnr,
-                callback = vim.lsp.buf.formatting_sync,
+                callback = function()
+                  vim.lsp.buf.format({ bufnr = bufnr, async = true })
+                end,
               })
             end
           end,
@@ -682,12 +684,8 @@ require('packer').startup({
               vim.fn['vsnip#anonymous'](args.body)
             end,
           },
-          window = {
-            completion = cmp.config.window.bordered(),
-            documentation = cmp.config.window.bordered(),
-          },
           view = {
-            entries = 'custom',
+            entries = 'native',
           },
           mapping = cmp.mapping.preset.insert({
             ['<C-b>'] = cmp.mapping.scroll_docs(-4),
