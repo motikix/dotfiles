@@ -44,16 +44,20 @@ require('packer').startup({
 
     -- color
     use {
-      'Shatur/neovim-ayu',
+      "catppuccin/nvim",
+      as = "catppuccin",
       config = function()
-        local ayu = require('ayu')
-        ayu.setup({
-          mirage = false,
-          overrides = {
-            Normal = { bg = 'NONE' },
+        require('catppuccin').setup({
+          transparent_background = true,
+          term_colors = true,
+          integrations = {
+            nvimtree = {
+              transparent_panel = true,
+            },
           },
         })
-        ayu.colorscheme()
+        vim.g.catppuccin_flavour = 'mocha'
+        vim.cmd [[colorscheme catppuccin]]
       end,
     }
 
@@ -189,15 +193,12 @@ require('packer').startup({
     }
     use {
       'nvim-lualine/lualine.nvim',
-      requires = {
-        { 'kyazdani42/nvim-web-devicons', opt = true },
-        { 'Shatur/neovim-ayu' },
-      },
+      requires = { 'kyazdani42/nvim-web-devicons', opt = true },
       config = function()
         require('lualine').setup {
           options = {
             icons_enabled = true,
-            theme = 'ayu',
+            theme = 'catppuccin',
             component_separators = { left = '|', right = '|' },
             section_separators = { left = '', right = '' },
             disabled_filetypes = {},
@@ -212,14 +213,7 @@ require('packer').startup({
             lualine_y = { 'progress' },
             lualine_z = { 'location' }
           },
-          inactive_sections = {
-            lualine_a = {},
-            lualine_b = {},
-            lualine_c = { 'filename' },
-            lualine_x = { 'location' },
-            lualine_y = {},
-            lualine_z = {}
-          },
+          inactive_sections = {},
           tabline = {},
           extensions = {}
         }
@@ -230,6 +224,7 @@ require('packer').startup({
       config = function()
         vim.g.tpipeline_cursormoved = 1
         vim.g.tpipeline_autoembed = 1
+        vim.g.tpipeline_restore = 1
       end,
     }
 
@@ -654,7 +649,7 @@ require('packer').startup({
                 group = 'LspFormatting',
                 buffer = bufnr,
                 callback = function()
-                  vim.lsp.buf.format({ bufnr = bufnr, async = true })
+                  vim.lsp.buf.format({ bufnr = bufnr, timeout_ms = 2000, async = false })
                 end,
               })
             end

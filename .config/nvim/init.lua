@@ -51,7 +51,7 @@ vim.o.matchtime = 1
 -- Show to the end
 vim.o.display = 'lastline'
 
--- Always show statuslinle
+-- Statuslinle
 vim.o.laststatus = 3
 vim.o.cmdheight = 1
 

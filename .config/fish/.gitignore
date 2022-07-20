@@ -2,3 +2,5 @@
 !.gitignore
 !config.fish
 !fish_plugins
+!conf.d/
+!conf.d/mocha.fish
