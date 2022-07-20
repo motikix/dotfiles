@@ -236,7 +236,6 @@ require('packer').startup({
         'nvim-lua/plenary.nvim',
         { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
         'nvim-lua/popup.nvim',
-        'nvim-telescope/telescope-symbols.nvim',
         'nvim-telescope/telescope-ui-select.nvim',
         'tknightz/telescope-termfinder.nvim',
       },
@@ -273,7 +272,6 @@ require('packer').startup({
         vim.api.nvim_set_keymap('n', '<Leader>fg', ':Telescope live_grep theme=get_dropdown<Cr>', opts)
         vim.api.nvim_set_keymap('n', '<Leader>fb', ':Telescope buffers theme=get_dropdown<Cr>', opts)
         vim.api.nvim_set_keymap('n', '<Leader>fh', ':Telescope help_tags theme=get_dropdown<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>fs', ':Telescope symbols theme=get_dropdown<Cr>', opts)
         -- git actions
         vim.api.nvim_set_keymap('n', '<Leader>gc', ':Telescope git_commits theme=get_dropdown<Cr>', opts)
         vim.api.nvim_set_keymap('n', '<Leader>gC', ':Telescope git_bcommits theme=get_dropdown<Cr>', opts)
@@ -288,8 +286,6 @@ require('packer').startup({
         vim.api.nvim_set_keymap('n', 'gi', ':Telescope lsp_implementations theme=get_dropdown<Cr>', opts)
         vim.api.nvim_set_keymap('n', '<Leader>ls', ':Telescope lsp_document_symbols theme=get_dropdown<Cr>', opts)
         vim.api.nvim_set_keymap('n', '<Leader>lS', ':Telescope lsp_workspace_symbols theme=get_dropdown<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>ld', ':Telescope lsp_document_diagnostics theme=get_dropdown<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>lD', ':Telescope lsp_workspace_diagnostics theme=get_dropdown<Cr>', opts)
         -- termfinder
         vim.api.nvim_set_keymap('n', '<Leader>tf', ':Telescope termfinder find theme=get_dropdown<Cr>', opts)
       end,
@@ -385,11 +381,11 @@ require('packer').startup({
       end,
     }
     use {
-      'folke/todo-comments.nvim',
+      'AmeerTaweel/todo.nvim',
       requires = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope.nvim' },
       config = function()
-        require('todo-comments').setup()
-        vim.api.nvim_set_keymap('n', '<Leader>tq', ':TodoQuickFix<Cr>', { noremap = true, silent = true })
+        require('todo').setup()
+        vim.api.nvim_set_keymap('n', '<Leader>tq', ':TODOQuickfixList<Cr>', { noremap = true, silent = true })
       end,
     }
     use {
@@ -419,8 +415,10 @@ require('packer').startup({
     }
     use {
       'petertriho/nvim-scrollbar',
+      require = { 'kevinhwang91/nvim-hlslens' },
       config = function()
         require('scrollbar').setup()
+        require('scrollbar.handlers.search').setup()
       end,
     }
     use {
@@ -435,6 +433,7 @@ require('packer').startup({
     }
     use {
       'haya14busa/vim-asterisk',
+      require = { 'kevinhwang91/nvim-hlslens' },
       config = function()
         local opts_silent = require('config').opts_silent
         vim.api.nvim_set_keymap('n', '*', [[<Plug>(asterisk-z*):lua require('hlslens').start()<Cr>]], opts_silent)
@@ -668,6 +667,8 @@ require('packer').startup({
         'hrsh7th/cmp-vsnip',
         'hrsh7th/cmp-nvim-lsp',
         'hrsh7th/cmp-nvim-lsp-signature-help',
+        'hrsh7th/cmp-emoji',
+        'ray-x/cmp-treesitter',
       },
       config = function()
         vim.o.completeopt = 'menu,menuone,noselect'
@@ -688,8 +689,20 @@ require('packer').startup({
             ['<C-Space>'] = cmp.mapping.complete(),
             ['<C-e>'] = cmp.mapping.close(),
             ['<Cr>'] = cmp.mapping.confirm({ select = true }),
+            ['<C-u>'] = function()
+              for _ = 1, 10 do
+                cmp.mapping.select_prev_item()(nil)
+              end
+            end,
+            ['<C-d>'] = function()
+              for _ = 1, 10 do
+                cmp.mapping.select_next_item()(nil)
+              end
+            end,
           }),
           sources = cmp.config.sources({
+            { name = 'emoji' },
+            { name = 'treesitter' },
             { name = 'nvim_lsp_signature_help' },
             { name = 'nvim_lsp' },
             { name = 'vsnip' },
@@ -707,6 +720,8 @@ require('packer').startup({
                   vsnip = '[VSnip]',
                   nvim_lua = '[Lua]',
                   latex_symbols = '[Latex]',
+                  treesitter = '[TS]',
+                  emoji = '[Emoji]'
                 },
               })(entry, vim_item)
             end
@@ -748,6 +763,7 @@ require('packer').startup({
         vim.g.mkdp_filetypes = { 'markdown' }
       end,
     }
+    use 'dhruvasagar/vim-table-mode'
     use {
       'kovisoft/slimv',
       ft = { 'lisp' },
