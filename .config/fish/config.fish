@@ -3,62 +3,61 @@ set fish_greeting
 
 # theme
 
-## Material Deep Ocean (https://github.com/material-theme/vsc-material-theme/blob/d8e1accd08a55948174410a470e1f1fc9889d6f6/scripts/generator/settings/specific/ocean.ts)
-set -x BACKGROUND_COLOR '#0f111a'
-set -x FOREGROUND_COLOR '#a6accd'
-set -x SELECTION_COLOR '#717cb4'
-set -x COMMENT_COLOR '#464b5d'
+set -x BACKGROUND_COLOR '#0e1419'
+set -x FOREGROUND_COLOR '#e5e1cf'
+set -x SELECTION_COLOR '#243340'
+set -x COMMENT_COLOR '#b6bf8c'
 set -x BLACK_COLOR '#000000'
-set -x RED_COLOR '#f07178'
-set -x GREEN_COLOR '#c3e88d'
-set -x YELLOW_COLOR '#ffcb6b'
-set -x BLUE_COLOR '#82aaff'
-set -x MAGENTA_COLOR '#c792ea'
-set -x CYAN_COLOR '#89ddff'
+set -x RED_COLOR '#ff3333'
+set -x GREEN_COLOR '#b8cc52'
+set -x YELLOW_COLOR '#e6c446'
+set -x BLUE_COLOR '#36a3d9'
+set -x MAGENTA_COLOR '#f07078'
+set -x CYAN_COLOR '#95e5cb'
 set -x WHITE_COLOR '#ffffff'
-set -x BRIGHT_BLACK_COLOR '#000000'
-set -x BRIGHT_RED_COLOR '#f07178'
-set -x BRIGHT_GREEN_COLOR '#c3e88d'
-set -x BRIGHT_YELLOW_COLOR '#ffcb6b'
-set -x BRIGHT_BLUE_COLOR '#82aaff'
-set -x BRIGHT_MAGENTA_COLOR '#c792ea'
-set -x BRIGHT_CYAN_COLOR '#89ddff'
+set -x BRIGHT_BLACK_COLOR '#323232'
+set -x BRIGHT_RED_COLOR '#ff6565'
+set -x BRIGHT_GREEN_COLOR '#e9fe83'
+set -x BRIGHT_YELLOW_COLOR '#fff778'
+set -x BRIGHT_BLUE_COLOR '#68d4ff'
+set -x BRIGHT_MAGENTA_COLOR '#ffa3aa'
+set -x BRIGHT_CYAN_COLOR '#c7fffc'
 set -x BRIGHT_WHITE_COLOR '#ffffff'
 set -x ACCENT_COLOR '#84ffff'
 
-## Material Deep Ocean Color Palette
-set -l foreground a6accd
-set -l selection 717cb4
-set -l comment 464b5d
-set -l red f07178
-set -l orange f78c6c
-set -l yellow ffcb6b
-set -l green c3e88d
-set -l purple c792ea
-set -l cyan 89ddff
-set -l pink ff9cac
-
-## Syntax Highlighting Colors
-set -g fish_color_normal $foreground
-set -g fish_color_command $cyan
-set -g fish_color_keyword $pink
-set -g fish_color_quote $yellow
-set -g fish_color_redirection $foreground
-set -g fish_color_end $orange
-set -g fish_color_error $red
-set -g fish_color_param $purple
-set -g fish_color_comment $comment
-set -g fish_color_selection --background=$selection
-set -g fish_color_search_match --background=$selection
-set -g fish_color_operator $green
-set -g fish_color_escape $pink
-set -g fish_color_autosuggestion $comment
-
-## Completion Pager Colors
-set -g fish_pager_color_progress $comment
-set -g fish_pager_color_prefix $cyan
-set -g fish_pager_color_completion $foreground
-set -g fish_pager_color_description $comment
+# ## Material Deep Ocean Color Palette
+# set -l foreground a6accd
+# set -l selection 717cb4
+# set -l comment 464b5d
+# set -l red f07178
+# set -l orange f78c6c
+# set -l yellow ffcb6b
+# set -l green c3e88d
+# set -l purple c792ea
+# set -l cyan 89ddff
+# set -l pink ff9cac
+#
+# ## Syntax Highlighting Colors
+# set -g fish_color_normal $foreground
+# set -g fish_color_command $cyan
+# set -g fish_color_keyword $pink
+# set -g fish_color_quote $yellow
+# set -g fish_color_redirection $foreground
+# set -g fish_color_end $orange
+# set -g fish_color_error $red
+# set -g fish_color_param $purple
+# set -g fish_color_comment $comment
+# set -g fish_color_selection --background=$selection
+# set -g fish_color_search_match --background=$selection
+# set -g fish_color_operator $green
+# set -g fish_color_escape $pink
+# set -g fish_color_autosuggestion $comment
+#
+# ## Completion Pager Colors
+# set -g fish_pager_color_progress $comment
+# set -g fish_pager_color_prefix $cyan
+# set -g fish_pager_color_completion $foreground
+# set -g fish_pager_color_description $comment
 
 # environments
 

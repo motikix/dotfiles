@@ -44,20 +44,16 @@ require('packer').startup({
 
     -- color
     use {
-      'marko-cerovac/material.nvim',
+      'Shatur/neovim-ayu',
       config = function()
-        vim.g.material_style = 'deep ocean'
-        require('material').setup({
-          italics = {
-            comments = true,
-            keywords = true,
-            functions = true,
-          },
-          disable = {
-            background = true,
+        local ayu = require('ayu')
+        ayu.setup({
+          mirage = false,
+          overrides = {
+            Normal = { bg = 'NONE' },
           },
         })
-        vim.cmd [[colorscheme material]]
+        ayu.colorscheme()
       end,
     }
 
@@ -193,12 +189,15 @@ require('packer').startup({
     }
     use {
       'nvim-lualine/lualine.nvim',
-      requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+      requires = {
+        { 'kyazdani42/nvim-web-devicons', opt = true },
+        { 'Shatur/neovim-ayu' },
+      },
       config = function()
         require('lualine').setup {
           options = {
             icons_enabled = true,
-            theme = 'ayu_dark',
+            theme = 'ayu',
             component_separators = { left = '|', right = '|' },
             section_separators = { left = '', right = '' },
             disabled_filetypes = {},
