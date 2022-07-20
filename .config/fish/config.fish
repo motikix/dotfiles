@@ -24,6 +24,7 @@ set -x BRIGHT_BLUE_COLOR '#82aaff'
 set -x BRIGHT_MAGENTA_COLOR '#c792ea'
 set -x BRIGHT_CYAN_COLOR '#89ddff'
 set -x BRIGHT_WHITE_COLOR '#ffffff'
+set -x ACCENT_COLOR '#84ffff'
 
 ## Material Deep Ocean Color Palette
 set -l foreground a6accd

@@ -192,54 +192,45 @@ require('packer').startup({
       end,
     }
     use {
-      'datwaft/bubbly.nvim',
+      'nvim-lualine/lualine.nvim',
+      requires = { 'kyazdani42/nvim-web-devicons', opt = true },
       config = function()
-        vim.g.bubbly_tabline = 0
-        vim.g.bubbly_palette = {
-          background = vim.env.BACKGROUND_COLOR,
-          foreground = vim.env.FOREGROUND_COLOR,
-          black = vim.env.BLACK_COLOR,
-          red = vim.env.RED_COLOR,
-          green = vim.env.GREEN_COLOR,
-          yellow = vim.env.YELLOW_COLOR,
-          blue = vim.env.BLUE_COLOR,
-          purple = vim.env.MAGENTA_COLOR,
-          cyan = vim.env.CYAN_COLOR,
-          white = vim.env.WHITE_COLOR,
-          lightgrey = vim.env.SELECTION_COLOR,
-          darkgrey = vim.env.BACKGROUND_COLOR,
-        }
-        vim.g.bubbly_statusline = {
-          'mode',
-          'total_buffer_number',
-
-          'truncate',
-
-          'path',
-          'branch',
-          'gitsigns',
-          'lsp_status.diagnostics',
-
-          'divisor',
-
-          'filetype',
-          'progress',
-        }
-        vim.g.bubbly_filter = {
-          default = { 'qf', 'packer', 'NvimTree', 'vista_kind', 'Trouble' },
-        }
-        local sign = require('config').sign
-        local ws = ' '
-        vim.g.bubbly_symbols = {
-          lsp_status = {
-            diagnostics = {
-              error = sign.error .. ws .. '%d',
-              warning = sign.warn .. ws .. '%d',
-              hint = sign.hint .. ws .. '%d',
-              info = sign.info .. ws .. '%d',
-            },
+        require('lualine').setup {
+          options = {
+            icons_enabled = true,
+            theme = 'ayu_dark',
+            component_separators = { left = '|', right = '|' },
+            section_separators = { left = '', right = '' },
+            disabled_filetypes = {},
+            always_divide_middle = true,
+            globalstatus = false,
           },
+          sections = {
+            lualine_a = { 'mode' },
+            lualine_b = { 'branch', 'diff', 'diagnostics' },
+            lualine_c = { 'filename' },
+            lualine_x = { 'encoding', 'fileformat', 'filetype' },
+            lualine_y = { 'progress' },
+            lualine_z = { 'location' }
+          },
+          inactive_sections = {
+            lualine_a = {},
+            lualine_b = {},
+            lualine_c = { 'filename' },
+            lualine_x = { 'location' },
+            lualine_y = {},
+            lualine_z = {}
+          },
+          tabline = {},
+          extensions = {}
         }
+      end,
+    }
+    use {
+      'vimpostor/vim-tpipeline',
+      config = function()
+        vim.g.tpipeline_cursormoved = 1
+        vim.g.tpipeline_autoembed = 1
       end,
     }
 

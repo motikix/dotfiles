@@ -52,7 +52,8 @@ vim.o.matchtime = 1
 vim.o.display = 'lastline'
 
 -- Always show statuslinle
-vim.o.laststatus = 2
+vim.o.laststatus = 3
+vim.o.cmdheight = 1
 
 -- Indent
 vim.o.tabstop = 2
