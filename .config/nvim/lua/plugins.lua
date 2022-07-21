@@ -689,16 +689,6 @@ require('packer').startup({
             ['<C-Space>'] = cmp.mapping.complete(),
             ['<C-e>'] = cmp.mapping.close(),
             ['<Cr>'] = cmp.mapping.confirm({ select = true }),
-            ['<C-u>'] = function()
-              for _ = 1, 10 do
-                cmp.mapping.select_prev_item()(nil)
-              end
-            end,
-            ['<C-d>'] = function()
-              for _ = 1, 10 do
-                cmp.mapping.select_next_item()(nil)
-              end
-            end,
           }),
           sources = cmp.config.sources({
             { name = 'emoji' },
