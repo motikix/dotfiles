@@ -1,9 +1,0 @@
-[character]
-success_symbol = '[\(=･ω･\) ❯](bold green)'
-error_symbol = '[\(=;ω;\) ❯](bold red)'
-
-[git_metrics]
-disabled = false
-
-[kubernetes]
-disabled = false
