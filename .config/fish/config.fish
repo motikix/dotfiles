@@ -84,27 +84,27 @@ set -x WAKATIME_HOME $HOME/.local/share/wakatime
 
 ## neovim
 if type -q nvim
-  alias vim="nvim"
-  alias vi="nvim -u NONE -c 'syntax on' -c 'se nu'"
+  alias vim "nvim"
+  alias vi "nvim -u NONE -c 'syntax on' -c 'se nu'"
 end
 
 ## colordiff
 if type -q colordiff
-  alias diff="colordiff -up"
+  alias diff "colordiff -up"
 else
-  alias diff="diff -up"
+  alias diff "diff -up"
 end
 
 ## exa
 if type -q exa
-  alias ls="exa --icons"
-  alias ll="exa -lh --git --icons"
-  alias tree="exa -T --icons"
+  alias ls "exa --icons"
+  alias ll "exa -lh --git --icons"
+  alias tree "exa -T --icons"
 end
 
 ## diff-so-fancy
 if type -q diff-so-fancy
-  alias dsf="diff-so-fancy"
+  alias dsf "diff-so-fancy"
 end
 
 # launch
