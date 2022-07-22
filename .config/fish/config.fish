@@ -58,7 +58,6 @@ set -x PATH $HOME/flutter/bin $PATH
 
 ## fzf
 set -x FZF_LEGACY_KEYBINDINGS 0
-set -x FZF_COMPLETE 1
 set -x FZF_ENABLE_OPEN_PREVIEW 1
 set -x FZF_PREVIEW_FILE_CMD 'bat --color=always --style=numbers'
 set -x FZF_PREVIEW_DIR_CMD 'exa -l'
@@ -107,12 +106,6 @@ end
 if type -q diff-so-fancy
   alias dsf="diff-so-fancy"
 end
-
-# key binds
-
-## fzf
-### overwrite https://github.com/jorgebucaran/autopair.fish/blob/main/conf.d/autopair.fish#L18
-bind \t '__fzf_complete'
 
 # launch
 
