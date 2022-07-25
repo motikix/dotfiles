@@ -119,7 +119,6 @@ require('packer').startup({
                     'notify',
                     'packer',
                     'qf',
-                    'Trouble',
                     'vista_kind',
                   },
                   buftype = {
@@ -290,18 +289,19 @@ require('packer').startup({
         vim.api.nvim_set_keymap('n', '<Leader>tf', ':Telescope termfinder find theme=get_dropdown<Cr>', opts)
       end,
     }
-    use {
-      'stevearc/dressing.nvim',
-    }
+    use 'stevearc/dressing.nvim'
 
     -- zen
     use {
-      'junegunn/goyo.vim',
-      cmd = { 'Goyo' },
-      setup = function()
-        vim.g.goyo_width = 120
-        vim.g.goyo_height = '85%'
-        vim.g.goyo_linenr = 0
+      'folke/zen-mode.nvim',
+      config = function()
+        require('zen-mode').setup()
+      end,
+    }
+    use {
+      'folke/twilight.nvim',
+      config = function()
+        require('twilight').setup()
       end,
     }
 
@@ -345,6 +345,18 @@ require('packer').startup({
           show_current_context = true,
           context_patterns = { '' },
           filetype_exclude = { 'toggleterm' },
+        })
+      end,
+    }
+    use {
+      'yamatsum/nvim-cursorline',
+      config = function()
+        require('nvim-cursorline').setup({
+          cursorline = {
+            enabled = true,
+            timeout = 500,
+            number = false,
+          },
         })
       end,
     }
@@ -414,6 +426,13 @@ require('packer').startup({
       end,
     }
     use {
+      'm-demare/hlargs.nvim',
+      require = { 'nvim-treesitter/nvim-treesitter' },
+      config = function()
+        require('hlargs').setup()
+      end,
+    }
+    use {
       'petertriho/nvim-scrollbar',
       require = { 'kevinhwang91/nvim-hlslens' },
       config = function()
@@ -472,6 +491,7 @@ require('packer').startup({
         require('nvim-comment-frame').setup()
       end,
     }
+    use 'AndrewRadev/linediff.vim'
 
     -- snippets
     use {
@@ -550,6 +570,14 @@ require('packer').startup({
           , opts)
       end,
     }
+    use {
+      'onsails/diaglist.nvim',
+      config = function()
+        local opts = require('config').opts
+        require('diaglist').init()
+        vim.api.nvim_set_keymap('n', '<Leader>d', "<Cmd>lua require('diaglist').open_all_diagnostics()<Cr>", opts)
+      end,
+    }
 
     -- lsp
     use {
@@ -569,14 +597,6 @@ require('packer').startup({
       'onsails/lspkind-nvim',
       config = function()
         require('lspkind').init({})
-      end,
-    }
-    use {
-      'folke/lsp-trouble.nvim',
-      config = function()
-        require('trouble').setup()
-        vim.api.nvim_set_keymap('n', '<Leader>d', ':TroubleToggle document_diagnostics<Cr>',
-          { noremap = true, silent = true })
       end,
     }
     use 'folke/lsp-colors.nvim'

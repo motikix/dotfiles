@@ -94,12 +94,6 @@ vim.o.wrapscan = true
 vim.o.hlsearch = true
 vim.api.nvim_set_keymap('n', '<Esc><Esc>', ':nohl<Cr>', opts)
 
--- very magic as default
-vim.api.nvim_set_keymap('n', '/', '/\\v', opts_noremap)
-vim.api.nvim_set_keymap('n', '?', '?\\v', opts_noremap)
-vim.api.nvim_set_keymap('n', '<Leader>/', '/', opts_noremap)
-vim.api.nvim_set_keymap('n', '<Leader>?', '?', opts_noremap)
-
 -- Diagnostic
 vim.api.nvim_set_keymap('n', '[d', '<Cmd>lua vim.diagnostic.goto_prev()<Cr>', opts)
 vim.api.nvim_set_keymap('n', ']d', '<Cmd>lua vim.diagnostic.goto_next()<Cr>', opts)
