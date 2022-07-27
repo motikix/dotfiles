@@ -290,8 +290,6 @@ require('packer').startup({
         vim.api.nvim_set_keymap('n', 'gd', ':Telescope lsp_definitions theme=get_dropdown<Cr>', opts)
         vim.api.nvim_set_keymap('n', 'gr', ':Telescope lsp_references theme=get_dropdown<Cr>', opts)
         vim.api.nvim_set_keymap('n', 'gi', ':Telescope lsp_implementations theme=get_dropdown<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>ls', ':Telescope lsp_document_symbols theme=get_dropdown<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>lS', ':Telescope lsp_workspace_symbols theme=get_dropdown<Cr>', opts)
         -- termfinder
         vim.api.nvim_set_keymap('n', '<Leader>tf', ':Telescope termfinder find theme=get_dropdown<Cr>', opts)
       end,
@@ -554,24 +552,17 @@ require('packer').startup({
 
     -- quickfix
     use {
-      'stevearc/qf_helper.nvim',
+      'ten3roberts/qf.nvim',
       config = function()
-        local opts = require('config').opts
-        vim.api.nvim_set_keymap('n', '<Leader>q', '<Cmd>QFToggle<Cr>', opts)
-      end,
-    }
-    use {
-      'https://gitlab.com/yorickpeterse/nvim-pqf.git',
-      config = function()
-        local sign = require('config').sign
-        require('pqf').setup({
-          signs = {
-            error = sign.error,
-            warning = sign.warn,
-            info = sign.info,
-            hint = sign.hint,
-          },
-        })
+        require('qf').setup()
+        vim.api.nvim_set_keymap('n', '<Leader>q', '<Cmd>lua require("qf").toggle("c", false)<Cr>',
+          { noremap = true, silent = true })
+        vim.api.nvim_set_keymap('n', '<Leader>l', '<Cmd>lua require("qf").toggle("l", false)<Cr>',
+          { noremap = true, silent = true })
+        vim.api.nvim_set_keymap('n', ']q', '<Cmd>lua require("qf").below("visible")<Cr>',
+          { noremap = true, silent = true })
+        vim.api.nvim_set_keymap('n', '[q', '<Cmd>lua require("qf").above("visible")<Cr>',
+          { noremap = true, silent = true })
       end,
     }
     use {
@@ -601,7 +592,7 @@ require('packer').startup({
       config = function()
         local opts = require('config').opts
         require('diaglist').init()
-        vim.api.nvim_set_keymap('n', '<Leader>d', "<Cmd>lua require('diaglist').open_all_diagnostics()<Cr>", opts)
+        vim.api.nvim_set_keymap('n', '<Leader>dq', "<Cmd>lua require('diaglist').open_all_diagnostics()<Cr>", opts)
       end,
     }
 
