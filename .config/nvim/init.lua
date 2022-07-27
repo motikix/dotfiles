@@ -101,6 +101,15 @@ vim.api.nvim_set_keymap('n', ']d', '<Cmd>lua vim.diagnostic.goto_next()<Cr>', op
 -- Diff
 vim.o.diffopt = 'internal,vertical,filler,algorithm:histogram,indent-heuristic'
 
+-- QuickFix
+vim.api.nvim_create_autocmd({ 'QuickfixCmdPost' }, {
+  pattern = { 'make', '*grep*' },
+  command = 'copen',
+  nested = true,
+})
+vim.api.nvim_set_keymap('n', '[q', '<Cmd>cp<Cr>', opts)
+vim.api.nvim_set_keymap('n', ']q', '<Cmd>cn<Cr>', opts)
+
 -- Nvim clients
 vim.g.python_host_prog = '/usr/bin/python2'
 vim.g.python3_host_prog = '/usr/bin/python3'

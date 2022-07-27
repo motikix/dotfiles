@@ -44,8 +44,8 @@ require('packer').startup({
 
     -- color
     use {
-      "catppuccin/nvim",
-      as = "catppuccin",
+      'catppuccin/nvim',
+      as = 'catppuccin',
       config = function()
         require('catppuccin').setup({
           transparent_background = true,
@@ -94,6 +94,7 @@ require('packer').startup({
     use {
       'kyazdani42/nvim-tree.lua',
       config = function()
+        local opts = require('config').opts
         local sign = require('config').sign
         require('nvim-tree').setup({
           hijack_cursor = true,
@@ -135,6 +136,7 @@ require('packer').startup({
                     'notify',
                     'packer',
                     'qf',
+                    'Trouble',
                     'vista_kind',
                   },
                   buftype = {
@@ -145,7 +147,7 @@ require('packer').startup({
             },
           },
         })
-        vim.api.nvim_set_keymap('n', '<C-n>', ':NvimTreeToggle<Cr>', { noremap = true, silent = true })
+        vim.api.nvim_set_keymap('n', '<C-n>', ':NvimTreeToggle<Cr>', opts)
       end,
     }
     use 'wsdjeg/vim-fetch'
@@ -154,10 +156,11 @@ require('packer').startup({
     use {
       'moll/vim-bbye',
       setup = function()
-        vim.api.nvim_set_keymap('n', '<Leader>bd', ':Bdelete<Cr>', { noremap = true, silent = true })
-        vim.api.nvim_set_keymap('n', '<Leader>bad', ':bufdo :Bdelete<Cr>', { noremap = true, silent = true })
-        vim.api.nvim_set_keymap('n', '<Leader>bD', ':bd<Cr>', { noremap = true, silent = true })
-        vim.api.nvim_set_keymap('n', '<Leader>baD', ':bufdo :bd<Cr>', { noremap = true, silent = true })
+        local opts = require('config').opts
+        vim.api.nvim_set_keymap('n', '<Leader>bd', ':Bdelete<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>bad', ':bufdo :Bdelete<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>bD', ':bd<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>baD', ':bufdo :bd<Cr>', opts)
       end,
     }
     use {
@@ -185,7 +188,6 @@ require('packer').startup({
               { filetype = 'NvimTree', text = 'Explorer', highlight = 'Directory', text_align = 'left' },
               { filetype = 'vista_kind', text = 'Outline', highlight = 'Directory', text_align = 'left' },
             },
-            diagnostics = 'nvim_lsp',
             diagnostics_indicator = function(_, _, diagnostics_dict, _)
               local s = ' '
               for e, n in pairs(diagnostics_dict) do
@@ -218,7 +220,7 @@ require('packer').startup({
             section_separators = { left = '', right = '' },
             disabled_filetypes = {},
             always_divide_middle = true,
-            globalstatus = false,
+            globalstatus = true,
           },
           sections = {
             lualine_a = { 'mode' },
@@ -318,15 +320,15 @@ require('packer').startup({
       config = function()
         local mopts = require('config').opts
         require('gitsigns').setup({
-          trouble = false,
+          trouble = true,
           on_attach = function(bufnr)
             local function map(mode, lhs, rhs, opts)
               opts = vim.tbl_extend('force', require('config').opts, opts or {})
               vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
             end
 
-            map('n', ']c', "&diff ? ']c' : ':Gitsigns next_hunk<Cr>'", { expr = true })
-            map('n', '[c', "&diff ? '[c' : ':Gitsigns prev_hunk<Cr>'", { expr = true })
+            map('n', ']c', '&diff ? "]c" : ":Gitsigns next_hunk<Cr>"', { expr = true })
+            map('n', '[c', '&diff ? "[c" : ":Gitsigns prev_hunk<Cr>"', { expr = true })
           end,
         })
         vim.api.nvim_set_keymap('n', '<Leader>gq', ':Gitsigns setqflist<Cr>', mopts)
@@ -366,33 +368,25 @@ require('packer').startup({
       end,
     }
     use {
-      'easymotion/vim-easymotion',
-      config = function()
-        local opts_silent = require('config').opts_silent
-        vim.g.EasyMotion_do_mapping = 0
-        vim.g.EasyMotion_smartcase = 0
-        vim.g.EasyMotion_use_migemo = 1
-        vim.api.nvim_set_keymap('n', 's', '<Plug>(easymotion-bd-f2)', opts_silent)
-        vim.api.nvim_set_keymap('n', 'S', '<Plug>(easymotion-overwin-f2)', opts_silent)
-      end,
-    }
-    use {
       'phaazon/hop.nvim',
       branch = 'v2',
       config = function()
+        local opts = require('config').opts
         require('hop').setup()
+        vim.api.nvim_set_keymap('n', 's', ':HopChar2<Cr>', opts)
+        vim.api.nvim_set_keymap('n', 'S', ':HopChar2MW<Cr>', opts)
         vim.api.nvim_set_keymap('', 'f',
-          "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>"
-          , {})
+          ':lua require("hop").hint_char1({ direction = require("hop.hint").HintDirection.AFTER_CURSOR, current_line_only = true })<Cr>'
+          , opts)
         vim.api.nvim_set_keymap('', 'F',
-          "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>"
-          , {})
+          ':lua require("hop").hint_char1({ direction = require("hop.hint").HintDirection.BEFORE_CURSOR, current_line_only = true })<Cr>'
+          , opts)
         vim.api.nvim_set_keymap('', 't',
-          "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })<cr>"
-          , {})
+          ':lua require("hop").hint_char1({ direction = require("hop.hint").HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })<Cr>'
+          , opts)
         vim.api.nvim_set_keymap('', 'T',
-          "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })<cr>"
-          , {})
+          ':lua require("hop").hint_char1({ direction = require("hop.hint").HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })<Cr>'
+          , opts)
       end,
     }
     use {
@@ -417,11 +411,12 @@ require('packer').startup({
       end,
     }
     use {
-      'AmeerTaweel/todo.nvim',
+      'folke/todo-comments.nvim',
       requires = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope.nvim' },
       config = function()
-        require('todo').setup()
-        vim.api.nvim_set_keymap('n', '<Leader>tq', ':TODOQuickfixList<Cr>', { noremap = true, silent = true })
+        local opts = require('config').opts
+        require('todo-comments').setup()
+        vim.api.nvim_set_keymap('n', '<Leader>tq', ':TodoTrouble<Cr>', opts)
       end,
     }
     use {
@@ -495,7 +490,7 @@ require('packer').startup({
       config = function()
         local opts = require('config').opts
         require('neogen').setup({})
-        vim.api.nvim_set_keymap('n', '<Leader>nf', ":lua require('neogen').generate()<Cr>", opts)
+        vim.api.nvim_set_keymap('n', '<Leader>nf', ':lua require("neogen").generate()<Cr>', opts)
       end,
     }
     use 'lambdalisue/readablefold.vim'
@@ -542,27 +537,21 @@ require('packer').startup({
     use {
       'https://gitlab.com/yorickpeterse/nvim-window.git',
       config = function()
+        local opts = require('config').opts
         require('nvim-window').setup({
           chars = { 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l' },
         })
         vim.api.nvim_set_keymap('n', '<Leader>w', ':lua require("nvim-window").pick()<Cr>',
-          { noremap = true, silent = true })
+          opts)
       end,
     }
 
     -- quickfix
     use {
-      'ten3roberts/qf.nvim',
+      'stevearc/qf_helper.nvim',
       config = function()
-        require('qf').setup()
-        vim.api.nvim_set_keymap('n', '<Leader>q', '<Cmd>lua require("qf").toggle("c", false)<Cr>',
-          { noremap = true, silent = true })
-        vim.api.nvim_set_keymap('n', '<Leader>l', '<Cmd>lua require("qf").toggle("l", false)<Cr>',
-          { noremap = true, silent = true })
-        vim.api.nvim_set_keymap('n', ']q', '<Cmd>lua require("qf").below("visible")<Cr>',
-          { noremap = true, silent = true })
-        vim.api.nvim_set_keymap('n', '[q', '<Cmd>lua require("qf").above("visible")<Cr>',
-          { noremap = true, silent = true })
+        local opts = require('config').opts
+        vim.api.nvim_set_keymap('n', '<Leader>q', ':QFToggle<Cr>', opts)
       end,
     }
     use {
@@ -587,14 +576,6 @@ require('packer').startup({
           , opts)
       end,
     }
-    use {
-      'onsails/diaglist.nvim',
-      config = function()
-        local opts = require('config').opts
-        require('diaglist').init()
-        vim.api.nvim_set_keymap('n', '<Leader>dq', "<Cmd>lua require('diaglist').open_all_diagnostics()<Cr>", opts)
-      end,
-    }
 
     -- lsp
     use {
@@ -616,15 +597,27 @@ require('packer').startup({
         require('lspkind').init({})
       end,
     }
+    use {
+      'folke/lsp-trouble.nvim',
+      config = function()
+        local opts = require('config').opts
+        require('trouble').setup()
+        vim.api.nvim_set_keymap('n', '<Leader>d', ':TroubleToggle document_diagnostics<Cr>',
+          opts)
+        vim.api.nvim_set_keymap('n', '<Leader>D', ':TroubleToggle workspace_diagnostics<Cr>',
+          opts)
+      end,
+    }
     use 'folke/lsp-colors.nvim'
     use {
       'liuchengxu/vista.vim',
       cmd = { 'Vista' },
       setup = function()
+        local opts = require('config').opts
         vim.g.vista_default_executive = 'nvim_lsp'
         vim.g.vista_icon_indent = { '╰─▸ ', '├─▸ ' }
-        vim.api.nvim_set_keymap('n', '<Leader>vv', ':Vista!!<Cr>', { noremap = true, silent = true })
-        vim.api.nvim_set_keymap('n', '<Leader>vf', ':Vista finder<Cr>', { noremap = true, silent = true })
+        vim.api.nvim_set_keymap('n', '<Leader>vv', ':Vista!!<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>vf', ':Vista finder<Cr>', opts)
       end,
     }
     use {
@@ -795,7 +788,7 @@ require('packer').startup({
       'kovisoft/slimv',
       ft = { 'lisp' },
       setup = function()
-        vim.g.slimv_swank_cmd = "!ros -e '(ql:quickload :swank) (swank:create-server)' wait > /dev/null 2> /dev/null &"
+        vim.g.slimv_swank_cmd = '!ros -e "(ql:quickload :swank) (swank:create-server)" wait > /dev/null 2> /dev/null &'
         vim.g.slimv_lisp = 'ros run'
         vim.g.slimv_impl = 'sbcl'
         vim.g.slimv_repl_split = 2
