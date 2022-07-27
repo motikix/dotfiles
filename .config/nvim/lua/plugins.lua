@@ -50,7 +50,23 @@ require('packer').startup({
         require('catppuccin').setup({
           transparent_background = true,
           term_colors = true,
+          styles = {
+            comments = { 'italic' },
+            conditionals = { 'italic' },
+            functions = { 'italic' },
+            keywords = { 'italic' },
+            types = { 'italic' },
+          },
           integrations = {
+            native_lsp = {
+              enabled = true,
+              underlines = {
+                errors = { 'undercurl' },
+                hints = { 'undercurl' },
+                warnings = { 'undercurl' },
+                information = { 'undercurl' },
+              },
+            },
             nvimtree = {
               transparent_panel = true,
             },
