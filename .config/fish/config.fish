@@ -107,6 +107,14 @@ if type -q diff-so-fancy
   alias dsf "diff-so-fancy"
 end
 
+# setup
+
+## zoxide
+if type -q zoxide
+  set -x _ZO_FZF_OPTS $FZF_DEFAULT_OPTS "--preview '$FZF_PREVIEW_DIR_CMD {2..}'"
+  zoxide init fish | source
+end
+
 # launch
 
 ## tmux

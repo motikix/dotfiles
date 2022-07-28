@@ -77,6 +77,9 @@ vim.wo.wrap = false
 vim.o.splitbelow = true
 vim.o.splitright = true
 
+-- new empty window
+vim.api.nvim_set_keymap('n', '<C-w>N', ':vnew<Cr>', opts)
+
 -- Cursor move for insert / command mode
 for _, mode in pairs({ 'i', 'c' }) do
   vim.api.nvim_set_keymap(mode, '<C-a>', '<Home>', opts_noremap)

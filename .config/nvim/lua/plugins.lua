@@ -164,9 +164,11 @@ require('packer').startup({
       end,
     }
     use {
-      'kwkarlwang/bufresize.nvim',
+      'beauwilliams/focus.nvim',
       config = function()
-        require('bufresize').setup()
+        local opts = require('config').opts
+        require('focus').setup()
+        vim.api.nvim_set_keymap('n', '<C-w>w', ':FocusSplitNicely<Cr>', opts)
       end,
     }
 
