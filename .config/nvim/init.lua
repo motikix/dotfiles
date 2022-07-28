@@ -101,6 +101,12 @@ vim.api.nvim_set_keymap('n', ']d', '<Cmd>lua vim.diagnostic.goto_next()<Cr>', op
 -- Diff
 vim.o.diffopt = 'internal,vertical,filler,algorithm:histogram,indent-heuristic'
 
+-- Grep
+if vim.fn.executable('rg') == 1 then
+  vim.o.grepprg = 'rg --vimgrep --hidden'
+  vim.o.grepformat = '%f:%l:%c:%m'
+end
+
 -- QuickFix
 vim.api.nvim_create_autocmd({ 'QuickfixCmdPost' }, {
   pattern = { 'make', '*grep*' },
