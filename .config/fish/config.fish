@@ -50,6 +50,10 @@ set -x PRETTIERD_LOCAL_PRETTIER_ONLY true
 ## deno
 set -x DENO_INSTALL_ROOT $HOME/.local
 
+## bun
+set -x BUN_INSTALL $HOME/.bun
+set -x PATH $BUN_INSTALL/bin $PATH
+
 ## python
 set -x PIPENV_VENV_IN_PROJECT true
 

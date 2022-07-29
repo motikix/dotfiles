@@ -58,6 +58,7 @@ require('packer').startup({
             types = { 'italic' },
           },
           integrations = {
+            treesitter = true,
             native_lsp = {
               enabled = true,
               underlines = {
@@ -67,9 +68,21 @@ require('packer').startup({
                 information = { 'undercurl' },
               },
             },
+            lsp_trouble = true,
+            cmp = true,
+            gitsigns = true,
+            telescope = true,
             nvimtree = {
               transparent_panel = true,
             },
+            indent_blankline = {
+              enabled = true,
+              colored_indent_levels = true,
+            },
+            bufferline = true,
+            markdown = true,
+            hop = true,
+            notify = true,
           },
         })
         vim.g.catppuccin_flavour = 'mocha'
