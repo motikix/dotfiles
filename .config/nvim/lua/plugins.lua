@@ -150,7 +150,6 @@ require('packer').startup({
                     'packer',
                     'qf',
                     'Trouble',
-                    'vista_kind',
                   },
                   buftype = {
                     'terminal',
@@ -180,7 +179,14 @@ require('packer').startup({
       'beauwilliams/focus.nvim',
       config = function()
         local opts = require('config').opts
-        require('focus').setup()
+        -- require('focus').setup()
+        require('focus').setup({
+          excluded_filetypes = {
+            'qf',
+            'toggleterm',
+            'Trouble',
+          },
+        })
         vim.api.nvim_set_keymap('n', '<C-w>w', ':FocusSplitNicely<Cr>', opts)
       end,
     }
@@ -201,7 +207,6 @@ require('packer').startup({
             end,
             offsets = {
               { filetype = 'NvimTree', text = 'Explorer', highlight = 'Directory', text_align = 'left' },
-              { filetype = 'vista_kind', text = 'Outline', highlight = 'Directory', text_align = 'left' },
             },
             diagnostics_indicator = function(_, _, diagnostics_dict, _)
               local s = ' '
@@ -624,17 +629,6 @@ require('packer').startup({
       end,
     }
     use 'folke/lsp-colors.nvim'
-    use {
-      'liuchengxu/vista.vim',
-      cmd = { 'Vista' },
-      setup = function()
-        local opts = require('config').opts
-        vim.g.vista_default_executive = 'nvim_lsp'
-        vim.g.vista_icon_indent = { '╰─▸ ', '├─▸ ' }
-        vim.api.nvim_set_keymap('n', '<Leader>vv', ':Vista!!<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>vf', ':Vista finder<Cr>', opts)
-      end,
-    }
     use {
       'jose-elias-alvarez/null-ls.nvim',
       requires = { 'nvim-lua/plenary.nvim' },
