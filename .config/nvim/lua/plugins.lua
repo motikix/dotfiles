@@ -395,17 +395,19 @@ require('packer').startup({
         require('hop').setup()
         vim.api.nvim_set_keymap('n', 's', ':HopChar2<Cr>', opts)
         vim.api.nvim_set_keymap('n', 'S', ':HopChar2MW<Cr>', opts)
+        -- use `<Cmd>lua` instead of `:lua`
+        -- https://github.com/phaazon/hop.nvim/issues/89#issuecomment-854701856
         vim.api.nvim_set_keymap('', 'f',
-          ':lua require("hop").hint_char1({ direction = require("hop.hint").HintDirection.AFTER_CURSOR, current_line_only = true })<Cr>'
+          '<Cmd>lua require("hop").hint_char1({ direction = require("hop.hint").HintDirection.AFTER_CURSOR, current_line_only = true })<Cr>'
           , opts)
         vim.api.nvim_set_keymap('', 'F',
-          ':lua require("hop").hint_char1({ direction = require("hop.hint").HintDirection.BEFORE_CURSOR, current_line_only = true })<Cr>'
+          '<Cmd>lua require("hop").hint_char1({ direction = require("hop.hint").HintDirection.BEFORE_CURSOR, current_line_only = true })<Cr>'
           , opts)
         vim.api.nvim_set_keymap('', 't',
-          ':lua require("hop").hint_char1({ direction = require("hop.hint").HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })<Cr>'
+          '<Cmd>lua require("hop").hint_char1({ direction = require("hop.hint").HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })<Cr>'
           , opts)
         vim.api.nvim_set_keymap('', 'T',
-          ':lua require("hop").hint_char1({ direction = require("hop.hint").HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })<Cr>'
+          '<Cmd>lua require("hop").hint_char1({ direction = require("hop.hint").HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })<Cr>'
           , opts)
       end,
     }
