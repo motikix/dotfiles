@@ -94,9 +94,7 @@ end
 
 ## colordiff
 if type -q colordiff
-  alias diff "colordiff -up"
-else
-  alias diff "diff -up"
+  alias diff "colordiff"
 end
 
 ## exa
@@ -104,11 +102,6 @@ if type -q exa
   alias ls "exa --icons"
   alias ll "exa -lh --git --icons"
   alias tree "exa -T --icons"
-end
-
-## diff-so-fancy
-if type -q diff-so-fancy
-  alias dsf "diff-so-fancy"
 end
 
 # setup
