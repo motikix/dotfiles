@@ -620,6 +620,17 @@ require('packer').startup({
     }
     use 'folke/lsp-colors.nvim'
     use {
+      'kosayoda/nvim-lightbulb',
+      requires = { 'antoinemadec/FixCursorHold.nvim' },
+      config = function()
+        require('nvim-lightbulb').setup({
+          autocmd = {
+            enabled = true,
+          },
+        })
+      end,
+    }
+    use {
       'jose-elias-alvarez/null-ls.nvim',
       requires = { 'nvim-lua/plenary.nvim' },
       config = function()
