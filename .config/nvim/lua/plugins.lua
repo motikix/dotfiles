@@ -46,10 +46,12 @@ require('packer').startup({
     use {
       'catppuccin/nvim',
       as = 'catppuccin',
-      config = function()
+      setup = function()
         vim.g.catppuccin_flavour = 'mocha'
+      end,
+      config = function()
         require('catppuccin').setup({
-          transparent_background = true,
+          transparent_background = false,
           term_colors = true,
           styles = {
             comments = { 'italic' },
@@ -229,31 +231,15 @@ require('packer').startup({
       end,
     }
     use {
-      'nvim-lualine/lualine.nvim',
-      requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+      'windwp/windline.nvim',
       config = function()
-        require('lualine').setup {
-          options = {
-            icons_enabled = true,
-            theme = 'catppuccin',
-            component_separators = { left = '|', right = '|' },
-            section_separators = { left = '', right = '' },
-            disabled_filetypes = {},
-            always_divide_middle = true,
-            globalstatus = true,
-          },
-          sections = {
-            lualine_a = { 'mode' },
-            lualine_b = { 'branch', 'diff', 'diagnostics' },
-            lualine_c = { 'filename' },
-            lualine_x = { 'encoding', 'fileformat', 'filetype' },
-            lualine_y = { 'progress' },
-            lualine_z = { 'location' }
-          },
-          inactive_sections = {},
-          tabline = {},
-          extensions = {}
-        }
+        require('wlsample.vscode')
+      end,
+    }
+    use {
+      'b0o/incline.nvim',
+      config = function()
+        require('incline').setup()
       end,
     }
 
