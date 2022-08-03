@@ -47,6 +47,7 @@ require('packer').startup({
       'catppuccin/nvim',
       as = 'catppuccin',
       config = function()
+        vim.g.catppuccin_flavour = 'mocha'
         require('catppuccin').setup({
           transparent_background = true,
           term_colors = true,
@@ -85,7 +86,6 @@ require('packer').startup({
             notify = true,
           },
         })
-        vim.g.catppuccin_flavour = 'mocha'
         vim.cmd [[colorscheme catppuccin]]
       end,
     }
