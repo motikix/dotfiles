@@ -237,6 +237,12 @@ require('packer').startup({
       end,
     }
     use {
+      'rebelot/heirline.nvim',
+      config = function()
+        --
+      end,
+    }
+    use {
       'b0o/incline.nvim',
       config = function()
         require('incline').setup()
@@ -590,7 +596,6 @@ require('packer').startup({
     -- lsp
     use {
       'neovim/nvim-lspconfig',
-      requires = { 'nvim-lua/lsp-status.nvim' },
       config = function()
         require('lsp')
         local sign = require('config').sign
