@@ -237,12 +237,6 @@ require('packer').startup({
       end,
     }
     use {
-      'rebelot/heirline.nvim',
-      config = function()
-        --
-      end,
-    }
-    use {
       'b0o/incline.nvim',
       config = function()
         require('incline').setup()
