@@ -181,7 +181,6 @@ require('packer').startup({
       'beauwilliams/focus.nvim',
       config = function()
         local opts = require('config').opts
-        -- require('focus').setup()
         require('focus').setup({
           excluded_filetypes = {
             'qf',
@@ -571,8 +570,13 @@ require('packer').startup({
         'nvim-treesitter/nvim-treesitter'
       },
       ft = 'qf',
+      setup = function()
+        vim.cmd [[copen]]
+        vim.cmd [[cclose]]
+      end,
       config = function()
         require('bqf').setup({
+          auto_enable = true,
           auto_resize_height = true,
         })
       end,
