@@ -92,16 +92,16 @@ if type -q nvim
   alias vi "nvim -u NONE -c 'syntax on' -c 'se nu'"
 end
 
-## colordiff
-if type -q colordiff
-  alias diff "colordiff"
-end
-
 ## exa
 if type -q exa
   alias ls "exa --icons"
   alias ll "exa -lh --git --icons"
   alias tree "exa -T --icons"
+end
+
+## bat
+if type -q bat
+  alias cat "bat"
 end
 
 # setup
