@@ -374,7 +374,7 @@ require('packer').startup({
       config = function()
         require('nvim-cursorline').setup({
           cursorline = {
-            enabled = true,
+            enable = true,
             timeout = 500,
             number = false,
           },
