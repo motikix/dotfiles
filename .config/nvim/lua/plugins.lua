@@ -529,6 +529,14 @@ require('packer').startup({
       end,
     }
     use 'AndrewRadev/linediff.vim'
+    use {
+      'junegunn/vim-easy-align',
+      config = function()
+        local opts = require('config').opts
+        vim.api.nvim_set_keymap('x', 'ga', '<Plug>(EasyAlign)', opts)
+        vim.api.nvim_set_keymap('n', 'ga', '<Plug>(EasyAlign)', opts)
+      end,
+    }
 
     -- snippets
     use {
