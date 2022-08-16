@@ -292,6 +292,8 @@ require('packer').startup({
         vim.api.nvim_set_keymap('n', '<Leader>fg', ':Telescope live_grep theme=get_dropdown<Cr>', opts)
         vim.api.nvim_set_keymap('n', '<Leader>fb', ':Telescope buffers theme=get_dropdown<Cr>', opts)
         vim.api.nvim_set_keymap('n', '<Leader>fh', ':Telescope help_tags theme=get_dropdown<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>fc', ':Telescope command_history theme=get_dropdown<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>fs', ':Telescope search_history theme=get_dropdown<Cr>', opts)
         -- git actions
         vim.api.nvim_set_keymap('n', '<Leader>gc', ':Telescope git_commits theme=get_dropdown<Cr>', opts)
         vim.api.nvim_set_keymap('n', '<Leader>gC', ':Telescope git_bcommits theme=get_dropdown<Cr>', opts)
