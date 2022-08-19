@@ -134,10 +134,12 @@ lsp.sumneko_lua.setup({
     },
   },
 })
-lsp.jdtls.setup({
-  on_attach = on_attach,
+local os = vim.fn.has('mac') == 1 and 'mac' or (vim.fn.has('linux') == 1 and 'linux' or 'windows')
+lsp.java_language_server.setup({
+  on_attach = with_no_lspfmt,
+  --[[ on_attach = on_attach, ]]
   capabilities = capabilities,
-  cmd = { 'jdtls' },
+  cmd = { vim.env.HOME .. '/.local/src/github.com/georgewfraser/java-language-server/dist/lang_server_' .. os .. '.sh' },
 })
 lsp.vimls.setup({
   on_attach = on_attach,

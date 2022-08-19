@@ -24,6 +24,9 @@ set -x PATH $HOME/.local/bin $PATH
 ## asdf
 if test -d $HOME/.asdf
   source $HOME/.asdf/asdf.fish
+  if test -f $HOME/.asdf/plugins/java/set-java-home.fish
+    . ~/.asdf/plugins/java/set-java-home.fish
+  end
 end
 
 ## java

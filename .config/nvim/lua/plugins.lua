@@ -687,6 +687,8 @@ require('packer').startup({
             nls.builtins.diagnostics.mypy.with({ prefer_local = '.venv/bin' }),
             nls.builtins.formatting.black.with({ prefer_local = '.venv/bin' }),
             nls.builtins.formatting.isort.with({ prefer_local = '.venv/bin' }),
+            -- java
+            nls.builtins.formatting.google_java_format,
             -- json
             nls.builtins.diagnostics.jsonlint,
             -- yaml
