@@ -255,8 +255,6 @@ require('packer').startup({
       requires = {
         'nvim-lua/plenary.nvim',
         { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
-        'nvim-lua/popup.nvim',
-        'nvim-telescope/telescope-ui-select.nvim',
         'tknightz/telescope-termfinder.nvim',
       },
       config = function()
@@ -264,9 +262,6 @@ require('packer').startup({
         local telescope = require('telescope')
         telescope.setup({
           extensions = {
-            ['ui-select'] = {
-              require('telescope.themes').get_dropdown()
-            },
             termfinder = {
               mappings = {
                 rename_term = '<C-r>',
@@ -279,7 +274,6 @@ require('packer').startup({
           },
         })
         telescope.load_extension('fzf')
-        telescope.load_extension('ui-select')
         telescope.load_extension('termfinder')
         telescope.load_extension('notify')
 
@@ -779,6 +773,45 @@ require('packer').startup({
             end
           },
         })
+      end,
+    }
+    use {
+      'gelguy/wilder.nvim',
+      config = function()
+        local wilder = require('wilder')
+        wilder.setup({
+          modes = { ':', '/', '?' },
+          next_key = '<C-n>',
+          previous_key = '<C-p>',
+        })
+        wilder.set_option('pipeline', {
+          wilder.branch(
+            wilder.cmdline_pipeline({
+              language = 'python',
+              fuzzy = 1,
+            }),
+            wilder.python_search_pipeline({
+              pattern = wilder.python_fuzzy_pattern(),
+              sorter = wilder.python_difflib_sorter(),
+              engine = 're',
+            })
+          ),
+        })
+        wilder.set_option('renderer', wilder.popupmenu_renderer(
+          wilder.popupmenu_palette_theme({
+            highlighter = wilder.basic_highlighter(),
+            highlights = {
+              accent = wilder.make_hl('WilderAccent', 'Pmenu', { { a = 1 }, { a = 1 }, { foreground = '#f4468f' } }),
+            },
+            left = { ' ', wilder.popupmenu_devicons() },
+            right = { ' ', wilder.popupmenu_scrollbar() },
+            border = 'rounded',
+            max_height = '75%',
+            min_height = 0,
+            prompt_position = 'top',
+            reverse = 0,
+          })
+        ))
       end,
     }
 
