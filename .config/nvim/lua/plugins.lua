@@ -781,12 +781,6 @@ require('packer').startup({
         })
       end,
     }
-    use {
-      'github/copilot.vim',
-      setup = function()
-        vim.g.copilot_node_command = '~/.asdf/installs/nodejs/17.9.1/bin/node'
-      end,
-    }
 
     -- syntax highlight / language supports
     use {
