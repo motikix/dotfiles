@@ -695,24 +695,6 @@ require('packer').startup({
             -- terraform
             nls.builtins.formatting.terraform_fmt,
           },
-          on_attach = function(client, bufnr)
-            if client.server_capabilities.documentFormattingProvider then
-              vim.api.nvim_create_augroup('LspFormatting', {
-                clear = false,
-              })
-              vim.api.nvim_clear_autocmds({
-                buffer = bufnr,
-                group = 'LspFormatting',
-              })
-              vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
-                group = 'LspFormatting',
-                buffer = bufnr,
-                callback = function()
-                  vim.lsp.buf.format({ bufnr = bufnr, timeout_ms = 2000, async = false })
-                end,
-              })
-            end
-          end,
         })
       end,
     }

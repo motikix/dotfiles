@@ -4,6 +4,17 @@ local opts = require('config').opts
 -- nvim-lspconfig
 
 local lsp = require('lspconfig')
+
+local lsp_formatting = function(bufnr)
+  vim.lsp.buf.format({
+    filter = function(client)
+      return client.name == 'null-ls'
+    end,
+    bufnr = bufnr,
+  })
+end
+local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
+
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
 
@@ -35,27 +46,16 @@ local on_attach = function(client, bufnr)
   end
 
   -- format on save
-  if client.server_capabilities.documentFormattingProvider then
-    vim.api.nvim_create_augroup('LspFormatting', {
-      clear = false,
-    })
-    vim.api.nvim_clear_autocmds({
-      buffer = bufnr,
-      group = 'LspFormatting',
-    })
-    vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
-      group = 'LspFormatting',
+  if client.supports_method('textDocument/formatting') then
+    vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+    vim.api.nvim_create_autocmd('BufWritePre', {
+      group = augroup,
       buffer = bufnr,
       callback = function()
-        vim.lsp.buf.format({ bufnr = bufnr, timeout_ms = 2000, async = false })
+        lsp_formatting(bufnr)
       end,
     })
   end
-end
-local with_no_lspfmt = function(client, bufnr)
-  client.server_capabilities.documentFormattingProvider = false
-  client.server_capabilities.documentRangeFormattingProvider = false
-  on_attach(client, bufnr)
 end
 
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
@@ -72,38 +72,38 @@ lsp.ccls.setup({
   },
 })
 lsp.gopls.setup({
-  on_attach = with_no_lspfmt,
+  on_attach = on_attach,
   capabilities = capabilities,
 })
 lsp.rust_analyzer.setup({
-  on_attach = with_no_lspfmt,
+  on_attach = on_attach,
   capabilities = capabilities,
 })
 lsp.zls.setup({
-  on_attach = with_no_lspfmt,
+  on_attach = on_attach,
   capabilities = capabilities,
 })
 lsp.denols.setup({
-  on_attach = with_no_lspfmt,
+  on_attach = on_attach,
   capabilities = capabilities,
   root_dir = lsp.util.root_pattern('deno.json', 'deno.jsonc'),
   init_options = { enable = true, lint = true, unstable = true },
 })
 lsp.tsserver.setup({
-  on_attach = with_no_lspfmt,
+  on_attach = on_attach,
   capabilities = capabilities,
   root_dir = lsp.util.root_pattern('package.json'),
 })
 lsp.dartls.setup({
-  on_attach = with_no_lspfmt,
+  on_attach = on_attach,
   capabilities = capabilities,
 })
 lsp.vuels.setup({
-  on_attach = with_no_lspfmt,
+  on_attach = on_attach,
   capabilities = capabilities,
 })
 lsp.svelte.setup({
-  on_attach = with_no_lspfmt,
+  on_attach = on_attach,
   capabilities = capabilities,
 })
 lsp.astro.setup({
@@ -111,7 +111,7 @@ lsp.astro.setup({
   capabilities = capabilities,
 })
 lsp.pyright.setup({
-  on_attach = with_no_lspfmt,
+  on_attach = on_attach,
   capabilities = capabilities,
 })
 lsp.sumneko_lua.setup({
@@ -136,8 +136,7 @@ lsp.sumneko_lua.setup({
 })
 local os = vim.fn.has('mac') == 1 and 'mac' or (vim.fn.has('linux') == 1 and 'linux' or 'windows')
 lsp.java_language_server.setup({
-  on_attach = with_no_lspfmt,
-  --[[ on_attach = on_attach, ]]
+  on_attach = on_attach,
   capabilities = capabilities,
   cmd = { vim.env.HOME .. '/.local/src/github.com/georgewfraser/java-language-server/dist/lang_server_' .. os .. '.sh' },
 })
@@ -146,7 +145,7 @@ lsp.vimls.setup({
   capabilities = capabilities,
 })
 lsp.terraformls.setup({
-  on_attach = with_no_lspfmt,
+  on_attach = on_attach,
   capabilities = capabilities,
 })
 
