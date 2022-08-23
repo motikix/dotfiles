@@ -1,3 +1,5 @@
+local M = {}
+
 -- locals
 local opts = require('config').opts
 
@@ -11,6 +13,7 @@ local lsp_formatting = function(bufnr)
       return client.name == 'null-ls'
     end,
     bufnr = bufnr,
+    timeout_ms = 2000,
   })
 end
 local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
@@ -22,9 +25,9 @@ local on_attach = function(client, bufnr)
 
   buf_set_keymap('n', 'K', ':lua vim.lsp.buf.hover()<Cr>', opts)
   buf_set_keymap('n', '<C-k>', '<Cmd>lua vim.lsp.buf.signature_help()<Cr>', opts)
-  buf_set_keymap('n', '<Leader>lr', '<Cmd>lua vim.lsp.buf.rename()<Cr>', opts)
   buf_set_keymap('n', '<Leader>la', '<Cmd>lua vim.lsp.buf.code_action()<Cr>', opts)
-  buf_set_keymap('n', '<Leader>lA', '<Cmd>lua vim.lsp.buf.range_code_action()<Cr>', opts)
+  buf_set_keymap('n', '<Leader>lf', '<Cmd>lua vim.lsp.buf.format()<Cr>', opts)
+  buf_set_keymap('n', '<Leader>lr', '<Cmd>lua vim.lsp.buf.rename()<Cr>', opts)
 
   -- document highlighting
   if client.server_capabilities.documentHighlightProvider then
@@ -59,6 +62,8 @@ local on_attach = function(client, bufnr)
     })
   end
 end
+
+M.on_attach = on_attach
 
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
@@ -161,3 +166,5 @@ vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
 vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, {
   border = 'single',
 })
+
+return M

@@ -680,6 +680,7 @@ require('packer').startup({
       'jose-elias-alvarez/null-ls.nvim',
       requires = { 'nvim-lua/plenary.nvim' },
       config = function()
+        local lsp = require('lsp')
         local nls = require('null-ls')
         local is_deno = function(utils)
           return utils.root_has_file({ 'deno.json', 'deno.jsonc' })
@@ -689,6 +690,8 @@ require('packer').startup({
         end
         nls.setup({
           sources = {
+            -- c/c++/c#/java
+            nls.builtins.formatting.astyle,
             -- rust
             nls.builtins.formatting.rustfmt,
             -- go
@@ -713,10 +716,8 @@ require('packer').startup({
             nls.builtins.diagnostics.mypy.with({ prefer_local = '.venv/bin' }),
             nls.builtins.formatting.black.with({ prefer_local = '.venv/bin' }),
             nls.builtins.formatting.isort.with({ prefer_local = '.venv/bin' }),
-            -- luas
+            -- lua
             nls.builtins.formatting.stylua,
-            -- java
-            nls.builtins.formatting.google_java_format,
             -- json
             nls.builtins.diagnostics.jsonlint,
             -- yaml
@@ -726,6 +727,7 @@ require('packer').startup({
             -- terraform
             nls.builtins.formatting.terraform_fmt,
           },
+          on_attach = lsp.on_attach,
         })
       end,
     })
