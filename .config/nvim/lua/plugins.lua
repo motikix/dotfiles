@@ -1,4 +1,4 @@
-vim.cmd [[packadd packer.nvim]]
+vim.cmd([[packadd packer.nvim]])
 
 require('packer').startup({
   config = {
@@ -9,15 +9,15 @@ require('packer').startup({
   },
   function(use)
     -- package manager
-    use 'wbthomason/packer.nvim'
+    use('wbthomason/packer.nvim')
 
     -- improve
-    use 'lewis6991/impatient.nvim'
-    use 'nathom/filetype.nvim'
-    use 'antoinemadec/FixCursorHold.nvim'
+    use('lewis6991/impatient.nvim')
+    use('nathom/filetype.nvim')
+    use('antoinemadec/FixCursorHold.nvim')
 
     -- project local config
-    use {
+    use({
       'klen/nvim-config-local',
       config = function()
         require('config-local').setup({
@@ -28,11 +28,11 @@ require('packer').startup({
           silent = false,
           lookup_parents = true,
         })
-      end
-    }
+      end,
+    })
 
     -- notification
-    use {
+    use({
       'rcarriga/nvim-notify',
       config = function()
         local notify = require('notify')
@@ -47,10 +47,10 @@ require('packer').startup({
           notify(msg, ...)
         end
       end,
-    }
+    })
 
     -- color
-    use {
+    use({
       'catppuccin/nvim',
       as = 'catppuccin',
       setup = function()
@@ -95,25 +95,25 @@ require('packer').startup({
             notify = true,
           },
         })
-        vim.cmd [[colorscheme catppuccin]]
+        vim.cmd([[colorscheme catppuccin]])
       end,
-    }
+    })
 
     -- icons
-    use 'kyazdani42/nvim-web-devicons'
+    use('kyazdani42/nvim-web-devicons')
 
     -- treesitter
-    use {
+    use({
       'nvim-treesitter/nvim-treesitter',
       config = function()
         require('treesitter')
       end,
-    }
-    use 'yioneko/nvim-yati'
-    use 'windwp/nvim-ts-autotag'
+    })
+    use('yioneko/nvim-yati')
+    use('windwp/nvim-ts-autotag')
 
     -- explorer
-    use {
+    use({
       'kyazdani42/nvim-tree.lua',
       config = function()
         local opts = require('config').opts
@@ -170,11 +170,11 @@ require('packer').startup({
         })
         vim.api.nvim_set_keymap('n', '<C-n>', ':NvimTreeToggle<Cr>', opts)
       end,
-    }
-    use 'wsdjeg/vim-fetch'
+    })
+    use('wsdjeg/vim-fetch')
 
     -- buffer
-    use {
+    use({
       'moll/vim-bbye',
       setup = function()
         local opts = require('config').opts
@@ -183,8 +183,8 @@ require('packer').startup({
         vim.api.nvim_set_keymap('n', '<Leader>bD', ':bd<Cr>', opts)
         vim.api.nvim_set_keymap('n', '<Leader>baD', ':bufdo :bd<Cr>', opts)
       end,
-    }
-    use {
+    })
+    use({
       'beauwilliams/focus.nvim',
       config = function()
         local opts = require('config').opts
@@ -197,10 +197,10 @@ require('packer').startup({
         })
         vim.api.nvim_set_keymap('n', '<C-w>w', ':FocusSplitNicely<Cr>', opts)
       end,
-    }
+    })
 
     -- bufferline / statusline
-    use {
+    use({
       'akinsho/nvim-bufferline.lua',
       config = function()
         local sign = require('config').sign
@@ -219,8 +219,7 @@ require('packer').startup({
             diagnostics_indicator = function(_, _, diagnostics_dict, _)
               local s = ' '
               for e, n in pairs(diagnostics_dict) do
-                local sym = e == 'error' and sign.error .. ws
-                    or (e == 'warning' and sign.warn .. ws or sign.info .. ws)
+                local sym = e == 'error' and sign.error .. ws or (e == 'warning' and sign.warn .. ws or sign.info .. ws)
                 s = s .. n .. sym
               end
               return s
@@ -235,22 +234,22 @@ require('packer').startup({
         vim.api.nvim_set_keymap('n', '<M-<>', ':BufferLineMovePrev<Cr>', opts)
         vim.api.nvim_set_keymap('n', '<M->>', ':BufferLineMoveNext<Cr>', opts)
       end,
-    }
-    use {
+    })
+    use({
       'windwp/windline.nvim',
       config = function()
         require('wlsample.vscode')
       end,
-    }
-    use {
+    })
+    use({
       'b0o/incline.nvim',
       config = function()
         require('incline').setup()
       end,
-    }
+    })
 
     -- finder
-    use {
+    use({
       'nvim-telescope/telescope.nvim',
       requires = {
         'nvim-lua/plenary.nvim',
@@ -279,10 +278,18 @@ require('packer').startup({
 
         -- common finders
         vim.api.nvim_set_keymap('n', '<C-s>', ':Telescope current_buffer_fuzzy_find theme=get_dropdown<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>ff', ':Telescope find_files find_command=rg,--files theme=get_dropdown<Cr>'
-          , opts)
-        vim.api.nvim_set_keymap('n', '<Leader>fF',
-          ':Telescope find_files find_command=rg,--ignore,--hidden,--files theme=get_dropdown<Cr>', opts)
+        vim.api.nvim_set_keymap(
+          'n',
+          '<Leader>ff',
+          ':Telescope find_files find_command=rg,--files theme=get_dropdown<Cr>',
+          opts
+        )
+        vim.api.nvim_set_keymap(
+          'n',
+          '<Leader>fF',
+          ':Telescope find_files find_command=rg,--ignore,--hidden,--files theme=get_dropdown<Cr>',
+          opts
+        )
         vim.api.nvim_set_keymap('n', '<Leader>fg', ':Telescope live_grep theme=get_dropdown<Cr>', opts)
         vim.api.nvim_set_keymap('n', '<Leader>fb', ':Telescope buffers theme=get_dropdown<Cr>', opts)
         vim.api.nvim_set_keymap('n', '<Leader>fh', ':Telescope help_tags theme=get_dropdown<Cr>', opts)
@@ -303,26 +310,26 @@ require('packer').startup({
         -- termfinder
         vim.api.nvim_set_keymap('n', '<Leader>tf', ':Telescope termfinder find theme=get_dropdown<Cr>', opts)
       end,
-    }
-    use 'stevearc/dressing.nvim'
+    })
+    use('stevearc/dressing.nvim')
 
     -- zen
-    use {
+    use({
       'folke/zen-mode.nvim',
       config = function()
         require('zen-mode').setup()
       end,
-    }
-    use {
+    })
+    use({
       'folke/twilight.nvim',
       config = function()
         require('twilight').setup()
       end,
-    }
+    })
 
     -- git support
-    use 'tpope/vim-fugitive'
-    use {
+    use('tpope/vim-fugitive')
+    use({
       'lewis6991/gitsigns.nvim',
       requires = { 'nvim-lua/plenary.nvim' },
       config = function()
@@ -341,18 +348,18 @@ require('packer').startup({
         })
         vim.api.nvim_set_keymap('n', '<Leader>gq', ':Gitsigns setqflist<Cr>', mopts)
       end,
-    }
-    use {
+    })
+    use({
       'akinsho/git-conflict.nvim',
       config = function()
         require('git-conflict').setup({
           disable_diagnostics = true,
         })
       end,
-    }
+    })
 
     -- edit support
-    use {
+    use({
       'lukas-reineke/indent-blankline.nvim',
       config = function()
         require('indent_blankline').setup({
@@ -364,8 +371,8 @@ require('packer').startup({
           filetype_exclude = { 'toggleterm' },
         })
       end,
-    }
-    use {
+    })
+    use({
       'yamatsum/nvim-cursorline',
       config = function()
         require('nvim-cursorline').setup({
@@ -376,8 +383,8 @@ require('packer').startup({
           },
         })
       end,
-    }
-    use {
+    })
+    use({
       'phaazon/hop.nvim',
       branch = 'v2',
       config = function()
@@ -387,21 +394,33 @@ require('packer').startup({
         vim.api.nvim_set_keymap('n', 'S', ':HopChar2MW<Cr>', opts)
         -- use `<Cmd>lua` instead of `:lua`
         -- https://github.com/phaazon/hop.nvim/issues/89#issuecomment-854701856
-        vim.api.nvim_set_keymap('', 'f',
-          '<Cmd>lua require("hop").hint_char1({ direction = require("hop.hint").HintDirection.AFTER_CURSOR, current_line_only = true })<Cr>'
-          , opts)
-        vim.api.nvim_set_keymap('', 'F',
-          '<Cmd>lua require("hop").hint_char1({ direction = require("hop.hint").HintDirection.BEFORE_CURSOR, current_line_only = true })<Cr>'
-          , opts)
-        vim.api.nvim_set_keymap('', 't',
-          '<Cmd>lua require("hop").hint_char1({ direction = require("hop.hint").HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })<Cr>'
-          , opts)
-        vim.api.nvim_set_keymap('', 'T',
-          '<Cmd>lua require("hop").hint_char1({ direction = require("hop.hint").HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })<Cr>'
-          , opts)
+        vim.api.nvim_set_keymap(
+          '',
+          'f',
+          '<Cmd>lua require("hop").hint_char1({ direction = require("hop.hint").HintDirection.AFTER_CURSOR, current_line_only = true })<Cr>',
+          opts
+        )
+        vim.api.nvim_set_keymap(
+          '',
+          'F',
+          '<Cmd>lua require("hop").hint_char1({ direction = require("hop.hint").HintDirection.BEFORE_CURSOR, current_line_only = true })<Cr>',
+          opts
+        )
+        vim.api.nvim_set_keymap(
+          '',
+          't',
+          '<Cmd>lua require("hop").hint_char1({ direction = require("hop.hint").HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })<Cr>',
+          opts
+        )
+        vim.api.nvim_set_keymap(
+          '',
+          'T',
+          '<Cmd>lua require("hop").hint_char1({ direction = require("hop.hint").HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })<Cr>',
+          opts
+        )
       end,
-    }
-    use {
+    })
+    use({
       'numToStr/Comment.nvim',
       requires = { 'JoosepAlviste/nvim-ts-context-commentstring' },
       config = function()
@@ -421,8 +440,8 @@ require('packer').startup({
           end,
         })
       end,
-    }
-    use {
+    })
+    use({
       'folke/todo-comments.nvim',
       requires = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope.nvim' },
       config = function()
@@ -430,8 +449,8 @@ require('packer').startup({
         require('todo-comments').setup()
         vim.api.nvim_set_keymap('n', '<Leader>tq', ':TodoTrouble<Cr>', opts)
       end,
-    }
-    use {
+    })
+    use({
       'windwp/nvim-autopairs',
       requires = { 'hrsh7th/nvim-cmp' },
       config = function()
@@ -446,42 +465,50 @@ require('packer').startup({
           map_c_w = true,
         })
       end,
-    }
-    use 'gpanders/editorconfig.nvim'
-    use 'tpope/vim-surround'
-    use 'andymass/vim-matchup'
-    use {
+    })
+    use('gpanders/editorconfig.nvim')
+    use('tpope/vim-surround')
+    use('andymass/vim-matchup')
+    use({
       'norcalli/nvim-colorizer.lua',
       config = function()
         require('colorizer').setup()
       end,
-    }
-    use {
+    })
+    use({
       'm-demare/hlargs.nvim',
       require = { 'nvim-treesitter/nvim-treesitter' },
       config = function()
         require('hlargs').setup()
       end,
-    }
-    use {
+    })
+    use({
       'petertriho/nvim-scrollbar',
       require = { 'kevinhwang91/nvim-hlslens' },
       config = function()
         require('scrollbar').setup()
         require('scrollbar.handlers.search').setup()
       end,
-    }
-    use {
+    })
+    use({
       'kevinhwang91/nvim-hlslens',
       config = function()
         local opts = require('config').opts
-        vim.api.nvim_set_keymap('n', 'n',
-          [[:execute('normal! ' . v:count1 . 'n')<Cr>:lua require('hlslens').start()<Cr>]], opts)
-        vim.api.nvim_set_keymap('n', 'N',
-          [[:execute('normal! ' . v:count1 . 'N')<Cr>:lua require('hlslens').start()<Cr>]], opts)
+        vim.api.nvim_set_keymap(
+          'n',
+          'n',
+          [[:execute('normal! ' . v:count1 . 'n')<Cr>:lua require('hlslens').start()<Cr>]],
+          opts
+        )
+        vim.api.nvim_set_keymap(
+          'n',
+          'N',
+          [[:execute('normal! ' . v:count1 . 'N')<Cr>:lua require('hlslens').start()<Cr>]],
+          opts
+        )
       end,
-    }
-    use {
+    })
+    use({
       'haya14busa/vim-asterisk',
       require = { 'kevinhwang91/nvim-hlslens' },
       config = function()
@@ -495,8 +522,8 @@ require('packer').startup({
         vim.api.nvim_set_keymap('x', 'g*', [[<Plug>(asterisk-gz*):lua require('hlslens').start()<Cr>]], opts_silent)
         vim.api.nvim_set_keymap('x', 'g#', [[<Plug>(asterisk-gz#):lua require('hlslens').start()<Cr>]], opts_silent)
       end,
-    }
-    use {
+    })
+    use({
       'danymat/neogen',
       requires = { 'nvim-treesitter/nvim-treesitter' },
       config = function()
@@ -504,42 +531,42 @@ require('packer').startup({
         require('neogen').setup({})
         vim.api.nvim_set_keymap('n', '<Leader>nf', ':lua require("neogen").generate()<Cr>', opts)
       end,
-    }
-    use 'lambdalisue/readablefold.vim'
-    use {
+    })
+    use('lambdalisue/readablefold.vim')
+    use({
       'chentoast/marks.nvim',
       config = function()
         require('marks').setup({
           default_mappings = true,
         })
       end,
-    }
-    use 'haya14busa/vim-metarepeat'
-    use {
+    })
+    use('haya14busa/vim-metarepeat')
+    use({
       's1n7ax/nvim-comment-frame',
       requires = { 'nvim-treesitter/nvim-treesitter' },
       config = function()
         require('nvim-comment-frame').setup()
       end,
-    }
-    use 'AndrewRadev/linediff.vim'
-    use {
+    })
+    use('AndrewRadev/linediff.vim')
+    use({
       'junegunn/vim-easy-align',
       config = function()
         local opts = require('config').opts
         vim.api.nvim_set_keymap('x', 'ga', '<Plug>(EasyAlign)', opts)
         vim.api.nvim_set_keymap('n', 'ga', '<Plug>(EasyAlign)', opts)
       end,
-    }
+    })
 
     -- snippets
-    use {
+    use({
       'hrsh7th/vim-vsnip',
       requires = { 'rafamadriz/friendly-snippets' },
-    }
+    })
 
     -- terminal
-    use {
+    use({
       'akinsho/nvim-toggleterm.lua',
       config = function()
         require('toggleterm').setup({
@@ -551,39 +578,43 @@ require('packer').startup({
           shade_filetypes = { 'none' },
         })
       end,
-    }
+    })
 
     -- window
-    use {
+    use({
       'https://gitlab.com/yorickpeterse/nvim-window.git',
       config = function()
         local opts = require('config').opts
         require('nvim-window').setup({
           chars = { 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l' },
         })
-        vim.api.nvim_set_keymap('n', '<Leader>w', ':lua require("nvim-window").pick()<Cr>',
-          opts)
+        vim.api.nvim_set_keymap('n', '<Leader>w', ':lua require("nvim-window").pick()<Cr>', opts)
       end,
-    }
+    })
 
     -- quickfix
-    use {
+    use({
       'stevearc/qf_helper.nvim',
       config = function()
         local opts = require('config').opts
         vim.api.nvim_set_keymap('n', '<Leader>q', ':QFToggle<Cr>', opts)
       end,
-    }
-    use {
+    })
+    use({
       'kevinhwang91/nvim-bqf',
       requires = {
-        { 'junegunn/fzf', run = function() vim.fn['fzf#install']() end },
-        'nvim-treesitter/nvim-treesitter'
+        {
+          'junegunn/fzf',
+          run = function()
+            vim.fn['fzf#install']()
+          end,
+        },
+        'nvim-treesitter/nvim-treesitter',
       },
       ft = 'qf',
       setup = function()
-        vim.cmd [[copen]]
-        vim.cmd [[cclose]]
+        vim.cmd([[copen]])
+        vim.cmd([[cclose]])
       end,
       config = function()
         require('bqf').setup({
@@ -591,19 +622,22 @@ require('packer').startup({
           auto_resize_height = true,
         })
       end,
-    }
-    use {
+    })
+    use({
       'gabrielpoca/replacer.nvim',
       config = function()
         local opts = require('config').opts
-        vim.api.nvim_set_keymap('n', '<Leader>h',
-          ':lua if vim.bo.filetype == "qf" then require("replacer").run({ rename_files = false }) end<Cr>'
-          , opts)
+        vim.api.nvim_set_keymap(
+          'n',
+          '<Leader>h',
+          ':lua if vim.bo.filetype == "qf" then require("replacer").run({ rename_files = false }) end<Cr>',
+          opts
+        )
       end,
-    }
+    })
 
     -- lsp
-    use {
+    use({
       'neovim/nvim-lspconfig',
       config = function()
         require('lsp')
@@ -614,26 +648,24 @@ require('packer').startup({
           vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
         end
       end,
-    }
-    use {
+    })
+    use({
       'onsails/lspkind-nvim',
       config = function()
         require('lspkind').init({})
       end,
-    }
-    use {
+    })
+    use({
       'folke/lsp-trouble.nvim',
       config = function()
         local opts = require('config').opts
         require('trouble').setup()
-        vim.api.nvim_set_keymap('n', '<Leader>d', ':TroubleToggle document_diagnostics<Cr>',
-          opts)
-        vim.api.nvim_set_keymap('n', '<Leader>D', ':TroubleToggle workspace_diagnostics<Cr>',
-          opts)
+        vim.api.nvim_set_keymap('n', '<Leader>d', ':TroubleToggle document_diagnostics<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>D', ':TroubleToggle workspace_diagnostics<Cr>', opts)
       end,
-    }
-    use 'folke/lsp-colors.nvim'
-    use {
+    })
+    use('folke/lsp-colors.nvim')
+    use({
       'kosayoda/nvim-lightbulb',
       requires = { 'antoinemadec/FixCursorHold.nvim' },
       config = function()
@@ -643,8 +675,8 @@ require('packer').startup({
           },
         })
       end,
-    }
-    use {
+    })
+    use({
       'jose-elias-alvarez/null-ls.nvim',
       requires = { 'nvim-lua/plenary.nvim' },
       config = function()
@@ -696,10 +728,10 @@ require('packer').startup({
           },
         })
       end,
-    }
+    })
 
     -- completion
-    use {
+    use({
       'hrsh7th/nvim-cmp',
       requires = {
         'hrsh7th/cmp-buffer',
@@ -751,15 +783,15 @@ require('packer').startup({
                   nvim_lua = '[Lua]',
                   latex_symbols = '[Latex]',
                   treesitter = '[TS]',
-                  emoji = '[Emoji]'
+                  emoji = '[Emoji]',
                 },
               })(entry, vim_item)
-            end
+            end,
           },
         })
       end,
-    }
-    use {
+    })
+    use({
       'gelguy/wilder.nvim',
       config = function()
         local wilder = require('wilder')
@@ -781,8 +813,9 @@ require('packer').startup({
             })
           ),
         })
-        wilder.set_option('renderer', wilder.popupmenu_renderer(
-          wilder.popupmenu_palette_theme({
+        wilder.set_option(
+          'renderer',
+          wilder.popupmenu_renderer(wilder.popupmenu_palette_theme({
             highlighter = wilder.basic_highlighter(),
             highlights = {
               accent = wilder.make_hl('WilderAccent', 'Pmenu', { { a = 1 }, { a = 1 }, { foreground = '#f4468f' } }),
@@ -794,13 +827,13 @@ require('packer').startup({
             min_height = 0,
             prompt_position = 'top',
             reverse = 0,
-          })
-        ))
+          }))
+        )
       end,
-    }
+    })
 
     -- syntax highlight / language supports
-    use {
+    use({
       'sheerun/vim-polyglot',
       setup = function()
         -- disabled filetypes
@@ -817,17 +850,17 @@ require('packer').startup({
         -- csv behaviors
         vim.g.csv_no_conceal = 1
       end,
-    }
-    use {
+    })
+    use({
       'iamcco/markdown-preview.nvim',
       run = 'cd app && npm install',
       ft = { 'markdown' },
       setup = function()
         vim.g.mkdp_filetypes = { 'markdown' }
       end,
-    }
-    use 'dhruvasagar/vim-table-mode'
-    use {
+    })
+    use('dhruvasagar/vim-table-mode')
+    use({
       'kovisoft/slimv',
       ft = { 'lisp' },
       setup = function()
@@ -836,10 +869,10 @@ require('packer').startup({
         vim.g.slimv_impl = 'sbcl'
         vim.g.slimv_repl_split = 2
       end,
-    }
+    })
 
     -- rest client
-    use {
+    use({
       'NTBBloodbath/rest.nvim',
       requires = { 'nvim-lua/plenary.nvim' },
       after = { 'nvim-treesitter' },
@@ -867,13 +900,13 @@ require('packer').startup({
         vim.api.nvim_set_keymap('n', '<Leader>rp', '<Plug>RestNvimPreview', opts_silent)
         vim.api.nvim_set_keymap('n', '<Leader>rl', '<Plug>RestNvimLast', opts_silent)
       end,
-    }
+    })
 
     -- analysis
-    use 'wakatime/vim-wakatime'
+    use('wakatime/vim-wakatime')
 
     -- etc
-    use 'segeljakt/vim-silicon'
+    use('segeljakt/vim-silicon')
 
     require('packer_compiled')
   end,

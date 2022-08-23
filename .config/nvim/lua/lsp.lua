@@ -16,7 +16,9 @@ end
 local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
 
 local on_attach = function(client, bufnr)
-  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  local function buf_set_keymap(...)
+    vim.api.nvim_buf_set_keymap(bufnr, ...)
+  end
 
   buf_set_keymap('n', 'K', ':lua vim.lsp.buf.hover()<Cr>', opts)
   buf_set_keymap('n', '<C-k>', '<Cmd>lua vim.lsp.buf.signature_help()<Cr>', opts)
@@ -138,7 +140,9 @@ local os = vim.fn.has('mac') == 1 and 'mac' or (vim.fn.has('linux') == 1 and 'li
 lsp.java_language_server.setup({
   on_attach = on_attach,
   capabilities = capabilities,
-  cmd = { vim.env.HOME .. '/.local/src/github.com/georgewfraser/java-language-server/dist/lang_server_' .. os .. '.sh' },
+  cmd = {
+    vim.env.HOME .. '/.local/src/github.com/georgewfraser/java-language-server/dist/lang_server_' .. os .. '.sh',
+  },
 })
 lsp.vimls.setup({
   on_attach = on_attach,
@@ -151,15 +155,9 @@ lsp.terraformls.setup({
 
 -- UI
 
-vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
-  vim.lsp.handlers.hover,
-  {
-    border = 'single',
-  }
-)
-vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
-  vim.lsp.handlers.signature_help,
-  {
-    border = 'single',
-  }
-)
+vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
+  border = 'single',
+})
+vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+  border = 'single',
+})
