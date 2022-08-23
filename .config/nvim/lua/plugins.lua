@@ -208,10 +208,13 @@ require('packer').startup({
         local ws = ' '
         require('bufferline').setup({
           options = {
-            custom_filter = function(buf_number)
-              if vim.bo[buf_number].filetype ~= 'qf' then
-                return true
+            custom_filter = function(buf)
+              if vim.bo[buf].filetype == 'qf' then
+                return false
               end
+              local current_tab = vim.api.nvim_get_current_tabpage()
+              local tab_buffers = vim.fn.tabpagebuflist(current_tab)
+              return vim.tbl_contains(tab_buffers, buf)
             end,
             offsets = {
               { filetype = 'NvimTree', text = 'Explorer', highlight = 'Directory', text_align = 'left' },
