@@ -26,7 +26,12 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', 'K', ':lua vim.lsp.buf.hover()<Cr>', opts)
   buf_set_keymap('n', '<C-k>', '<Cmd>lua vim.lsp.buf.signature_help()<Cr>', opts)
   buf_set_keymap('n', '<Leader>la', '<Cmd>lua vim.lsp.buf.code_action()<Cr>', opts)
-  buf_set_keymap('n', '<Leader>lf', '<Cmd>lua vim.lsp.buf.format()<Cr>', opts)
+  buf_set_keymap(
+    'n',
+    '<Leader>lf',
+    '<Cmd>lua vim.lsp.buf.format({ filter = function(client) return client.name == "null-ls" end })<Cr>',
+    opts
+  )
   buf_set_keymap('n', '<Leader>lr', '<Cmd>lua vim.lsp.buf.rename()<Cr>', opts)
 
   -- document highlighting
