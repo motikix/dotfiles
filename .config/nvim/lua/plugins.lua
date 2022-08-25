@@ -691,7 +691,7 @@ require('packer').startup({
         nls.setup({
           sources = {
             -- c/c++/c#/java
-            nls.builtins.formatting.astyle,
+            nls.builtins.formatting.clang_format,
             -- rust
             nls.builtins.formatting.rustfmt,
             -- go
