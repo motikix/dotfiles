@@ -189,6 +189,9 @@ require('packer').startup({
       config = function()
         local opts = require('config').opts
         require('focus').setup({
+          signcolumn = false,
+          hybridnumber = true,
+          absolutenumber_unfocussed = true,
           excluded_filetypes = {
             'qf',
             'toggleterm',
