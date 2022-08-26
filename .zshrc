@@ -23,6 +23,12 @@ MANPATH=/usr/local/opt/gnu-indent/libexec/gnuman:$MANPATH
 PATH=/usr/local/opt/gnu-which/libexec/gnubin:$PATH
 MANPATH=/usr/local/opt/gnu-which/libexec/gnuman:$MANPATH
 
+## gnu-time
+PATH=/usr/local/opt/gnu-time/libexec/gnubin:$PATH
+
+## gnu-getopt
+PATH=/usr/local/opt/gnu-getopt/bin:$PATH
+
 ## grep
 PATH=/usr/local/opt/grep/libexec/gnubin:$PATH
 MANPATH=/usr/local/opt/grep/libexec/gnuman:$MANPATH
@@ -34,6 +40,18 @@ MANPATH=/usr/local/opt/findutils/libexec/gnuman:$MANPATH
 ## ed
 PATH=/usr/local/opt/ed/libexec/gnubin:$PATH
 MANPATH=/usr/local/opt/ed/libexec/gnuman:$MANPATH
+
+## make
+PATH=/usr/local/opt/make/libexec/gnubin:$PATH
+MANPATH=/usr/local/opt/make/libexec/gnuman:$MANPATH
+
+## iconv
+PATH=/usr/local/opt/libiconv/bin:$PATH
+
+# Other programs
+
+## file
+PATH=/usr/local/opt/file-formula/bin:$PATH
 
 # Execute fish-shell
 exec fish
