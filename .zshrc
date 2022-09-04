@@ -50,6 +50,9 @@ PATH=/usr/local/opt/libiconv/bin:$PATH
 
 # Other programs
 
+## curl
+PATH=/usr/local/opt/curl/bin:$PATH
+
 ## file
 PATH=/usr/local/opt/file-formula/bin:$PATH
 
