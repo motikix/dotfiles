@@ -175,8 +175,8 @@ require('packer').startup({
 
     -- buffer
     use({
-      'moll/vim-bbye',
-      setup = function()
+      'famiu/bufdelete.nvim',
+      config = function()
         local opts = require('config').opts
         vim.api.nvim_set_keymap('n', '<Leader>bd', ':Bdelete<Cr>', opts)
         vim.api.nvim_set_keymap('n', '<Leader>bad', ':bufdo :Bdelete<Cr>', opts)
@@ -203,6 +203,12 @@ require('packer').startup({
     })
 
     -- bufferline / statusline
+    use({
+      'tiagovla/scope.nvim',
+      config = function()
+        require('scope').setup()
+      end,
+    })
     use({
       'akinsho/nvim-bufferline.lua',
       config = function()
