@@ -816,7 +816,7 @@ key_bindings:
   # Print all received window events.
   #print_events: false
 
-color_schemes:
+schemes:
 
 
 
