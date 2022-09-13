@@ -84,6 +84,9 @@ set -x FZF_CD_OPTS "--preview '$FZF_PREVIEW_DIR_CMD {}'"
 ## ghq
 set -x GHQ_SELECTOR_OPTS --preview "$FZF_PREVIEW_DIR_CMD {}"
 
+## bat
+set -x BAT_THEME Catppuccin-mocha
+
 ## wakatime
 set -x WAKATIME_HOME $HOME/.local/share/wakatime
 
