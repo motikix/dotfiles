@@ -120,10 +120,8 @@ vim.api.nvim_set_keymap('n', '[q', '<Cmd>cp<Cr>', opts)
 vim.api.nvim_set_keymap('n', ']q', '<Cmd>cn<Cr>', opts)
 
 -- Nvim clients
-vim.g.python_host_prog = '/usr/bin/python2'
-vim.g.python3_host_prog = '/usr/bin/python3'
-vim.g.ruby_host_prog = '/usr/bin/neovim-ruby-host'
-vim.g.node_host_prog = '/usr/bin/neovim-node-host'
+vim.g.python_host_prog = vim.fn.exepath('python2')
+vim.g.python3_host_prog = vim.fn.exepath('python3')
 
 -- Colors
 vim.o.termguicolors = true

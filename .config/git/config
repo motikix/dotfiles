@@ -15,7 +15,7 @@
 [diff]
 	colorMoved = default
 [credential]
-	helper = osxkeychain
+	helper = store
 [pull]
 	rebase = false
 [ghq]
