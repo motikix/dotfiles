@@ -112,6 +112,11 @@ end
 
 # setup
 
+## starship
+if type -q starship
+  starship init fish | source
+end
+
 ## zoxide
 if type -q zoxide
   set -x _ZO_FZF_OPTS $FZF_DEFAULT_OPTS "--preview '$FZF_PREVIEW_DIR_CMD {2..}'"
