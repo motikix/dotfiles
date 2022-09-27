@@ -105,6 +105,7 @@ require('packer').startup({
     -- treesitter
     use({
       'nvim-treesitter/nvim-treesitter',
+      requires = { 'nvim-treesitter/playground' },
       config = function()
         require('treesitter')
       end,
@@ -470,13 +471,6 @@ require('packer').startup({
       'norcalli/nvim-colorizer.lua',
       config = function()
         require('colorizer').setup()
-      end,
-    })
-    use({
-      'm-demare/hlargs.nvim',
-      require = { 'nvim-treesitter/nvim-treesitter' },
-      config = function()
-        require('hlargs').setup()
       end,
     })
     use({
