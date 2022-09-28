@@ -1,0 +1,5 @@
+[git_metrics]
+disabled = false
+
+[kubernetes]
+disabled = false
