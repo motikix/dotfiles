@@ -54,7 +54,7 @@ require('packer').startup({
       'catppuccin/nvim',
       as = 'catppuccin',
       setup = function()
-        vim.g.catppuccin_flavour = 'mocha'
+        vim.g.catppuccin_flavour = 'frappe'
       end,
       config = function()
         require('catppuccin').setup({
@@ -98,6 +98,15 @@ require('packer').startup({
         vim.cmd([[colorscheme catppuccin]])
       end,
     })
+    use({
+      'm-demare/hlargs.nvim',
+      require = { 'nvim-treesitter/nvim-treesitter', 'catppuccin/nvim' },
+      config = function()
+        require('hlargs').setup({
+          color = require('catppuccin.palettes').get_palette('mocha').red
+        })
+      end,
+    })
 
     -- icons
     use('kyazdani42/nvim-web-devicons')
@@ -108,6 +117,14 @@ require('packer').startup({
       requires = { 'nvim-treesitter/playground' },
       config = function()
         require('treesitter')
+      end,
+    })
+    use({
+      'nvim-treesitter/nvim-treesitter-context',
+      config = function()
+        require('treesitter-context').setup({
+          enable = true,
+        })
       end,
     })
     use('yioneko/nvim-yati')
@@ -844,7 +861,9 @@ require('packer').startup({
     })
     use({
       'iamcco/markdown-preview.nvim',
-      run = function() vim.fn['mkdp#util#install']() end,
+      run = function()
+        vim.fn['mkdp#util#install']()
+      end,
       ft = { 'markdown' },
       setup = function()
         vim.g.mkdp_filetypes = { 'markdown' }

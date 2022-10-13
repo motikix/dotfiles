@@ -75,22 +75,24 @@ set -x FZF_CD_WITH_HIDDEN_COMMAND "$FZF_DEFAULT_COMMAND --type d . \$dir"
 set -x FZF_OPEN_COMMAND "$FZF_DEFAULT_COMMAND --type f --type d . \$dir"
 set -x FZF_DEFAULT_OPTS "\
   --height 40% --layout=reverse --border --bind ctrl-u:preview-up,ctrl-d:preview-down \
-  --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
-  --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
-  --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
+  --color=bg+:#414559,bg:#303446,spinner:#f2d5cf,hl:#e78284 \
+  --color=fg:#c6d0f5,header:#e78284,info:#ca9ee6,pointer:#f2d5cf \
+  --color=marker:#f2d5cf,fg+:#c6d0f5,prompt:#ca9ee6,hl+:#e78284"
 set -x FZF_FIND_FILE_OPTS "--preview '$FZF_PREVIEW_FILE_CMD {}'"
 set -x FZF_CD_OPTS "--preview '$FZF_PREVIEW_DIR_CMD {}'"
 
 ## ghq
 set -x GHQ_SELECTOR_OPTS --preview "$FZF_PREVIEW_DIR_CMD {}"
 
-## bat
-set -x BAT_THEME Catppuccin-mocha
-
 ## wakatime
 set -x WAKATIME_HOME $HOME/.local/share/wakatime
 
 # aliases
+
+## ssh
+if type -q ssh
+  alias ssh "env TERM=xterm-256color ssh"
+end
 
 ## neovim
 if type -q nvim
