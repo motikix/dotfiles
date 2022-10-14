@@ -103,6 +103,10 @@ lsp.tsserver.setup({
   capabilities = capabilities,
   root_dir = lsp.util.root_pattern('package.json'),
 })
+lsp.tailwindcss.setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+})
 lsp.dartls.setup({
   on_attach = on_attach,
   capabilities = capabilities,
