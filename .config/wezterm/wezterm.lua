@@ -6,7 +6,7 @@ return {
   font_size = 14,
   color_scheme = 'Catppuccin Frappe',
   enable_tab_bar = false,
-  window_decorations = 'NONE',
+  window_decorations = 'RESIZE',
   window_padding = {
     left = 2,
     right = 2,
