@@ -54,7 +54,7 @@ require('packer').startup({
       'catppuccin/nvim',
       as = 'catppuccin',
       setup = function()
-        vim.g.catppuccin_flavour = 'frappe'
+        vim.g.catppuccin_flavour = 'macchiato'
       end,
       config = function()
         require('catppuccin').setup({

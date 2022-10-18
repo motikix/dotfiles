@@ -4,7 +4,7 @@ return {
   term = 'wezterm',
   font = wezterm.font('monospace'),
   font_size = 14,
-  color_scheme = 'Catppuccin Frappe',
+  color_scheme = 'Catppuccin Macchiato',
   enable_tab_bar = false,
   window_decorations = 'RESIZE',
   window_padding = {
