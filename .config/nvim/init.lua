@@ -65,7 +65,7 @@ vim.o.autoindent = true
 vim.o.smartindent = true
 
 -- Clipboard
-vim.o.clipboard = vim.o.clipboard .. 'unnamed,unnamedplus'
+vim.o.clipboard = 'unnamed,unnamedplus'
 
 -- Always show signcolumn
 vim.wo.signcolumn = 'yes'
