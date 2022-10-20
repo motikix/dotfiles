@@ -103,7 +103,7 @@ require('packer').startup({
       require = { 'nvim-treesitter/nvim-treesitter', 'catppuccin/nvim' },
       config = function()
         require('hlargs').setup({
-          color = require('catppuccin.palettes').get_palette('mocha').red
+          color = require('catppuccin.palettes').get_palette('macchiato').red
         })
       end,
     })
