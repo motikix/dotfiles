@@ -13,8 +13,21 @@ require('packer').startup({
 
     -- improve
     use('lewis6991/impatient.nvim')
-    use('nathom/filetype.nvim')
     use('antoinemadec/FixCursorHold.nvim')
+    use({
+      'nathom/filetype.nvim',
+      config = function()
+        require('filetype').setup({
+          overrides = {
+            extensions = {
+              tf = 'terraform',
+              tfvars = 'terraform',
+              tfstate = 'json',
+            },
+          },
+        })
+      end,
+    })
 
     -- project local config
     use({
@@ -103,7 +116,7 @@ require('packer').startup({
       require = { 'nvim-treesitter/nvim-treesitter', 'catppuccin/nvim' },
       config = function()
         require('hlargs').setup({
-          color = require('catppuccin.palettes').get_palette('macchiato').red
+          color = require('catppuccin.palettes').get_palette('macchiato').red,
         })
       end,
     })
@@ -685,6 +698,15 @@ require('packer').startup({
             enabled = true,
           },
         })
+      end,
+    })
+    use({
+      'https://git.sr.ht/~whynothugo/lsp_lines.nvim',
+      config = function()
+        vim.diagnostic.config({
+          virtual_text = false,
+        })
+        require('lsp_lines').setup()
       end,
     })
     use({
