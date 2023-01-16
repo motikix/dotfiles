@@ -46,19 +46,29 @@ require('packer').startup({
 
     -- notification
     use({
-      'rcarriga/nvim-notify',
+      'folke/noice.nvim',
+      requires = {
+        'MunifTanjim/nui.nvim',
+        'rcarriga/nvim-notify',
+        'smjonas/inc-rename.nvim',
+      },
       config = function()
-        local notify = require('notify')
-        notify.setup({
-          background_colour = '#000000',
+        require('noice').setup({
+          lsp = {
+            override = {
+              ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
+              ['vim.lsp.util.stylize_markdown'] = true,
+              ['cmp.entry.get_documentation'] = true,
+            },
+          },
+          presets = {
+            bottom_search = true,
+            command_palette = true,
+            long_message_to_split = true,
+            inc_rename = true,
+            lsp_doc_border = true,
+          },
         })
-        -- https://github.com/jose-elias-alvarez/null-ls.nvim/issues/428
-        vim.notify = function(msg, ...)
-          if msg:match('warning: multiple different client offset_encodings') then
-            return
-          end
-          notify(msg, ...)
-        end
       end,
     })
 
@@ -215,23 +225,6 @@ require('packer').startup({
         vim.api.nvim_set_keymap('n', '<Leader>baD', ':bufdo :bd<Cr>', opts)
       end,
     })
-    use({
-      'beauwilliams/focus.nvim',
-      config = function()
-        local opts = require('config').opts
-        require('focus').setup({
-          signcolumn = false,
-          hybridnumber = true,
-          absolutenumber_unfocussed = true,
-          excluded_filetypes = {
-            'qf',
-            'toggleterm',
-            'Trouble',
-          },
-        })
-        vim.api.nvim_set_keymap('n', '<C-w>w', ':FocusSplitNicely<Cr>', opts)
-      end,
-    })
 
     -- bufferline / statusline
     use({
@@ -287,6 +280,18 @@ require('packer').startup({
         require('incline').setup()
       end,
     })
+    use({
+      'utilyre/barbecue.nvim',
+      requires = {
+        'neovim/nvim-lspconfig',
+        'SmiteshP/nvim-navic',
+        'nvim-tree/nvim-web-devicons',
+      },
+      after = 'nvim-web-devicons',
+      config = function()
+        require('barbecue').setup()
+      end,
+    })
 
     -- finder
     use({
@@ -317,41 +322,46 @@ require('packer').startup({
         telescope.load_extension('notify')
 
         -- common finders
-        vim.api.nvim_set_keymap('n', '<C-s>', ':Telescope current_buffer_fuzzy_find theme=get_dropdown<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<C-s>', ':Telescope current_buffer_fuzzy_find theme=get_ivy<Cr>', opts)
         vim.api.nvim_set_keymap(
           'n',
           '<Leader>ff',
-          ':Telescope find_files find_command=rg,--files theme=get_dropdown<Cr>',
+          ':Telescope find_files find_command=rg,--files theme=get_ivy<Cr>',
           opts
         )
         vim.api.nvim_set_keymap(
           'n',
           '<Leader>fF',
-          ':Telescope find_files find_command=rg,--ignore,--hidden,--files theme=get_dropdown<Cr>',
+          ':Telescope find_files find_command=rg,--ignore,--hidden,--files theme=get_ivy<Cr>',
           opts
         )
-        vim.api.nvim_set_keymap('n', '<Leader>fg', ':Telescope live_grep theme=get_dropdown<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>fb', ':Telescope buffers theme=get_dropdown<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>fh', ':Telescope help_tags theme=get_dropdown<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>fc', ':Telescope command_history theme=get_dropdown<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>fs', ':Telescope search_history theme=get_dropdown<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>fg', ':Telescope live_grep theme=get_ivy<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>fb', ':Telescope buffers theme=get_ivy<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>fh', ':Telescope help_tags theme=get_ivy<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>fc', ':Telescope command_history theme=get_ivy<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>fs', ':Telescope search_history theme=get_ivy<Cr>', opts)
         -- git actions
-        vim.api.nvim_set_keymap('n', '<Leader>gc', ':Telescope git_commits theme=get_dropdown<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>gC', ':Telescope git_bcommits theme=get_dropdown<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>gb', ':Telescope git_branches theme=get_dropdown<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>gs', ':Telescope git_status theme=get_dropdown<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>gS', ':Telescope git_stash theme=get_dropdown<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>gc', ':Telescope git_commits theme=get_ivy<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>gC', ':Telescope git_bcommits theme=get_ivy<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>gb', ':Telescope git_branches theme=get_ivy<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>gs', ':Telescope git_status theme=get_ivy<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>gS', ':Telescope git_stash theme=get_ivy<Cr>', opts)
         -- tree sitter
-        vim.api.nvim_set_keymap('n', '<Leader>ts', ':Telescope treesitter theme=get_dropdown<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>ts', ':Telescope treesitter theme=get_ivy<Cr>', opts)
         -- lsp
-        vim.api.nvim_set_keymap('n', 'gd', ':Telescope lsp_definitions theme=get_dropdown<Cr>', opts)
-        vim.api.nvim_set_keymap('n', 'gr', ':Telescope lsp_references theme=get_dropdown<Cr>', opts)
-        vim.api.nvim_set_keymap('n', 'gi', ':Telescope lsp_implementations theme=get_dropdown<Cr>', opts)
+        vim.api.nvim_set_keymap('n', 'gd', ':Telescope lsp_definitions theme=get_ivy<Cr>', opts)
+        vim.api.nvim_set_keymap('n', 'gr', ':Telescope lsp_references theme=get_ivy<Cr>', opts)
+        vim.api.nvim_set_keymap('n', 'gi', ':Telescope lsp_implementations theme=get_ivy<Cr>', opts)
         -- termfinder
-        vim.api.nvim_set_keymap('n', '<Leader>tf', ':Telescope termfinder find theme=get_dropdown<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>tf', ':Telescope termfinder find theme=get_ivy<Cr>', opts)
       end,
     })
-    use('stevearc/dressing.nvim')
+    use({
+      'stevearc/dressing.nvim',
+      config = function()
+        require('dressing').setup()
+      end,
+    })
 
     -- zen
     use({
@@ -464,6 +474,12 @@ require('packer').startup({
       'numToStr/Comment.nvim',
       requires = { 'JoosepAlviste/nvim-ts-context-commentstring' },
       config = function()
+        require('nvim-treesitter.configs').setup({
+          context_commentstring = {
+            enable = true,
+            enable_autocmd = false,
+          },
+        })
         require('Comment').setup({
           pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
         })
@@ -562,6 +578,7 @@ require('packer').startup({
         })
       end,
     })
+
     use('haya14busa/vim-metarepeat')
     use({
       's1n7ax/nvim-comment-frame',
@@ -613,6 +630,29 @@ require('packer').startup({
           chars = { 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l' },
         })
         vim.api.nvim_set_keymap('n', '<Leader>w', ':lua require("nvim-window").pick()<Cr>', opts)
+      end,
+    })
+    use({
+      'beauwilliams/focus.nvim',
+      config = function()
+        local opts = require('config').opts
+        require('focus').setup({
+          signcolumn = false,
+          hybridnumber = true,
+          absolutenumber_unfocussed = true,
+          excluded_filetypes = {
+            'qf',
+            'toggleterm',
+            'Trouble',
+          },
+        })
+        vim.api.nvim_set_keymap('n', '<C-w>w', ':FocusSplitNicely<Cr>', opts)
+      end,
+    })
+    use({
+      'nvim-zh/colorful-winsep.nvim',
+      config = function()
+        require('colorful-winsep').setup()
       end,
     })
 
@@ -709,6 +749,14 @@ require('packer').startup({
         require('lsp_lines').setup()
       end,
     })
+    use {
+      'smjonas/inc-rename.nvim',
+      config = function()
+        require('inc_rename').setup()
+        local opts = require('config').opts
+        vim.api.nvim_set_keymap('n', '<Leader>lr', ':IncRename ', opts)
+      end,
+    }
     use({
       'jose-elias-alvarez/null-ls.nvim',
       requires = { 'nvim-lua/plenary.nvim' },
@@ -787,9 +835,6 @@ require('packer').startup({
               vim.fn['vsnip#anonymous'](args.body)
             end,
           },
-          view = {
-            entries = 'native',
-          },
           mapping = cmp.mapping.preset.insert({
             ['<C-b>'] = cmp.mapping.scroll_docs(-4),
             ['<C-f>'] = cmp.mapping.scroll_docs(4),
@@ -824,41 +869,6 @@ require('packer').startup({
             end,
           },
         })
-      end,
-    })
-    use({
-      'gelguy/wilder.nvim',
-      config = function()
-        local wilder = require('wilder')
-        wilder.setup({
-          modes = { ':', '/', '?' },
-          next_key = '<C-n>',
-          previous_key = '<C-p>',
-        })
-        wilder.set_option('pipeline', {
-          wilder.branch(
-            wilder.cmdline_pipeline({
-              language = 'python',
-              fuzzy = 1,
-            }),
-            wilder.python_search_pipeline({
-              pattern = wilder.python_fuzzy_pattern(),
-              sorter = wilder.python_difflib_sorter(),
-              engine = 're',
-            })
-          ),
-        })
-        wilder.set_option(
-          'renderer',
-          wilder.popupmenu_renderer({
-            highlighter = wilder.basic_highlighter(),
-            highlights = {
-              accent = wilder.make_hl('WilderAccent', 'Pmenu', { { a = 1 }, { a = 1 }, { foreground = '#f4468f' } }),
-            },
-            left = { ' ', wilder.popupmenu_devicons() },
-            right = { ' ', wilder.popupmenu_scrollbar() },
-          })
-        )
       end,
     })
 

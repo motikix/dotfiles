@@ -31,7 +31,6 @@ M.on_attach = function(client, bufnr)
     '<Cmd>lua vim.lsp.buf.format({ filter = function(client) return client.name == "null-ls" end })<Cr>',
     opts
   )
-  buf_set_keymap('n', '<Leader>lr', '<Cmd>lua vim.lsp.buf.rename()<Cr>', opts)
 
   -- document highlighting
   if client.server_capabilities.documentHighlightProvider then
