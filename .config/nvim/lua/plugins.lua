@@ -821,7 +821,6 @@ require('packer').startup({
         'hrsh7th/cmp-path',
         'hrsh7th/cmp-vsnip',
         'hrsh7th/cmp-nvim-lsp',
-        'hrsh7th/cmp-nvim-lsp-signature-help',
         'hrsh7th/cmp-emoji',
         'ray-x/cmp-treesitter',
       },
@@ -845,7 +844,6 @@ require('packer').startup({
           sources = cmp.config.sources({
             { name = 'emoji' },
             { name = 'treesitter' },
-            { name = 'nvim_lsp_signature_help' },
             { name = 'nvim_lsp' },
             { name = 'vsnip' },
             { name = 'path' },
