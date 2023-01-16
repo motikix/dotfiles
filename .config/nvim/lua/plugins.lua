@@ -356,12 +356,6 @@ require('packer').startup({
         vim.api.nvim_set_keymap('n', '<Leader>tf', ':Telescope termfinder find theme=get_ivy<Cr>', opts)
       end,
     })
-    use({
-      'stevearc/dressing.nvim',
-      config = function()
-        require('dressing').setup()
-      end,
-    })
 
     -- zen
     use({
