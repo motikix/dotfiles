@@ -300,6 +300,7 @@ require('packer').startup({
         'nvim-lua/plenary.nvim',
         { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
         'tknightz/telescope-termfinder.nvim',
+        'folke/noice.nvim',
       },
       config = function()
         local opts = require('config').opts
@@ -320,6 +321,7 @@ require('packer').startup({
         telescope.load_extension('fzf')
         telescope.load_extension('termfinder')
         telescope.load_extension('notify')
+        telescope.load_extension('noice')
 
         -- common finders
         vim.api.nvim_set_keymap('n', '<C-s>', ':Telescope current_buffer_fuzzy_find theme=get_ivy<Cr>', opts)
@@ -743,14 +745,14 @@ require('packer').startup({
         require('lsp_lines').setup()
       end,
     })
-    use {
+    use({
       'smjonas/inc-rename.nvim',
       config = function()
         require('inc_rename').setup()
         local opts = require('config').opts
         vim.api.nvim_set_keymap('n', '<Leader>lr', ':IncRename ', opts)
       end,
-    }
+    })
     use({
       'jose-elias-alvarez/null-ls.nvim',
       requires = { 'nvim-lua/plenary.nvim' },
