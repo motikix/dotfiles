@@ -818,11 +818,15 @@ require('packer').startup({
         'hrsh7th/cmp-vsnip',
         'hrsh7th/cmp-nvim-lsp',
         'hrsh7th/cmp-emoji',
+        'hrsh7th/cmp-cmdline',
         'ray-x/cmp-treesitter',
       },
       config = function()
         vim.o.completeopt = 'menu,menuone,noselect'
         local cmp = require('cmp')
+        if cmp == nil then
+          return
+        end
         local lspkind = require('lspkind')
         cmp.setup({
           snippet = {
@@ -862,6 +866,20 @@ require('packer').startup({
               })(entry, vim_item)
             end,
           },
+        })
+        cmp.setup.cmdline({ '/', '?' }, {
+          mapping = cmp.mapping.preset.cmdline(),
+          sources = {
+            { name = 'buffer' },
+          },
+        })
+        cmp.setup.cmdline(':', {
+          mapping = cmp.mapping.preset.cmdline(),
+          sources = cmp.config.sources({
+            { name = 'path' },
+          }, {
+            { name = 'cmdline' },
+          }),
         })
       end,
     })
