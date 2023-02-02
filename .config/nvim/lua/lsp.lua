@@ -71,7 +71,7 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 -- lsp providers
 
 lsp.ccls.setup({
-  on_attach = on_attach,
+  on_attach = M.on_attach,
   capabilities = capabilities,
   init_options = {
     cache = {
@@ -80,54 +80,67 @@ lsp.ccls.setup({
   },
 })
 lsp.gopls.setup({
-  on_attach = on_attach,
+  on_attach = M.on_attach,
   capabilities = capabilities,
 })
 lsp.rust_analyzer.setup({
-  on_attach = on_attach,
+  on_attach = M.on_attach,
   capabilities = capabilities,
 })
 lsp.zls.setup({
-  on_attach = on_attach,
+  on_attach = M.on_attach,
   capabilities = capabilities,
 })
 lsp.denols.setup({
-  on_attach = on_attach,
+  on_attach = M.on_attach,
   capabilities = capabilities,
   root_dir = lsp.util.root_pattern('deno.json', 'deno.jsonc'),
-  init_options = { enable = true, lint = true, unstable = true },
+  init_options = {
+    enable = true,
+    lint = true,
+    unstable = true,
+    suggest = {
+      imports = {
+        hosts = {
+          ['https://deno.land'] = true,
+          ['https://cdn.nest.land'] = true,
+          ['https://crux.land'] = true,
+        },
+      },
+    },
+  },
 })
 lsp.tsserver.setup({
-  on_attach = on_attach,
+  on_attach = M.on_attach,
   capabilities = capabilities,
   root_dir = lsp.util.root_pattern('package.json'),
 })
 lsp.tailwindcss.setup({
-  on_attach = on_attach,
+  on_attach = M.on_attach,
   capabilities = capabilities,
 })
 lsp.dartls.setup({
-  on_attach = on_attach,
+  on_attach = M.on_attach,
   capabilities = capabilities,
 })
 lsp.vuels.setup({
-  on_attach = on_attach,
+  on_attach = M.on_attach,
   capabilities = capabilities,
 })
 lsp.svelte.setup({
-  on_attach = on_attach,
+  on_attach = M.on_attach,
   capabilities = capabilities,
 })
 lsp.astro.setup({
-  on_attach = on_attach,
+  on_attach = M.on_attach,
   capabilities = capabilities,
 })
 lsp.pyright.setup({
-  on_attach = on_attach,
+  on_attach = M.on_attach,
   capabilities = capabilities,
 })
 lsp.sumneko_lua.setup({
-  on_attach = on_attach,
+  on_attach = M.on_attach,
   capabilities = capabilities,
   settings = {
     Lua = {
@@ -148,18 +161,18 @@ lsp.sumneko_lua.setup({
 })
 local os = vim.fn.has('mac') == 1 and 'mac' or (vim.fn.has('linux') == 1 and 'linux' or 'windows')
 lsp.java_language_server.setup({
-  on_attach = on_attach,
+  on_attach = M.on_attach,
   capabilities = capabilities,
   cmd = {
     vim.env.HOME .. '/.local/src/github.com/georgewfraser/java-language-server/dist/lang_server_' .. os .. '.sh',
   },
 })
 lsp.vimls.setup({
-  on_attach = on_attach,
+  on_attach = M.on_attach,
   capabilities = capabilities,
 })
 lsp.terraformls.setup({
-  on_attach = on_attach,
+  on_attach = M.on_attach,
   capabilities = capabilities,
 })
 

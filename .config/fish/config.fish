@@ -10,7 +10,11 @@ set -x LANG en_US.UTF-8
 set -x GPG_TTY (tty)
 
 ## editor
-set -x EDITOR vim
+if type -q nvim
+  set -x EDITOR nvim
+else
+  set -x EDITOR vim
+end
 
 # xdg base directory specification
 set -x XDG_CONFIG_HOME $HOME/.config

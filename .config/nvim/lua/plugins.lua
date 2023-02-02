@@ -209,7 +209,7 @@ require('packer').startup({
             },
           },
         })
-        vim.api.nvim_set_keymap('n', '<C-n>', ':NvimTreeToggle<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<C-n>', ':NvimTreeToggle<CR>', opts)
       end,
     })
     use('wsdjeg/vim-fetch')
@@ -219,10 +219,10 @@ require('packer').startup({
       'famiu/bufdelete.nvim',
       config = function()
         local opts = require('config').opts
-        vim.api.nvim_set_keymap('n', '<Leader>bd', ':Bdelete<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>bad', ':bufdo :Bdelete<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>bD', ':bd<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>baD', ':bufdo :bd<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>bd', ':Bdelete<CR>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>bad', ':bufdo :Bdelete<CR>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>bD', ':bd<CR>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>baD', ':bufdo :bd<CR>', opts)
       end,
     })
 
@@ -259,13 +259,13 @@ require('packer').startup({
             end,
           },
         })
-        vim.api.nvim_set_keymap('n', '<Leader>bs', ':BufferLinePick<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>bp', ':BufferLineCyclePrev<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>bn', ':BufferLineCycleNext<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<M-,>', ':BufferLineCyclePrev<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<M-.>', ':BufferLineCycleNext<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<M-<>', ':BufferLineMovePrev<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<M->>', ':BufferLineMoveNext<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>bs', ':BufferLinePick<CR>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>bp', ':BufferLineCyclePrev<CR>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>bn', ':BufferLineCycleNext<CR>', opts)
+        vim.api.nvim_set_keymap('n', '<M-,>', ':BufferLineCyclePrev<CR>', opts)
+        vim.api.nvim_set_keymap('n', '<M-.>', ':BufferLineCycleNext<CR>', opts)
+        vim.api.nvim_set_keymap('n', '<M-<>', ':BufferLineMovePrev<CR>', opts)
+        vim.api.nvim_set_keymap('n', '<M->>', ':BufferLineMoveNext<CR>', opts)
       end,
     })
     use({
@@ -324,38 +324,38 @@ require('packer').startup({
         telescope.load_extension('noice')
 
         -- common finders
-        vim.api.nvim_set_keymap('n', '<C-s>', ':Telescope current_buffer_fuzzy_find theme=get_ivy<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<C-s>', ':Telescope current_buffer_fuzzy_find theme=get_ivy<CR>', opts)
         vim.api.nvim_set_keymap(
           'n',
           '<Leader>ff',
-          ':Telescope find_files find_command=rg,--files theme=get_ivy<Cr>',
+          ':Telescope find_files find_command=rg,--files theme=get_ivy<CR>',
           opts
         )
         vim.api.nvim_set_keymap(
           'n',
           '<Leader>fF',
-          ':Telescope find_files find_command=rg,--ignore,--hidden,--files theme=get_ivy<Cr>',
+          ':Telescope find_files find_command=rg,--ignore,--hidden,--files theme=get_ivy<CR>',
           opts
         )
-        vim.api.nvim_set_keymap('n', '<Leader>fg', ':Telescope live_grep theme=get_ivy<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>fb', ':Telescope buffers theme=get_ivy<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>fh', ':Telescope help_tags theme=get_ivy<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>fc', ':Telescope command_history theme=get_ivy<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>fs', ':Telescope search_history theme=get_ivy<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>fg', ':Telescope live_grep theme=get_ivy<CR>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>fb', ':Telescope buffers theme=get_ivy<CR>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>fh', ':Telescope help_tags theme=get_ivy<CR>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>fc', ':Telescope command_history theme=get_ivy<CR>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>fs', ':Telescope search_history theme=get_ivy<CR>', opts)
         -- git actions
-        vim.api.nvim_set_keymap('n', '<Leader>gc', ':Telescope git_commits theme=get_ivy<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>gC', ':Telescope git_bcommits theme=get_ivy<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>gb', ':Telescope git_branches theme=get_ivy<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>gs', ':Telescope git_status theme=get_ivy<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>gS', ':Telescope git_stash theme=get_ivy<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>gc', ':Telescope git_commits theme=get_ivy<CR>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>gC', ':Telescope git_bcommits theme=get_ivy<CR>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>gb', ':Telescope git_branches theme=get_ivy<CR>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>gs', ':Telescope git_status theme=get_ivy<CR>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>gS', ':Telescope git_stash theme=get_ivy<CR>', opts)
         -- tree sitter
-        vim.api.nvim_set_keymap('n', '<Leader>ts', ':Telescope treesitter theme=get_ivy<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>ts', ':Telescope treesitter theme=get_ivy<CR>', opts)
         -- lsp
-        vim.api.nvim_set_keymap('n', 'gd', ':Telescope lsp_definitions theme=get_ivy<Cr>', opts)
-        vim.api.nvim_set_keymap('n', 'gr', ':Telescope lsp_references theme=get_ivy<Cr>', opts)
-        vim.api.nvim_set_keymap('n', 'gi', ':Telescope lsp_implementations theme=get_ivy<Cr>', opts)
+        vim.api.nvim_set_keymap('n', 'gd', ':Telescope lsp_definitions theme=get_ivy<CR>', opts)
+        vim.api.nvim_set_keymap('n', 'gr', ':Telescope lsp_references theme=get_ivy<CR>', opts)
+        vim.api.nvim_set_keymap('n', 'gi', ':Telescope lsp_implementations theme=get_ivy<CR>', opts)
         -- termfinder
-        vim.api.nvim_set_keymap('n', '<Leader>tf', ':Telescope termfinder find theme=get_ivy<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>tf', ':Telescope termfinder find theme=get_ivy<CR>', opts)
       end,
     })
 
@@ -388,11 +388,11 @@ require('packer').startup({
               vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
             end
 
-            map('n', ']c', '&diff ? "]c" : ":Gitsigns next_hunk<Cr>"', { expr = true })
-            map('n', '[c', '&diff ? "[c" : ":Gitsigns prev_hunk<Cr>"', { expr = true })
+            map('n', ']c', '&diff ? "]c" : ":Gitsigns next_hunk<CR>"', { expr = true })
+            map('n', '[c', '&diff ? "[c" : ":Gitsigns prev_hunk<CR>"', { expr = true })
           end,
         })
-        vim.api.nvim_set_keymap('n', '<Leader>gq', ':Gitsigns setqflist<Cr>', mopts)
+        vim.api.nvim_set_keymap('n', '<Leader>gq', ':Gitsigns setqflist<CR>', mopts)
       end,
     })
     use({
@@ -436,32 +436,32 @@ require('packer').startup({
       config = function()
         local opts = require('config').opts
         require('hop').setup()
-        vim.api.nvim_set_keymap('n', 's', ':HopChar2<Cr>', opts)
-        vim.api.nvim_set_keymap('n', 'S', ':HopChar2MW<Cr>', opts)
+        vim.api.nvim_set_keymap('n', 's', ':HopChar2<CR>', opts)
+        vim.api.nvim_set_keymap('n', 'S', ':HopChar2MW<CR>', opts)
         -- use `<Cmd>lua` instead of `:lua`
         -- https://github.com/phaazon/hop.nvim/issues/89#issuecomment-854701856
         vim.api.nvim_set_keymap(
           '',
           'f',
-          '<Cmd>lua require("hop").hint_char1({ direction = require("hop.hint").HintDirection.AFTER_CURSOR, current_line_only = true })<Cr>',
+          '<Cmd>lua require("hop").hint_char1({ direction = require("hop.hint").HintDirection.AFTER_CURSOR, current_line_only = true })<CR>',
           opts
         )
         vim.api.nvim_set_keymap(
           '',
           'F',
-          '<Cmd>lua require("hop").hint_char1({ direction = require("hop.hint").HintDirection.BEFORE_CURSOR, current_line_only = true })<Cr>',
+          '<Cmd>lua require("hop").hint_char1({ direction = require("hop.hint").HintDirection.BEFORE_CURSOR, current_line_only = true })<CR>',
           opts
         )
         vim.api.nvim_set_keymap(
           '',
           't',
-          '<Cmd>lua require("hop").hint_char1({ direction = require("hop.hint").HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })<Cr>',
+          '<Cmd>lua require("hop").hint_char1({ direction = require("hop.hint").HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })<CR>',
           opts
         )
         vim.api.nvim_set_keymap(
           '',
           'T',
-          '<Cmd>lua require("hop").hint_char1({ direction = require("hop.hint").HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })<Cr>',
+          '<Cmd>lua require("hop").hint_char1({ direction = require("hop.hint").HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })<CR>',
           opts
         )
       end,
@@ -487,7 +487,7 @@ require('packer').startup({
       config = function()
         local opts = require('config').opts
         require('todo-comments').setup()
-        vim.api.nvim_set_keymap('n', '<Leader>tq', ':TodoTrouble<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>tq', ':TodoTrouble<CR>', opts)
       end,
     })
     use({
@@ -530,13 +530,13 @@ require('packer').startup({
         vim.api.nvim_set_keymap(
           'n',
           'n',
-          [[:execute('normal! ' . v:count1 . 'n')<Cr>:lua require('hlslens').start()<Cr>]],
+          [[:execute('normal! ' . v:count1 . 'n')<CR>:lua require('hlslens').start()<CR>]],
           opts
         )
         vim.api.nvim_set_keymap(
           'n',
           'N',
-          [[:execute('normal! ' . v:count1 . 'N')<Cr>:lua require('hlslens').start()<Cr>]],
+          [[:execute('normal! ' . v:count1 . 'N')<CR>:lua require('hlslens').start()<CR>]],
           opts
         )
       end,
@@ -546,14 +546,14 @@ require('packer').startup({
       require = { 'kevinhwang91/nvim-hlslens' },
       config = function()
         local opts_silent = require('config').opts_silent
-        vim.api.nvim_set_keymap('n', '*', [[<Plug>(asterisk-z*):lua require('hlslens').start()<Cr>]], opts_silent)
-        vim.api.nvim_set_keymap('n', '#', [[<Plug>(asterisk-z#):lua require('hlslens').start()<Cr>]], opts_silent)
-        vim.api.nvim_set_keymap('n', 'g*', [[<Plug>(asterisk-gz*):lua require('hlslens').start()<Cr>]], opts_silent)
-        vim.api.nvim_set_keymap('n', 'g#', [[<Plug>(asterisk-gz#):lua require('hlslens').start()<Cr>]], opts_silent)
-        vim.api.nvim_set_keymap('x', '*', [[<Plug>(asterisk-z*):lua require('hlslens').start()<Cr>]], opts_silent)
-        vim.api.nvim_set_keymap('x', '#', [[<Plug>(asterisk-z#):lua require('hlslens').start()<Cr>]], opts_silent)
-        vim.api.nvim_set_keymap('x', 'g*', [[<Plug>(asterisk-gz*):lua require('hlslens').start()<Cr>]], opts_silent)
-        vim.api.nvim_set_keymap('x', 'g#', [[<Plug>(asterisk-gz#):lua require('hlslens').start()<Cr>]], opts_silent)
+        vim.api.nvim_set_keymap('n', '*', [[<Plug>(asterisk-z*):lua require('hlslens').start()<CR>]], opts_silent)
+        vim.api.nvim_set_keymap('n', '#', [[<Plug>(asterisk-z#):lua require('hlslens').start()<CR>]], opts_silent)
+        vim.api.nvim_set_keymap('n', 'g*', [[<Plug>(asterisk-gz*):lua require('hlslens').start()<CR>]], opts_silent)
+        vim.api.nvim_set_keymap('n', 'g#', [[<Plug>(asterisk-gz#):lua require('hlslens').start()<CR>]], opts_silent)
+        vim.api.nvim_set_keymap('x', '*', [[<Plug>(asterisk-z*):lua require('hlslens').start()<CR>]], opts_silent)
+        vim.api.nvim_set_keymap('x', '#', [[<Plug>(asterisk-z#):lua require('hlslens').start()<CR>]], opts_silent)
+        vim.api.nvim_set_keymap('x', 'g*', [[<Plug>(asterisk-gz*):lua require('hlslens').start()<CR>]], opts_silent)
+        vim.api.nvim_set_keymap('x', 'g#', [[<Plug>(asterisk-gz#):lua require('hlslens').start()<CR>]], opts_silent)
       end,
     })
     use({
@@ -562,7 +562,7 @@ require('packer').startup({
       config = function()
         local opts = require('config').opts
         require('neogen').setup({})
-        vim.api.nvim_set_keymap('n', '<Leader>nf', ':lua require("neogen").generate()<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>nf', ':lua require("neogen").generate()<CR>', opts)
       end,
     })
     use('lambdalisue/readablefold.vim')
@@ -625,7 +625,7 @@ require('packer').startup({
         require('nvim-window').setup({
           chars = { 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l' },
         })
-        vim.api.nvim_set_keymap('n', '<Leader>w', ':lua require("nvim-window").pick()<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>w', ':lua require("nvim-window").pick()<CR>', opts)
       end,
     })
     use({
@@ -642,7 +642,7 @@ require('packer').startup({
             'Trouble',
           },
         })
-        vim.api.nvim_set_keymap('n', '<C-w>w', ':FocusSplitNicely<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<C-w>w', ':FocusSplitNicely<CR>', opts)
       end,
     })
     use({
@@ -657,7 +657,7 @@ require('packer').startup({
       'stevearc/qf_helper.nvim',
       config = function()
         local opts = require('config').opts
-        vim.api.nvim_set_keymap('n', '<Leader>q', ':QFToggle<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>q', ':QFToggle<CR>', opts)
       end,
     })
     use({
@@ -690,7 +690,7 @@ require('packer').startup({
         vim.api.nvim_set_keymap(
           'n',
           '<Leader>h',
-          ':lua if vim.bo.filetype == "qf" then require("replacer").run({ rename_files = false }) end<Cr>',
+          ':lua if vim.bo.filetype == "qf" then require("replacer").run({ rename_files = false }) end<CR>',
           opts
         )
       end,
@@ -720,8 +720,8 @@ require('packer').startup({
       config = function()
         local opts = require('config').opts
         require('trouble').setup()
-        vim.api.nvim_set_keymap('n', '<Leader>d', ':TroubleToggle document_diagnostics<Cr>', opts)
-        vim.api.nvim_set_keymap('n', '<Leader>D', ':TroubleToggle workspace_diagnostics<Cr>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>d', ':TroubleToggle document_diagnostics<CR>', opts)
+        vim.api.nvim_set_keymap('n', '<Leader>D', ':TroubleToggle workspace_diagnostics<CR>', opts)
       end,
     })
     use('folke/lsp-colors.nvim')
@@ -763,7 +763,7 @@ require('packer').startup({
           return utils.root_has_file({ 'deno.json', 'deno.jsonc' })
         end
         local is_tssrv = function(utils)
-          return utils.root_has_file({ 'package.json', 'tsconfig.json' })
+          return utils.root_has_file({ 'package.json' })
         end
         nls.setup({
           sources = {
@@ -839,7 +839,7 @@ require('packer').startup({
             ['<C-f>'] = cmp.mapping.scroll_docs(4),
             ['<C-Space>'] = cmp.mapping.complete(),
             ['<C-e>'] = cmp.mapping.close(),
-            ['<Cr>'] = cmp.mapping.confirm({ select = true }),
+            ['<CR>'] = cmp.mapping.confirm({ select = true }),
           }),
           sources = cmp.config.sources({
             { name = 'emoji' },
@@ -953,6 +953,32 @@ require('packer').startup({
         vim.api.nvim_set_keymap('n', '<Leader>rr', '<Plug>RestNvim', opts_silent)
         vim.api.nvim_set_keymap('n', '<Leader>rp', '<Plug>RestNvimPreview', opts_silent)
         vim.api.nvim_set_keymap('n', '<Leader>rl', '<Plug>RestNvimLast', opts_silent)
+      end,
+    })
+
+    -- note taking
+    use({
+      'mickael-menu/zk-nvim',
+      config = function()
+        local opts_noremap = require('config').opts_noremap
+        require('zk').setup({
+          picker = 'telescope',
+          lsp = {
+            config = {
+              on_attach = require('lsp').on_attach,
+            },
+          },
+        })
+        vim.api.nvim_set_keymap('n', '<leader>zn', "<Cmd>ZkNew { title = vim.fn.input('Title: ') }<CR>", opts_noremap)
+        vim.api.nvim_set_keymap('n', '<leader>zo', "<Cmd>ZkNotes { sort = { 'modified' } }<CR>", opts_noremap)
+        vim.api.nvim_set_keymap('n', '<leader>zt', '<Cmd>ZkTags<CR>', opts_noremap)
+        vim.api.nvim_set_keymap(
+          'n',
+          '<leader>zf',
+          "<Cmd>ZkNotes { sort = { 'modified' }, match = { vim.fn.input('Search: ') } }<CR>",
+          opts_noremap
+        )
+        vim.api.nvim_set_keymap('v', '<leader>zf', ":'<,'>ZkMatch<CR>", opts_noremap)
       end,
     })
 
