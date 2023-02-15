@@ -139,7 +139,7 @@ lsp.pyright.setup({
   on_attach = M.on_attach,
   capabilities = capabilities,
 })
-lsp.sumneko_lua.setup({
+lsp.lua_ls.setup({
   on_attach = M.on_attach,
   capabilities = capabilities,
   settings = {
