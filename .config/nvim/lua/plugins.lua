@@ -55,6 +55,9 @@ require('packer').startup({
       config = function()
         require('noice').setup({
           lsp = {
+            progress = {
+              enabled = false,
+            },
             override = {
               ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
               ['vim.lsp.util.stylize_markdown'] = true,
@@ -92,8 +95,15 @@ require('packer').startup({
           },
           integrations = {
             treesitter = true,
+            treesitter_context = true,
             native_lsp = {
               enabled = true,
+              virtual_text = {
+                errors = { 'italic' },
+                hints = { 'italic' },
+                warnings = { 'italic' },
+                information = { 'italic' },
+              },
               underlines = {
                 errors = { 'undercurl' },
                 hints = { 'undercurl' },
@@ -105,17 +115,20 @@ require('packer').startup({
             cmp = true,
             gitsigns = true,
             telescope = true,
-            nvimtree = {
-              transparent_panel = true,
-            },
+            nvimtree = true,
             indent_blankline = {
               enabled = true,
-              colored_indent_levels = true,
+              colored_indent_levels = false,
             },
             bufferline = true,
             markdown = true,
             hop = true,
             notify = true,
+            noice = true,
+            navic = {
+              enabled = true,
+              custom_bg = 'NONE',
+            },
           },
         })
         vim.cmd([[colorscheme catppuccin]])
@@ -235,11 +248,13 @@ require('packer').startup({
     })
     use({
       'akinsho/nvim-bufferline.lua',
+      after = 'catppuccin',
       config = function()
         local sign = require('config').sign
         local opts = require('config').opts
         local ws = ' '
         require('bufferline').setup({
+          highlights = require('catppuccin.groups.integrations.bufferline').get(),
           options = {
             custom_filter = function(buf_number)
               if vim.bo[buf_number].filetype ~= 'qf' then
@@ -269,15 +284,12 @@ require('packer').startup({
       end,
     })
     use({
-      'windwp/windline.nvim',
+      'feline-nvim/feline.nvim',
       config = function()
-        require('wlsample.vscode')
-      end,
-    })
-    use({
-      'b0o/incline.nvim',
-      config = function()
-        require('incline').setup()
+        local ctp_feline = require('catppuccin.groups.integrations.feline')
+        require('feline').setup({
+          components = ctp_feline.get(),
+        })
       end,
     })
     use({
@@ -289,7 +301,9 @@ require('packer').startup({
       },
       after = 'nvim-web-devicons',
       config = function()
-        require('barbecue').setup()
+        require('barbecue').setup({
+          theme = 'catppuccin',
+        })
       end,
     })
 
@@ -517,10 +531,11 @@ require('packer').startup({
     })
     use({
       'petertriho/nvim-scrollbar',
-      require = { 'kevinhwang91/nvim-hlslens' },
+      require = { 'kevinhwang91/nvim-hlslens', 'lewis6991/gitsigns.nvim' },
       config = function()
         require('scrollbar').setup()
         require('scrollbar.handlers.search').setup()
+        require('scrollbar.handlers.gitsigns').setup()
       end,
     })
     use({
@@ -643,12 +658,6 @@ require('packer').startup({
           },
         })
         vim.api.nvim_set_keymap('n', '<C-w>w', ':FocusSplitNicely<CR>', opts)
-      end,
-    })
-    use({
-      'nvim-zh/colorful-winsep.nvim',
-      config = function()
-        require('colorful-winsep').setup()
       end,
     })
 
