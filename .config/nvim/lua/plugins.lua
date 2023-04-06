@@ -482,7 +482,7 @@ require('packer').startup({
     })
     use({
       'numToStr/Comment.nvim',
-      requires = { 'JoosepAlviste/nvim-ts-context-commentstring' },
+      requires = { 'nvim-treesitter/nvim-treesitter', 'JoosepAlviste/nvim-ts-context-commentstring' },
       config = function()
         require('nvim-treesitter.configs').setup({
           context_commentstring = {
@@ -586,6 +586,17 @@ require('packer').startup({
       config = function()
         require('marks').setup({
           default_mappings = true,
+        })
+      end,
+    })
+    use({
+      'RRethy/nvim-treesitter-endwise',
+      requires = { 'nvim-treesitter/nvim-treesitter' },
+      config = function()
+        require('nvim-treesitter.configs').setup({
+          endwise = {
+            enable = true,
+          },
         })
       end,
     })

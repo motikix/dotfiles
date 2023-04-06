@@ -113,7 +113,8 @@ lsp.denols.setup({
 lsp.tsserver.setup({
   on_attach = M.on_attach,
   capabilities = capabilities,
-  root_dir = lsp.util.root_pattern('package.json'),
+  root_dir = lsp.util.root_pattern('package.json', 'tsconfig.json', 'jsconfig.json'),
+  single_file_support = false,
 })
 lsp.tailwindcss.setup({
   on_attach = M.on_attach,
