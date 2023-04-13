@@ -22,6 +22,10 @@ M.on_attach = function(client, bufnr)
     vim.api.nvim_buf_set_keymap(bufnr, ...)
   end
 
+  buf_set_keymap('n', 'gd', ':lua vim.lsp.buf.definition()<Cr>', opts)
+  buf_set_keymap('n', 'gr', ':lua vim.lsp.buf.references()<Cr>', opts)
+  buf_set_keymap('n', 'gy', ':lua vim.lsp.buf.type_definition()<Cr>', opts)
+  buf_set_keymap('n', 'gi', ':lua vim.lsp.buf.implementation()<Cr>', opts)
   buf_set_keymap('n', 'K', ':lua vim.lsp.buf.hover()<Cr>', opts)
   buf_set_keymap('n', '<C-k>', '<Cmd>lua vim.lsp.buf.signature_help()<Cr>', opts)
   buf_set_keymap('n', '<Leader>la', '<Cmd>lua vim.lsp.buf.code_action()<Cr>', opts)
@@ -175,6 +179,25 @@ lsp.vimls.setup({
 lsp.terraformls.setup({
   on_attach = M.on_attach,
   capabilities = capabilities,
+})
+lsp.jsonls.setup({
+  on_attach = M.on_attach,
+  capabilities = capabilities,
+  settings = {
+    json = {
+      schemas = require('schemastore').json.schemas(),
+      validate = { enable = true },
+    },
+  },
+})
+lsp.yamlls.setup({
+  on_attach = M.on_attach,
+  capabilities = capabilities,
+  settings = {
+    yaml = {
+      schemas = require('schemastore').yaml.schemas(),
+    },
+  },
 })
 
 -- UI

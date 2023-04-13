@@ -256,14 +256,7 @@ require('packer').startup({
         require('bufferline').setup({
           highlights = require('catppuccin.groups.integrations.bufferline').get(),
           options = {
-            custom_filter = function(buf_number)
-              if vim.bo[buf_number].filetype ~= 'qf' then
-                return true
-              end
-            end,
-            offsets = {
-              { filetype = 'NvimTree', text = 'Explorer', highlight = 'Directory', text_align = 'left' },
-            },
+            diagnostics = 'nvim_lsp',
             diagnostics_indicator = function(_, _, diagnostics_dict, _)
               local s = ' '
               for e, n in pairs(diagnostics_dict) do
@@ -272,6 +265,15 @@ require('packer').startup({
               end
               return s
             end,
+            custom_filter = function(buf_number)
+              if vim.bo[buf_number].filetype ~= 'qf' then
+                return true
+              end
+            end,
+            offsets = {
+              { filetype = 'NvimTree', text = 'Explorer', highlight = 'Directory', text_align = 'center' },
+            },
+            separator_style = 'slant',
           },
         })
         vim.api.nvim_set_keymap('n', '<Leader>bs', ':BufferLinePick<CR>', opts)
@@ -289,20 +291,6 @@ require('packer').startup({
         local ctp_feline = require('catppuccin.groups.integrations.feline')
         require('feline').setup({
           components = ctp_feline.get(),
-        })
-      end,
-    })
-    use({
-      'utilyre/barbecue.nvim',
-      requires = {
-        'neovim/nvim-lspconfig',
-        'SmiteshP/nvim-navic',
-        'nvim-tree/nvim-web-devicons',
-      },
-      after = 'nvim-web-devicons',
-      config = function()
-        require('barbecue').setup({
-          theme = 'catppuccin',
         })
       end,
     })
@@ -364,10 +352,6 @@ require('packer').startup({
         vim.api.nvim_set_keymap('n', '<Leader>gS', ':Telescope git_stash theme=get_ivy<CR>', opts)
         -- tree sitter
         vim.api.nvim_set_keymap('n', '<Leader>ts', ':Telescope treesitter theme=get_ivy<CR>', opts)
-        -- lsp
-        vim.api.nvim_set_keymap('n', 'gd', ':Telescope lsp_definitions theme=get_ivy<CR>', opts)
-        vim.api.nvim_set_keymap('n', 'gr', ':Telescope lsp_references theme=get_ivy<CR>', opts)
-        vim.api.nvim_set_keymap('n', 'gi', ':Telescope lsp_implementations theme=get_ivy<CR>', opts)
         -- termfinder
         vim.api.nvim_set_keymap('n', '<Leader>tf', ':Telescope termfinder find theme=get_ivy<CR>', opts)
       end,
@@ -675,9 +659,12 @@ require('packer').startup({
     -- quickfix
     use({
       'stevearc/qf_helper.nvim',
-      config = function()
+      setup = function()
         local opts = require('config').opts
         vim.api.nvim_set_keymap('n', '<Leader>q', ':QFToggle<CR>', opts)
+      end,
+      config = function()
+        require('qf_helper').setup()
       end,
     })
     use({
@@ -719,6 +706,7 @@ require('packer').startup({
     -- lsp
     use({
       'neovim/nvim-lspconfig',
+      requires = { 'b0o/schemastore.nvim' },
       config = function()
         require('lsp')
         local sign = require('config').sign
