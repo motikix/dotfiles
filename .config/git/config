@@ -20,5 +20,3 @@
 	rebase = false
 [ghq]
 	root = ~/.local/src
-[url "ssh://github.com"]
-	insteadOf = https://github.com

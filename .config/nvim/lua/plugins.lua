@@ -54,6 +54,12 @@ require('packer').startup({
       },
       config = function()
         require('noice').setup({
+          messages = {
+            enabled = false,
+          },
+          notify = {
+            enabled = false,
+          },
           lsp = {
             progress = {
               enabled = false,
@@ -691,15 +697,17 @@ require('packer').startup({
       end,
     })
     use({
-      'gabrielpoca/replacer.nvim',
+      'https://gitlab.com/yorickpeterse/nvim-pqf.git',
       config = function()
-        local opts = require('config').opts
-        vim.api.nvim_set_keymap(
-          'n',
-          '<Leader>h',
-          ':lua if vim.bo.filetype == "qf" then require("replacer").run({ rename_files = false }) end<CR>',
-          opts
-        )
+        require('pqf').setup()
+      end,
+    })
+    use({
+      'stefandtw/quickfix-reflector.vim',
+      setup = function()
+        vim.g.qf_modifiable = 1
+        vim.g.qf_join_changes = 1
+        vim.g.qf_write_changes = 1
       end,
     })
 
