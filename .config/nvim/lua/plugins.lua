@@ -570,7 +570,28 @@ require('packer').startup({
         vim.api.nvim_set_keymap('n', '<Leader>nf', ':lua require("neogen").generate()<CR>', opts)
       end,
     })
-    use('lambdalisue/readablefold.vim')
+    use({
+      'anuvyklack/pretty-fold.nvim',
+      config = function()
+        require('pretty-fold').setup()
+      end,
+    })
+    use({
+      'anuvyklack/fold-preview.nvim',
+      requires = 'anuvyklack/keymap-amend.nvim',
+      config = function()
+        require('fold-preview').setup({
+          auto = 400,
+        })
+      end,
+    })
+    use({
+      'yaocccc/nvim-foldsign',
+      event = 'CursorHold',
+      config = function()
+        require('nvim-foldsign').setup()
+      end,
+    })
     use({
       'chentoast/marks.nvim',
       config = function()
@@ -635,7 +656,7 @@ require('packer').startup({
 
     -- window
     use({
-      'https://gitlab.com/yorickpeterse/nvim-window.git',
+      'yorickpeterse/nvim-window',
       config = function()
         local opts = require('config').opts
         require('nvim-window').setup({
@@ -697,7 +718,7 @@ require('packer').startup({
       end,
     })
     use({
-      'https://gitlab.com/yorickpeterse/nvim-pqf.git',
+      'yorickpeterse/nvim-pqf',
       config = function()
         require('pqf').setup()
       end,
@@ -793,10 +814,11 @@ require('packer').startup({
             -- zig
             nls.builtins.formatting.zigfmt,
             -- javascript, typescript, jsx, tsx, vue
-            nls.builtins.code_actions.eslint_d.with({ condition = is_tssrv }),
-            nls.builtins.diagnostics.eslint_d.with({ condition = is_tssrv }),
-            nls.builtins.formatting.eslint_d.with({ condition = is_tssrv }),
-            nls.builtins.formatting.prettierd.with({ condition = is_tssrv }),
+            nls.builtins.code_actions.eslint_d.with({ condition = is_tssrv, prefer_local = 'node_modules/.bin' }),
+            nls.builtins.diagnostics.eslint_d.with({ condition = is_tssrv, prefer_local = 'node_modules/.bin' }),
+            nls.builtins.formatting.eslint_d.with({ condition = is_tssrv, prefer_local = 'node_modules/.bin' }),
+            nls.builtins.formatting.prettierd.with({ condition = is_tssrv, prefer_local = 'node_modules/.bin' }),
+            nls.builtins.formatting.rome.with({ condition = is_tssrv, prefer_local = 'node_modules/.bin' }),
             -- css,sass,scss,less
             nls.builtins.diagnostics.stylelint.with({ prefer_local = 'node_modules/.bin' }),
             nls.builtins.formatting.stylelint.with({ prefer_local = 'node_modules/.bin' }),
