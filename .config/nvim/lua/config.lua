@@ -2,10 +2,10 @@ local M = {}
 
 -- Sign
 M.sign = {
-  hint = '',
-  info = '',
-  warn = '',
-  error = '',
+  hint = '',
+  info = '',
+  warn = '',
+  error = '',
 }
 
 -- Keymap Options

@@ -13,21 +13,6 @@ require('packer').startup({
 
     -- improve
     use('lewis6991/impatient.nvim')
-    use('antoinemadec/FixCursorHold.nvim')
-    use({
-      'nathom/filetype.nvim',
-      config = function()
-        require('filetype').setup({
-          overrides = {
-            extensions = {
-              tf = 'terraform',
-              tfvars = 'terraform',
-              tfstate = 'json',
-            },
-          },
-        })
-      end,
-    })
 
     -- project local config
     use({
@@ -151,7 +136,7 @@ require('packer').startup({
     })
 
     -- icons
-    use('kyazdani42/nvim-web-devicons')
+    use('nvim-tree/nvim-web-devicons')
 
     -- treesitter
     use({
@@ -778,6 +763,7 @@ require('packer').startup({
       config = function()
         vim.diagnostic.config({
           virtual_text = false,
+          virtual_lines = { only_current_line = true },
         })
         require('lsp_lines').setup()
       end,

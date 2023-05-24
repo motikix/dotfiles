@@ -50,12 +50,8 @@ set -x PATH $HOME/.cabal/bin $PATH
 set -x PATH $HOME/.ghcup/bin $PATH
 
 ## node
-set -x NPM_CONFIG_PREFIX $HOME/.local
 set -x ESLINT_D_LOCAL_ESLINT_ONLY true
 set -x PRETTIERD_LOCAL_PRETTIER_ONLY true
-
-## deno
-set -x DENO_INSTALL_ROOT $HOME/.local
 
 ## bun
 set -x BUN_INSTALL $HOME/.bun
@@ -87,6 +83,10 @@ set -x FZF_CD_OPTS "--preview '$FZF_PREVIEW_DIR_CMD {}'"
 
 ## ghq
 set -x GHQ_SELECTOR_OPTS --preview "$FZF_PREVIEW_DIR_CMD {}"
+
+## aws-vault
+set -x AWS_VAULT_BACKEND pass
+set -x AWS_VAULT_PASS_PREFIX aws-vault
 
 ## wakatime
 set -x WAKATIME_HOME $HOME/.local/share/wakatime
@@ -127,11 +127,4 @@ end
 if type -q zoxide
   set -x _ZO_FZF_OPTS $FZF_DEFAULT_OPTS "--preview '$FZF_PREVIEW_DIR_CMD {2..}'"
   zoxide init fish | source
-end
-
-# launch
-
-## tmux
-if status is-interactive; and not set -q TMUX
-  exec tmux
 end
