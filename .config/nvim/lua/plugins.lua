@@ -800,10 +800,10 @@ require('packer').startup({
             -- zig
             nls.builtins.formatting.zigfmt,
             -- javascript, typescript, jsx, tsx, vue
-            nls.builtins.code_actions.eslint_d.with({ condition = is_tssrv, prefer_local = 'node_modules/.bin' }),
-            nls.builtins.diagnostics.eslint_d.with({ condition = is_tssrv, prefer_local = 'node_modules/.bin' }),
-            nls.builtins.formatting.eslint_d.with({ condition = is_tssrv, prefer_local = 'node_modules/.bin' }),
-            nls.builtins.formatting.prettierd.with({ condition = is_tssrv, prefer_local = 'node_modules/.bin' }),
+            nls.builtins.code_actions.eslint.with({ condition = is_tssrv, prefer_local = 'node_modules/.bin' }),
+            nls.builtins.diagnostics.eslint.with({ condition = is_tssrv, prefer_local = 'node_modules/.bin' }),
+            nls.builtins.formatting.eslint.with({ condition = is_tssrv, prefer_local = 'node_modules/.bin' }),
+            nls.builtins.formatting.prettier.with({ condition = is_tssrv, prefer_local = 'node_modules/.bin' }),
             nls.builtins.formatting.rome.with({ condition = is_tssrv, prefer_local = 'node_modules/.bin' }),
             -- css,sass,scss,less
             nls.builtins.diagnostics.stylelint.with({ prefer_local = 'node_modules/.bin' }),
@@ -815,10 +815,16 @@ require('packer').startup({
             -- python
             nls.builtins.diagnostics.flake8.with({ prefer_local = '.venv/bin' }),
             nls.builtins.diagnostics.mypy.with({ prefer_local = '.venv/bin' }),
+            nls.builtins.diagnostics.ruff.with({ prefer_local = '.venv/bin' }),
             nls.builtins.formatting.black.with({ prefer_local = '.venv/bin' }),
             nls.builtins.formatting.isort.with({ prefer_local = '.venv/bin' }),
+            nls.builtins.formatting.ruff.with({ prefer_local = '.venv/bin' }),
             -- lua
             nls.builtins.formatting.stylua,
+            -- editorconfig
+            nls.builtins.diagnostics.editorconfig_checker,
+            -- dotenv
+            nls.builtins.diagnostics.dotenv_linter,
             -- json
             nls.builtins.diagnostics.jsonlint,
             -- yaml
