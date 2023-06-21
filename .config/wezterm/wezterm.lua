@@ -1,7 +1,7 @@
 local wezterm = require('wezterm')
 
 return {
-  font = wezterm.font_with_fallback({ 'Monaco', 'Noto Sans JP', 'Noto Emoji' }),
+  font = wezterm.font_with_fallback({ 'IntelOne Mono', 'Noto Sans JP', 'Noto Emoji' }),
   font_size = 14,
   color_scheme = 'Catppuccin Mocha',
   enable_tab_bar = false,
