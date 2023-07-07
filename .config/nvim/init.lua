@@ -53,7 +53,7 @@ vim.o.display = 'lastline'
 
 -- Statuslinle
 vim.o.laststatus = 3
-vim.o.cmdheight = 0
+vim.o.cmdheight = 1
 
 -- Indent
 vim.o.tabstop = 2
