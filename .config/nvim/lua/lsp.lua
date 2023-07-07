@@ -29,12 +29,7 @@ M.on_attach = function(client, bufnr)
   buf_set_keymap('n', 'K', ':lua vim.lsp.buf.hover()<Cr>', opts)
   buf_set_keymap('n', '<C-k>', '<Cmd>lua vim.lsp.buf.signature_help()<Cr>', opts)
   buf_set_keymap('n', '<Leader>la', '<Cmd>lua vim.lsp.buf.code_action()<Cr>', opts)
-  buf_set_keymap(
-    'n',
-    '<Leader>lf',
-    '<Cmd>lua vim.lsp.buf.format({ filter = function(client) return client.name == "null-ls" end })<Cr>',
-    opts
-  )
+  buf_set_keymap('n', '<Leader>lf', '<Cmd>lua vim.lsp.buf.format()<Cr>', opts)
 
   -- document highlighting
   if client.server_capabilities.documentHighlightProvider then
@@ -119,6 +114,10 @@ lsp.tsserver.setup({
   capabilities = capabilities,
   root_dir = lsp.util.root_pattern('package.json', 'tsconfig.json', 'jsconfig.json'),
   single_file_support = false,
+})
+lsp.eslint.setup({
+  on_attach = M.on_attach,
+  capabilities = capabilities,
 })
 lsp.tailwindcss.setup({
   on_attach = M.on_attach,

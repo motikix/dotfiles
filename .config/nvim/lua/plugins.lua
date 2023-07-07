@@ -800,9 +800,6 @@ require('packer').startup({
             -- zig
             nls.builtins.formatting.zigfmt,
             -- javascript, typescript, jsx, tsx, vue
-            nls.builtins.code_actions.eslint.with({ condition = is_tssrv, prefer_local = 'node_modules/.bin' }),
-            nls.builtins.diagnostics.eslint.with({ condition = is_tssrv, prefer_local = 'node_modules/.bin' }),
-            nls.builtins.formatting.eslint.with({ condition = is_tssrv, prefer_local = 'node_modules/.bin' }),
             nls.builtins.formatting.prettier.with({ condition = is_tssrv, prefer_local = 'node_modules/.bin' }),
             nls.builtins.formatting.rome.with({ condition = is_tssrv, prefer_local = 'node_modules/.bin' }),
             -- css,sass,scss,less
