@@ -90,6 +90,24 @@ lsp.zls.setup({
   on_attach = M.on_attach,
   capabilities = capabilities,
 })
+lsp.tsserver.setup({
+  on_attach = M.on_attach,
+  capabilities = capabilities,
+  root_dir = lsp.util.root_pattern('package.json', 'tsconfig.json', 'jsconfig.json'),
+  single_file_support = false,
+})
+lsp.eslint.setup({
+  on_attach = M.on_attach,
+  capabilities = capabilities,
+})
+lsp.tailwindcss.setup({
+  on_attach = M.on_attach,
+  capabilities = capabilities,
+})
+lsp.prismals.setup({
+  on_attach = M.on_attach,
+  capabilities = capabilities,
+})
 lsp.denols.setup({
   on_attach = M.on_attach,
   capabilities = capabilities,
@@ -108,20 +126,6 @@ lsp.denols.setup({
       },
     },
   },
-})
-lsp.tsserver.setup({
-  on_attach = M.on_attach,
-  capabilities = capabilities,
-  root_dir = lsp.util.root_pattern('package.json', 'tsconfig.json', 'jsconfig.json'),
-  single_file_support = false,
-})
-lsp.eslint.setup({
-  on_attach = M.on_attach,
-  capabilities = capabilities,
-})
-lsp.tailwindcss.setup({
-  on_attach = M.on_attach,
-  capabilities = capabilities,
 })
 lsp.dartls.setup({
   on_attach = M.on_attach,

@@ -805,6 +805,8 @@ require('packer').startup({
             -- css,sass,scss,less
             nls.builtins.diagnostics.stylelint.with({ prefer_local = 'node_modules/.bin' }),
             nls.builtins.formatting.stylelint.with({ prefer_local = 'node_modules/.bin' }),
+            -- prisma
+            nls.builtins.formatting.prismaFmt.with({ prefer_local = 'node_modules/.bin' }),
             -- deno
             nls.builtins.formatting.deno_fmt.with({ condition = is_deno }),
             -- dart
