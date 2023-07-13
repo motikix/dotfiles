@@ -1,7 +1,7 @@
 local wezterm = require('wezterm')
 
 return {
-  font = wezterm.font_with_fallback({ 'PlemolJP Console NF', 'Noto Emoji' }),
+  font = wezterm.font_with_fallback({ 'Juisee Nerd Font', 'Noto Emoji' }),
   font_size = 14,
   harfbuzz_features = {},
   color_scheme = 'Catppuccin Mocha',
