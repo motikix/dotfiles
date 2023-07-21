@@ -1,10 +1,6 @@
 local M = {}
 
--- locals
 local opts = require('config').opts
-
--- nvim-lspconfig
-
 local lsp = require('lspconfig')
 
 local lsp_formatting = function(bufnr)
@@ -65,151 +61,153 @@ M.on_attach = function(client, bufnr)
   end
 end
 
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
+M.setup = function()
+  local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
--- lsp providers
+  -- lsp providers
 
-lsp.ccls.setup({
-  on_attach = M.on_attach,
-  capabilities = capabilities,
-  init_options = {
-    cache = {
-      directory = '/tmp/ccls-cache',
+  lsp.ccls.setup({
+    on_attach = M.on_attach,
+    capabilities = capabilities,
+    init_options = {
+      cache = {
+        directory = '/tmp/ccls-cache',
+      },
     },
-  },
-})
-lsp.gopls.setup({
-  on_attach = M.on_attach,
-  capabilities = capabilities,
-})
-lsp.rust_analyzer.setup({
-  on_attach = M.on_attach,
-  capabilities = capabilities,
-})
-lsp.zls.setup({
-  on_attach = M.on_attach,
-  capabilities = capabilities,
-})
-lsp.tsserver.setup({
-  on_attach = M.on_attach,
-  capabilities = capabilities,
-  root_dir = lsp.util.root_pattern('package.json', 'tsconfig.json', 'jsconfig.json'),
-  single_file_support = false,
-})
-lsp.eslint.setup({
-  on_attach = M.on_attach,
-  capabilities = capabilities,
-})
-lsp.tailwindcss.setup({
-  on_attach = M.on_attach,
-  capabilities = capabilities,
-})
-lsp.prismals.setup({
-  on_attach = M.on_attach,
-  capabilities = capabilities,
-})
-lsp.denols.setup({
-  on_attach = M.on_attach,
-  capabilities = capabilities,
-  root_dir = lsp.util.root_pattern('deno.json', 'deno.jsonc'),
-  init_options = {
-    enable = true,
-    lint = true,
-    unstable = true,
-    suggest = {
-      imports = {
-        hosts = {
-          ['https://deno.land'] = true,
-          ['https://cdn.nest.land'] = true,
-          ['https://crux.land'] = true,
+  })
+  lsp.gopls.setup({
+    on_attach = M.on_attach,
+    capabilities = capabilities,
+  })
+  lsp.rust_analyzer.setup({
+    on_attach = M.on_attach,
+    capabilities = capabilities,
+  })
+  lsp.zls.setup({
+    on_attach = M.on_attach,
+    capabilities = capabilities,
+  })
+  lsp.tsserver.setup({
+    on_attach = M.on_attach,
+    capabilities = capabilities,
+    root_dir = lsp.util.root_pattern('package.json', 'tsconfig.json', 'jsconfig.json'),
+    single_file_support = false,
+  })
+  lsp.eslint.setup({
+    on_attach = M.on_attach,
+    capabilities = capabilities,
+  })
+  lsp.tailwindcss.setup({
+    on_attach = M.on_attach,
+    capabilities = capabilities,
+  })
+  lsp.prismals.setup({
+    on_attach = M.on_attach,
+    capabilities = capabilities,
+  })
+  lsp.denols.setup({
+    on_attach = M.on_attach,
+    capabilities = capabilities,
+    root_dir = lsp.util.root_pattern('deno.json', 'deno.jsonc'),
+    init_options = {
+      enable = true,
+      lint = true,
+      unstable = true,
+      suggest = {
+        imports = {
+          hosts = {
+            ['https://deno.land'] = true,
+            ['https://cdn.nest.land'] = true,
+            ['https://crux.land'] = true,
+          },
         },
       },
     },
-  },
-})
-lsp.dartls.setup({
-  on_attach = M.on_attach,
-  capabilities = capabilities,
-})
-lsp.vuels.setup({
-  on_attach = M.on_attach,
-  capabilities = capabilities,
-})
-lsp.svelte.setup({
-  on_attach = M.on_attach,
-  capabilities = capabilities,
-})
-lsp.astro.setup({
-  on_attach = M.on_attach,
-  capabilities = capabilities,
-})
-lsp.pyright.setup({
-  on_attach = M.on_attach,
-  capabilities = capabilities,
-})
-lsp.lua_ls.setup({
-  on_attach = M.on_attach,
-  capabilities = capabilities,
-  settings = {
-    Lua = {
-      runtime = {
-        version = 'LuaJIT',
-      },
-      diagnostics = {
-        globals = { 'vim' },
-      },
-      workspace = {
-        library = vim.api.nvim_get_runtime_file('', true),
-      },
-      telemetry = {
-        enable = false,
+  })
+  lsp.dartls.setup({
+    on_attach = M.on_attach,
+    capabilities = capabilities,
+  })
+  lsp.vuels.setup({
+    on_attach = M.on_attach,
+    capabilities = capabilities,
+  })
+  lsp.svelte.setup({
+    on_attach = M.on_attach,
+    capabilities = capabilities,
+  })
+  lsp.astro.setup({
+    on_attach = M.on_attach,
+    capabilities = capabilities,
+  })
+  lsp.pyright.setup({
+    on_attach = M.on_attach,
+    capabilities = capabilities,
+  })
+  lsp.lua_ls.setup({
+    on_attach = M.on_attach,
+    capabilities = capabilities,
+    settings = {
+      Lua = {
+        runtime = {
+          version = 'LuaJIT',
+        },
+        diagnostics = {
+          globals = { 'vim' },
+        },
+        workspace = {
+          library = vim.api.nvim_get_runtime_file('', true),
+        },
+        telemetry = {
+          enable = false,
+        },
       },
     },
-  },
-})
-local os = vim.fn.has('mac') == 1 and 'mac' or (vim.fn.has('linux') == 1 and 'linux' or 'windows')
-lsp.java_language_server.setup({
-  on_attach = M.on_attach,
-  capabilities = capabilities,
-  cmd = {
-    vim.env.HOME .. '/.local/src/github.com/georgewfraser/java-language-server/dist/lang_server_' .. os .. '.sh',
-  },
-})
-lsp.vimls.setup({
-  on_attach = M.on_attach,
-  capabilities = capabilities,
-})
-lsp.terraformls.setup({
-  on_attach = M.on_attach,
-  capabilities = capabilities,
-})
-lsp.jsonls.setup({
-  on_attach = M.on_attach,
-  capabilities = capabilities,
-  settings = {
-    json = {
-      schemas = require('schemastore').json.schemas(),
-      validate = { enable = true },
+  })
+  local os = vim.fn.has('mac') == 1 and 'mac' or (vim.fn.has('linux') == 1 and 'linux' or 'windows')
+  lsp.java_language_server.setup({
+    on_attach = M.on_attach,
+    capabilities = capabilities,
+    cmd = {
+      vim.env.HOME .. '/.local/src/github.com/georgewfraser/java-language-server/dist/lang_server_' .. os .. '.sh',
     },
-  },
-})
-lsp.yamlls.setup({
-  on_attach = M.on_attach,
-  capabilities = capabilities,
-  settings = {
-    yaml = {
-      schemas = require('schemastore').yaml.schemas(),
+  })
+  lsp.vimls.setup({
+    on_attach = M.on_attach,
+    capabilities = capabilities,
+  })
+  lsp.terraformls.setup({
+    on_attach = M.on_attach,
+    capabilities = capabilities,
+  })
+  lsp.jsonls.setup({
+    on_attach = M.on_attach,
+    capabilities = capabilities,
+    settings = {
+      json = {
+        schemas = require('schemastore').json.schemas(),
+        validate = { enable = true },
+      },
     },
-  },
-})
+  })
+  lsp.yamlls.setup({
+    on_attach = M.on_attach,
+    capabilities = capabilities,
+    settings = {
+      yaml = {
+        schemas = require('schemastore').yaml.schemas(),
+      },
+    },
+  })
 
--- UI
+  -- UI
 
-vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
-  border = 'single',
-})
-vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-  border = 'single',
-})
+  vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
+    border = 'single',
+  })
+  vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+    border = 'single',
+  })
+end
 
 return M

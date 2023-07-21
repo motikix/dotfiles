@@ -129,8 +129,4 @@ vim.o.termguicolors = true
 -- Terminal
 vim.api.nvim_set_keymap('t', '<Esc>', '<C-\\><C-n>', opts)
 
--- Plugins
-if not (pcall(require, 'impatient')) then
-  print('Load impatient failed')
-end
-require('plugins')
+require('bootstrap')
