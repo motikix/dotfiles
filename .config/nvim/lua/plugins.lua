@@ -827,7 +827,6 @@ return {
   {
     'NTBBloodbath/rest.nvim',
     dependencies = { 'nvim-lua/plenary.nvim' },
-    ft = { 'http' },
     init = function()
       vim.api.nvim_set_keymap('n', '<Leader>rr', '<Plug>RestNvim', opts_silent)
       vim.api.nvim_set_keymap('n', '<Leader>rp', '<Plug>RestNvimPreview', opts_silent)
