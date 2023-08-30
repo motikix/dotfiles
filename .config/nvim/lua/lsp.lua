@@ -3,16 +3,6 @@ local M = {}
 local opts = require('config').opts
 local lsp = require('lspconfig')
 
-local lsp_formatting = function(bufnr)
-  vim.lsp.buf.format({
-    filter = function(client)
-      return client.name == 'null-ls'
-    end,
-    bufnr = bufnr,
-  })
-end
-local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
-
 M.on_attach = function(client, bufnr)
   local function buf_set_keymap(...)
     vim.api.nvim_buf_set_keymap(bufnr, ...)
@@ -25,7 +15,6 @@ M.on_attach = function(client, bufnr)
   buf_set_keymap('n', 'K', ':lua vim.lsp.buf.hover()<Cr>', opts)
   buf_set_keymap('n', '<C-k>', '<Cmd>lua vim.lsp.buf.signature_help()<Cr>', opts)
   buf_set_keymap('n', '<Leader>la', '<Cmd>lua vim.lsp.buf.code_action()<Cr>', opts)
-  buf_set_keymap('n', '<Leader>lf', '<Cmd>lua vim.lsp.buf.format()<Cr>', opts)
 
   -- document highlighting
   if client.server_capabilities.documentHighlightProvider then
@@ -48,17 +37,9 @@ M.on_attach = function(client, bufnr)
     })
   end
 
-  -- format on save
-  if client.supports_method('textDocument/formatting') then
-    vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-    vim.api.nvim_create_autocmd('BufWritePre', {
-      group = augroup,
-      buffer = bufnr,
-      callback = function()
-        lsp_formatting(bufnr)
-      end,
-    })
-  end
+  -- disabled formatter
+  client.server_capabilities.documentFormattingProvider = false
+  client.server_capabilities.documentRangeFormattingProvider = false
 end
 
 M.setup = function()
@@ -92,10 +73,6 @@ M.setup = function()
     capabilities = capabilities,
     root_dir = lsp.util.root_pattern('package.json', 'tsconfig.json', 'jsconfig.json'),
     single_file_support = false,
-  })
-  lsp.eslint.setup({
-    on_attach = M.on_attach,
-    capabilities = capabilities,
   })
   lsp.tailwindcss.setup({
     on_attach = M.on_attach,
@@ -157,6 +134,7 @@ M.setup = function()
         },
         workspace = {
           library = vim.api.nvim_get_runtime_file('', true),
+          checkThirdParty = false,
         },
         telemetry = {
           enable = false,
@@ -195,6 +173,10 @@ M.setup = function()
     capabilities = capabilities,
     settings = {
       yaml = {
+        schemaStore = {
+          enable = false,
+          url = '',
+        },
         schemas = require('schemastore').yaml.schemas(),
       },
     },

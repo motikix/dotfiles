@@ -171,22 +171,6 @@ return {
       chars = { 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l' },
     },
   },
-  {
-    'beauwilliams/focus.nvim',
-    init = function()
-      vim.api.nvim_set_keymap('n', '<C-w>w', ':FocusSplitNicely<CR>', opts)
-    end,
-    opts = {
-      signcolumn = false,
-      hybridnumber = true,
-      absolutenumber_unfocussed = true,
-      excluded_filetypes = {
-        'qf',
-        'toggleterm',
-        'Trouble',
-      },
-    },
-  },
 
   -- Buffer
   { 'tiagovla/scope.nvim' },
@@ -618,6 +602,53 @@ return {
     },
   },
 
+  -- Linter & Fixer
+  {
+    'dense-analysis/ale',
+    init = function()
+      vim.g.ale_echo_cursor = 0
+      vim.g.ale_fix_on_save = 1
+      vim.g.ale_disable_lsp = 1
+      vim.g.ale_linters_explicit = 1
+      vim.g.ale_sign_column_always = 1
+      vim.g.ale_use_neovim_diagnostics_api = 1
+      vim.g.ale_virtualtext_cursor = 'disabled'
+
+      vim.g.ale_linters = {
+        javascript = { 'eslint' },
+        typescript = { 'eslint' },
+        css = { 'stylelint' },
+        sass = { 'stylelint' },
+        scss = { 'stylelint' },
+        less = { 'stylelint' },
+        python = { 'flake8', 'mypy' },
+        go = { 'staticcheck' },
+        json = { 'jsonlint' },
+        yaml = { 'yamllint' },
+        markdown = { 'markdownlint' },
+      }
+      vim.g.ale_fixers = {
+        lua = { 'stylua' },
+        javascript = { 'eslint', 'prettier' },
+        typescript = { 'eslint', 'prettier' },
+        css = { 'prettier' },
+        sass = { 'prettier' },
+        scss = { 'prettier' },
+        less = { 'prettier' },
+        deno = { 'deno' },
+        python = { 'isort', 'black' },
+        go = { 'goimports' },
+        rust = { 'rustfmt' },
+        terraform = { 'terraform' },
+      }
+
+      vim.g.ale_lua_stylua_options = '-s'
+      vim.g.ale_python_auto_pipenv = 1
+      vim.g.ale_python_auto_poetry = 1
+      vim.g.ale_python_auto_virtualenv = 1
+    end,
+  },
+
   -- LSP
   {
     'neovim/nvim-lspconfig',
@@ -655,64 +686,6 @@ return {
       vim.api.nvim_set_keymap('n', '<Leader>lr', ':IncRename ', opts)
     end,
     config = true,
-  },
-  {
-    'jose-elias-alvarez/null-ls.nvim',
-    dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
-    config = function()
-      local nls = require('null-ls')
-      local is_deno = function(utils)
-        return utils.root_has_file({ 'deno.json', 'deno.jsonc' })
-      end
-      local is_tssrv = function(utils)
-        return utils.root_has_file({ 'package.json' })
-      end
-      nls.setup({
-        sources = {
-          -- c/c++/c#/java
-          nls.builtins.formatting.clang_format,
-          -- rust
-          nls.builtins.formatting.rustfmt,
-          -- go
-          nls.builtins.diagnostics.staticcheck,
-          nls.builtins.formatting.goimports,
-          -- zig
-          nls.builtins.formatting.zigfmt,
-          -- javascript, typescript, jsx, tsx, vue
-          nls.builtins.formatting.prettier.with({ condition = is_tssrv, prefer_local = 'node_modules/.bin' }),
-          nls.builtins.formatting.rome.with({ condition = is_tssrv, prefer_local = 'node_modules/.bin' }),
-          -- css,sass,scss,less
-          nls.builtins.diagnostics.stylelint.with({ prefer_local = 'node_modules/.bin' }),
-          nls.builtins.formatting.stylelint.with({ prefer_local = 'node_modules/.bin' }),
-          -- deno
-          nls.builtins.formatting.deno_fmt.with({ condition = is_deno }),
-          -- dart
-          nls.builtins.formatting.dart_format,
-          -- python
-          nls.builtins.diagnostics.flake8.with({ prefer_local = '.venv/bin' }),
-          nls.builtins.diagnostics.mypy.with({ prefer_local = '.venv/bin' }),
-          nls.builtins.diagnostics.ruff.with({ prefer_local = '.venv/bin' }),
-          nls.builtins.formatting.black.with({ prefer_local = '.venv/bin' }),
-          nls.builtins.formatting.isort.with({ prefer_local = '.venv/bin' }),
-          nls.builtins.formatting.ruff.with({ prefer_local = '.venv/bin' }),
-          -- lua
-          nls.builtins.formatting.stylua,
-          -- editorconfig
-          nls.builtins.diagnostics.editorconfig_checker,
-          -- dotenv
-          nls.builtins.diagnostics.dotenv_linter,
-          -- json
-          nls.builtins.diagnostics.jsonlint,
-          -- yaml
-          nls.builtins.diagnostics.yamllint,
-          -- markdown
-          nls.builtins.diagnostics.markdownlint,
-          -- terraform
-          nls.builtins.formatting.terraform_fmt,
-        },
-        on_attach = require('lsp').on_attach,
-      })
-    end,
   },
 
   -- Completion

@@ -1,8 +1,8 @@
 local wezterm = require('wezterm')
 
 return {
-  font = wezterm.font_with_fallback({ 'JuiseeHW Nerd Font', 'Noto Emoji' }),
-  font_size = 14,
+  font = wezterm.font_with_fallback({ 'IntoneMono Nerd Font', 'Noto Sans JP', 'Noto Emoji' }),
+  font_size = 16,
   harfbuzz_features = {},
   color_scheme = 'Catppuccin Mocha',
   enable_tab_bar = false,
