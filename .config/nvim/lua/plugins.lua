@@ -40,6 +40,9 @@ return {
               warnings = { 'undercurl' },
               information = { 'undercurl' },
             },
+            inlay_hints = {
+              background = true,
+            },
           },
           lsp_trouble = true,
           cmp = true,
@@ -53,51 +56,10 @@ return {
           bufferline = true,
           markdown = true,
           hop = true,
-          notify = true,
-          noice = true,
-          navic = {
-            enabled = true,
-            custom_bg = 'NONE',
-          },
         },
       })
       vim.cmd([[colorscheme catppuccin]])
     end,
-  },
-
-  -- UI
-  {
-    'folke/noice.nvim',
-    dependencies = {
-      'MunifTanjim/nui.nvim',
-      'rcarriga/nvim-notify',
-    },
-    event = 'VeryLazy',
-    opts = {
-      messages = {
-        enabled = false,
-      },
-      notify = {
-        enabled = false,
-      },
-      lsp = {
-        progress = {
-          enabled = false,
-        },
-        override = {
-          ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
-          ['vim.lsp.util.stylize_markdown'] = true,
-          ['cmp.entry.get_documentation'] = true,
-        },
-      },
-      presets = {
-        bottom_search = true,
-        command_palette = true,
-        long_message_to_split = true,
-        inc_rename = true,
-        lsp_doc_border = true,
-      },
-    },
   },
 
   -- Explorer
@@ -148,8 +110,6 @@ return {
           window_picker = {
             exclude = {
               filetype = {
-                'notify',
-                'packer',
                 'qf',
                 'Trouble',
               },
@@ -321,24 +281,51 @@ return {
   },
 
   -- Git Support
-  { 'tpope/vim-fugitive' },
   {
     'lewis6991/gitsigns.nvim',
-    config = function()
-      require('gitsigns').setup({
-        trouble = true,
-        on_attach = function(bufnr)
-          local function map(mode, lhs, rhs, _opts)
-            _opts = vim.tbl_extend('force', opts, _opts or {})
-            vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, _opts)
-          end
-
-          map('n', ']c', '&diff ? "]c" : ":Gitsigns next_hunk<CR>"', { expr = true })
-          map('n', '[c', '&diff ? "[c" : ":Gitsigns prev_hunk<CR>"', { expr = true })
-        end,
-      })
+    init = function()
       vim.api.nvim_set_keymap('n', '<Leader>gq', ':Gitsigns setqflist<CR>', opts)
     end,
+    opts = {
+      trouble = true,
+      current_line_blame = true,
+      on_attach = function(bufnr)
+        local gs = package.loaded.gitsigns
+
+        local function map(mode, l, r, _opts)
+          _opts = _opts or {}
+          _opts.buffer = bufnr
+          vim.keymap.set(mode, l, r, _opts)
+        end
+
+        -- Navigation
+        map('n', ']c', function()
+          if vim.wo.diff then
+            return ']c'
+          end
+          vim.schedule(function()
+            gs.next_hunk()
+          end)
+          return '<Ignore>'
+        end, { expr = true })
+
+        map('n', '[c', function()
+          if vim.wo.diff then
+            return '[c'
+          end
+          vim.schedule(function()
+            gs.prev_hunk()
+          end)
+          return '<Ignore>'
+        end, { expr = true })
+
+        -- Actions
+        map('n', '<Leader>hp', gs.preview_hunk)
+        map('n', '<Leader>hb', function()
+          gs.blame_line({ full = true })
+        end)
+      end,
+    },
   },
   {
     'akinsho/git-conflict.nvim',
@@ -775,24 +762,6 @@ return {
   },
 
   -- Syntax Highlight / Language Support
-  {
-    'sheerun/vim-polyglot',
-    init = function()
-      -- disabled filetypes
-      vim.g.polyglot_disabled = {}
-      -- vue behaviors
-      vim.g.vue_pre_processors = 'detect_on_enter'
-      -- markdown behaviors
-      vim.g.vim_markdown_conceal = 0
-      vim.g.vim_markdown_math = 1
-      vim.g.vim_markdown_frontmatter = 1
-      vim.g.vim_markdown_toml_frontmatter = 1
-      vim.g.vim_markdown_json_frontmatter = 1
-      vim.g.vim_markdown_strikethrough = 1
-      -- csv behaviors
-      vim.g.csv_no_conceal = 1
-    end,
-  },
   {
     'iamcco/markdown-preview.nvim',
     build = function()
