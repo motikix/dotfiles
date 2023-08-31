@@ -67,11 +67,16 @@ vim.o.smartindent = true
 -- Clipboard
 vim.o.clipboard = 'unnamed,unnamedplus'
 
+-- Transparency
+vim.o.winblend = 10
+vim.o.pumblend = 10
+
 -- Always show signcolumn
-vim.wo.signcolumn = 'yes'
+vim.o.signcolumn = 'yes'
 
 -- No wrap word
-vim.wo.wrap = false
+vim.o.wrap = false
+vim.o.whichwrap = 'b,s,h,l,<,>,[,],~'
 
 -- Split window direction
 vim.o.splitbelow = true
