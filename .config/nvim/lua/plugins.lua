@@ -107,6 +107,8 @@ return {
       'nvim-tree/nvim-web-devicons',
     },
     init = function()
+      vim.g.loaded_netrw = 1
+      vim.g.loaded_netrwPlugin = 1
       vim.api.nvim_set_keymap('n', '<C-n>', ':NvimTreeToggle<CR>', opts)
     end,
     opts = {
@@ -176,12 +178,12 @@ return {
   { 'tiagovla/scope.nvim' },
   {
     'famiu/bufdelete.nvim',
-    cmd = 'Bdelete',
+    cmd = { 'Bdelete', 'Bwipeout' },
     init = function()
-      vim.api.nvim_set_keymap('n', '<Leader>bd', ':Bdelete<CR>', opts)
-      vim.api.nvim_set_keymap('n', '<Leader>bad', ':bufdo :Bdelete<CR>', opts)
-      vim.api.nvim_set_keymap('n', '<Leader>bD', ':bd<CR>', opts)
-      vim.api.nvim_set_keymap('n', '<Leader>baD', ':bufdo :bd<CR>', opts)
+      vim.api.nvim_set_keymap('n', '<Leader>bd', ':Bwipeout<CR>', opts)
+      vim.api.nvim_set_keymap('n', '<Leader>bad', ':bufdo :Bwipeout<CR>', opts)
+      vim.api.nvim_set_keymap('n', '<Leader>bD', ':bwipeout<CR>', opts)
+      vim.api.nvim_set_keymap('n', '<Leader>baD', ':bufdo :bwipeout<CR>', opts)
     end,
   },
 
