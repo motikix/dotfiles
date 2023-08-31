@@ -560,6 +560,10 @@ return {
   {
     'kevinhwang91/nvim-bqf',
     ft = 'qf',
+    init = function()
+      vim.cmd([[copen]])
+      vim.cmd([[cclose]])
+    end,
     opts = {
       auto_enable = true,
       auto_resize_height = true,
