@@ -3,6 +3,15 @@ local opts_silent = require('config').opts_silent
 local sign = require('config').sign
 
 return {
+  -- Perf
+  {
+    'EtiamNullam/deferred-clipboard.nvim',
+    opts = {
+      lazy = true,
+    },
+    config = true,
+  },
+
   -- Color
   {
     'catppuccin/nvim',
@@ -49,6 +58,7 @@ return {
           gitsigns = true,
           telescope = true,
           nvimtree = true,
+          fern = true,
           indent_blankline = {
             enabled = true,
             colored_indent_levels = false,
@@ -122,6 +132,26 @@ return {
       },
     },
   },
+  -- {
+  --   'stevearc/oil.nvim',
+  --   dependencies = { 'nvim-tree/nvim-web-devicons' },
+  --   init = function()
+  --     vim.api.nvim_set_keymap('n', '-', ':lua require("oil.actions").parent.callback()<CR>', opts)
+  --     vim.api.nvim_set_keymap('n', '_', ':lua require("oil.actions").open_cwd.callback()<CR>', opts)
+  --   end,
+  --   opts = {
+  --     view_options = {
+  --       show_hidden = true,
+  --     },
+  --   },
+  -- },
+  -- {
+  --   'lambdalisue/fern.vim',
+  --   init = function()
+  --     vim.api.nvim_set_keymap('n', '-', ':Fern %:h<CR>', opts)
+  --     vim.api.nvim_set_keymap('n', '_', ':Fern . -reveal=%<CR>', opts)
+  --   end,
+  -- },
 
   -- Window
   {
@@ -136,16 +166,6 @@ return {
 
   -- Buffer
   { 'tiagovla/scope.nvim' },
-  {
-    'famiu/bufdelete.nvim',
-    cmd = { 'Bdelete', 'Bwipeout' },
-    init = function()
-      vim.api.nvim_set_keymap('n', '<Leader>bd', ':Bwipeout<CR>', opts)
-      vim.api.nvim_set_keymap('n', '<Leader>bad', ':bufdo :Bwipeout<CR>', opts)
-      vim.api.nvim_set_keymap('n', '<Leader>bD', ':bwipeout<CR>', opts)
-      vim.api.nvim_set_keymap('n', '<Leader>baD', ':bufdo :bwipeout<CR>', opts)
-    end,
-  },
 
   -- Bufferline
   {
@@ -804,6 +824,4 @@ return {
 
   -- Misc
   { 'wsdjeg/vim-fetch' },
-  { 'wakatime/vim-wakatime' },
-  { 'segeljakt/vim-silicon' },
 }

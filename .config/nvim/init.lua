@@ -65,7 +65,7 @@ vim.o.autoindent = true
 vim.o.smartindent = true
 
 -- Clipboard
-vim.o.clipboard = 'unnamed,unnamedplus'
+-- vim.o.clipboard = 'unnamed,unnamedplus'
 
 -- Transparency
 vim.o.winblend = 10
@@ -93,6 +93,10 @@ for _, mode in pairs({ 'i', 'c' }) do
   vim.api.nvim_set_keymap(mode, '<C-f>', '<Right>', opts_noremap)
   vim.api.nvim_set_keymap(mode, '<C-k>', '<Del>', opts_noremap)
 end
+
+-- Buffer
+vim.api.nvim_set_keymap('n', '<Leader>bd', ':bwipeout<CR>', opts)
+vim.api.nvim_set_keymap('n', '<Leader>bad', ':bufdo :bwipeout<CR>', opts)
 
 -- Search
 vim.o.ignorecase = true
