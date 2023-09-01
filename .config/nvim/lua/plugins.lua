@@ -57,7 +57,6 @@ return {
           cmp = true,
           gitsigns = true,
           telescope = true,
-          nvimtree = true,
           fern = true,
           indent_blankline = {
             enabled = true,
@@ -74,84 +73,19 @@ return {
 
   -- Explorer
   {
-    'kyazdani42/nvim-tree.lua',
+    'lambdalisue/fern.vim',
     dependencies = {
+      'lambdalisue/fern-hijack.vim',
+      'lambdalisue/fern-git-status.vim',
+      'TheLeoP/fern-renderer-web-devicons.nvim',
       'nvim-tree/nvim-web-devicons',
     },
     init = function()
-      vim.g.loaded_netrw = 1
-      vim.g.loaded_netrwPlugin = 1
-      vim.api.nvim_set_keymap('n', '<C-n>', ':NvimTreeToggle<CR>', opts)
+      vim.g['fern#renderer'] = 'nvim-web-devicons'
+      vim.api.nvim_set_keymap('n', '-', ':Fern %:h<CR>', opts)
+      vim.api.nvim_set_keymap('n', '_', ':Fern . -reveal=%<CR>', opts)
     end,
-    opts = {
-      hijack_cursor = true,
-      update_cwd = true,
-      diagnostics = {
-        enable = true,
-        icons = {
-          hint = sign.hint,
-          info = sign.info,
-          warning = sign.warn,
-          error = sign.error,
-        },
-      },
-      filters = {
-        dotfiles = false,
-      },
-      git = {
-        enable = true,
-        ignore = false,
-      },
-      view = {
-        width = 40,
-      },
-      renderer = {
-        add_trailing = true,
-        group_empty = false,
-        highlight_git = true,
-        highlight_opened_files = 'icon',
-        indent_markers = {
-          enable = true,
-        },
-      },
-      actions = {
-        open_file = {
-          quit_on_open = true,
-          window_picker = {
-            exclude = {
-              filetype = {
-                'qf',
-                'Trouble',
-              },
-              buftype = {
-                'terminal',
-              },
-            },
-          },
-        },
-      },
-    },
   },
-  -- {
-  --   'stevearc/oil.nvim',
-  --   dependencies = { 'nvim-tree/nvim-web-devicons' },
-  --   init = function()
-  --     vim.api.nvim_set_keymap('n', '-', ':lua require("oil.actions").parent.callback()<CR>', opts)
-  --     vim.api.nvim_set_keymap('n', '_', ':lua require("oil.actions").open_cwd.callback()<CR>', opts)
-  --   end,
-  --   opts = {
-  --     view_options = {
-  --       show_hidden = true,
-  --     },
-  --   },
-  -- },
-  -- {
-  --   'lambdalisue/fern.vim',
-  --   init = function()
-  --     vim.api.nvim_set_keymap('n', '-', ':Fern %:h<CR>', opts)
-  --     vim.api.nvim_set_keymap('n', '_', ':Fern . -reveal=%<CR>', opts)
-  --   end,
-  -- },
 
   -- Window
   {
@@ -203,9 +137,6 @@ return {
               return true
             end
           end,
-          offsets = {
-            { filetype = 'NvimTree', text = 'Explorer', highlight = 'Directory', text_align = 'center' },
-          },
           separator_style = 'slant',
         },
       })
