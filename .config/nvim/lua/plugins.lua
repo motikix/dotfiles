@@ -79,11 +79,26 @@ return {
       'lambdalisue/fern-git-status.vim',
       'TheLeoP/fern-renderer-web-devicons.nvim',
       'nvim-tree/nvim-web-devicons',
+      'yuki-yano/fern-preview.vim',
     },
     init = function()
       vim.g['fern#renderer'] = 'nvim-web-devicons'
+      vim.g['fern#default_hidden'] = 1
       vim.api.nvim_set_keymap('n', '-', ':Fern %:h<CR>', opts)
       vim.api.nvim_set_keymap('n', '_', ':Fern . -reveal=%<CR>', opts)
+      vim.cmd([[
+        function! s:fern_settings() abort
+          nmap <silent> <buffer> p     <Plug>(fern-action-preview:toggle)
+          nmap <silent> <buffer> <C-p> <Plug>(fern-action-preview:auto:toggle)
+          nmap <silent> <buffer> <C-d> <Plug>(fern-action-preview:scroll:down:half)
+          nmap <silent> <buffer> <C-u> <Plug>(fern-action-preview:scroll:up:half)
+        endfunction
+
+        augroup fern-settings
+          autocmd!
+          autocmd FileType fern call s:fern_settings()
+        augroup END
+      ]])
     end,
   },
 
