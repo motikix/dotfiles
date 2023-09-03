@@ -491,7 +491,10 @@ return {
   {
     's1n7ax/nvim-comment-frame',
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
-    config = true,
+    opts = {
+      keymap = '<Leader>cf',
+      multiline_keymap = '<Leader>cm',
+    },
   },
   { 'AndrewRadev/linediff.vim' },
   {
