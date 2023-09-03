@@ -121,6 +121,17 @@ setopt hist_reduce_blanks
 
 setopt magic_equal_subst
 
+setopt auto_menu
+setopt menu_complete
+setopt complete_aliases
+setopt auto_list
+setopt list_types
+
+zstyle ':completion:*' menu yes select
+
+setopt auto_param_slash
+setopt auto_param_keys
+
 autoload -Uz compinit && compinit
 
 autoload -Uz promptinit && promptinit
