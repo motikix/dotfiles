@@ -84,8 +84,8 @@ return {
     init = function()
       vim.g['fern#renderer'] = 'nvim-web-devicons'
       vim.g['fern#default_hidden'] = 1
-      vim.api.nvim_set_keymap('n', '-', ':Fern %:h<CR>', opts)
-      vim.api.nvim_set_keymap('n', '_', ':Fern . -reveal=%<CR>', opts)
+      vim.api.nvim_set_keymap('n', '-', ':Fern . -reveal=%<CR>', opts)
+      vim.api.nvim_set_keymap('n', '_', ':Fern %:h<CR>', opts)
       vim.cmd([[
         function! s:fern_settings() abort
           nmap <silent> <buffer> p     <Plug>(fern-action-preview:toggle)
