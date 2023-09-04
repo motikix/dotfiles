@@ -22,9 +22,6 @@ export XDG_STATE_HOME=$HOME/.local/state
 # bin
 export PATH=$HOME/.local/bin:$PATH
 
-# editor
-export EDITOR=vim
-
 # gpg
 export GPG_TTY=$(tty)
 
