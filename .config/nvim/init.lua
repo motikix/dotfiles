@@ -65,7 +65,7 @@ vim.o.autoindent = true
 vim.o.smartindent = true
 
 -- Clipboard
--- vim.o.clipboard = 'unnamed,unnamedplus'
+vim.o.clipboard = 'unnamed'
 
 -- Transparency
 vim.o.winblend = 10

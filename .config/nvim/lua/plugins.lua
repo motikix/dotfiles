@@ -3,15 +3,6 @@ local opts_silent = require('config').opts_silent
 local sign = require('config').sign
 
 return {
-  -- Perf
-  {
-    'EtiamNullam/deferred-clipboard.nvim',
-    opts = {
-      lazy = true,
-    },
-    config = true,
-  },
-
   -- Color
   {
     'catppuccin/nvim',
