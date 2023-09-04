@@ -5,6 +5,11 @@
 #                            environments                            #
 #--------------------------------------------------------------------#
 
+# zsh
+export HISTFILE=$HOME/.zsh_history
+export HISTSIZE=2000
+export SAVEHIST=1000
+
 # lang
 export LANG=en_US.UTF-8
 
