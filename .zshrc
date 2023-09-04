@@ -138,7 +138,6 @@ setopt auto_param_keys
 autoload -Uz compinit && compinit
 
 autoload -Uz promptinit && promptinit
-prompt pure
 
 #--------------------------------------------------------------------#
 #                               zinit                                #
@@ -171,6 +170,10 @@ zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light hlissner/zsh-autopair
+zinit ice depth=1; zinit light romkatv/powerlevel10k
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # Fig post block. Keep at the bottom of this file.
 [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
