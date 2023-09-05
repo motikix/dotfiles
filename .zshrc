@@ -60,16 +60,14 @@ export PIPENV_VENV_IN_PROJECT=true
 function _exists_cmd() { type "$1" > /dev/null 2>&1; }
 
 function _fzf_ghq() {
-  local query=$([[ -n $BUFFER ]] && echo $BUFFER || echo '')
+  local q=$([[ -n $BUFFER ]] && echo $BUFFER || echo '')
   local root=$(ghq root)
-  local repo=$(ghq list | fzf --query "$query" --preview "$FZF_PREVIEW_DIR_CMD $root/{}")
+  local repo=$(ghq list | fzf --query "$q" --preview "$FZF_PREVIEW_DIR_CMD $root/{}")
   if [[ -n $repo ]] then
-    local dest=$root/$repo
-    [[ -d $dest ]] && cd $dest
+    BUFFER="cd $root/$repo"
     zle accept-line
-  else
-    zle reset-prompt
   fi
+  zle reset-prompt
 }
 zle -N _fzf_ghq
 bindkey "^g" _fzf_ghq
