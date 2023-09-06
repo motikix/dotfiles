@@ -9,6 +9,8 @@
 export HISTFILE=$HOME/.zsh_history
 export HISTSIZE=2000
 export SAVEHIST=1000
+export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
+compctl -M 'm:{a-z}={A-Z}'
 
 # lang
 export LANG=en_US.UTF-8
@@ -72,6 +74,10 @@ function _fzf_ghq() {
 zle -N _fzf_ghq
 bindkey "^g" _fzf_ghq
 
+function _do_nothing() {}
+zle -N _do_nothing
+bindkey "^d" _do_nothing
+
 #--------------------------------------------------------------------#
 #                              aliases                               #
 #--------------------------------------------------------------------#
@@ -112,6 +118,7 @@ _exists_cmd tmux && {
 #--------------------------------------------------------------------#
 
 setopt no_beep
+setopt no_list_beep
 setopt ignore_eof
 
 setopt auto_cd
@@ -125,18 +132,19 @@ setopt hist_ignore_dups
 setopt hist_ignore_space
 setopt hist_reduce_blanks
 
-setopt magic_equal_subst
-
 setopt auto_menu
 setopt menu_complete
 setopt complete_aliases
 setopt auto_list
+setopt list_packed
 setopt list_types
 
 zstyle ':completion:*' menu yes select
 
+setopt no_auto_remove_slash
 setopt auto_param_slash
 setopt auto_param_keys
+setopt magic_equal_subst
 
 autoload -Uz compinit && compinit
 
