@@ -569,7 +569,9 @@ return {
 
       vim.g.ale_linters = {
         javascript = { 'eslint' },
+        javascriptreact = { 'eslint' },
         typescript = { 'eslint' },
+        typescriptreact = { 'eslint' },
         css = { 'stylelint' },
         sass = { 'stylelint' },
         scss = { 'stylelint' },
@@ -583,7 +585,9 @@ return {
       vim.g.ale_fixers = {
         lua = { 'stylua' },
         javascript = { 'eslint', 'prettier' },
+        javascriptreact = { 'eslint', 'prettier' },
         typescript = { 'eslint', 'prettier' },
+        typescriptreact = { 'eslint', 'prettier' },
         css = { 'prettier' },
         sass = { 'prettier' },
         scss = { 'prettier' },
