@@ -147,7 +147,6 @@ setopt auto_param_keys
 setopt magic_equal_subst
 
 autoload -Uz compinit && compinit
-
 autoload -Uz promptinit && promptinit
 
 #--------------------------------------------------------------------#
