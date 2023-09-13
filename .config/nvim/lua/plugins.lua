@@ -48,7 +48,6 @@ return {
           cmp = true,
           gitsigns = true,
           telescope = true,
-          fern = true,
           indent_blankline = {
             enabled = true,
             colored_indent_levels = false,
@@ -56,6 +55,7 @@ return {
           bufferline = true,
           markdown = true,
           hop = true,
+          neotree = true,
         },
       })
       vim.cmd([[colorscheme catppuccin]])
@@ -64,40 +64,50 @@ return {
 
   -- Explorer
   {
-    'lambdalisue/fern.vim',
+    'nvim-neo-tree/neo-tree.nvim',
+    branch = 'v3.x',
     dependencies = {
-      'lambdalisue/fern-hijack.vim',
-      'lambdalisue/fern-git-status.vim',
-      'TheLeoP/fern-renderer-web-devicons.nvim',
+      'nvim-lua/plenary.nvim',
       'nvim-tree/nvim-web-devicons',
-      'yuki-yano/fern-preview.vim',
+      'MunifTanjim/nui.nvim',
     },
     init = function()
-      vim.g['fern#renderer'] = 'nvim-web-devicons'
-      vim.g['fern#default_hidden'] = 1
-      vim.api.nvim_set_keymap('n', '-', ':Fern . -reveal=%<CR>', opts)
-      vim.api.nvim_set_keymap('n', '_', ':Fern %:h<CR>', opts)
-      vim.cmd([[
-        function! s:fern_settings() abort
-          nmap <silent> <buffer> p     <Plug>(fern-action-preview:toggle)
-        endfunction
-
-        augroup fern-settings
-          autocmd!
-          autocmd FileType fern call s:fern_settings()
-        augroup END
-      ]])
+      vim.api.nvim_set_keymap('n', '\\', ':Neotree reveal toggle<CR>', opts)
     end,
+    opts = {
+      window = {
+        position = 'current',
+      },
+      filesystem = {
+        filtered_items = {
+          visible = true,
+        },
+      },
+    },
   },
 
   -- Window
   {
-    'yorickpeterse/nvim-window',
+    's1n7ax/nvim-window-picker',
+    event = 'VeryLazy',
+    version = '2.*',
     init = function()
-      vim.api.nvim_set_keymap('n', '<Leader>w', ':lua require("nvim-window").pick()<CR>', opts)
+      local focus_window = function()
+        local window = require('window-picker').pick_window()
+        if type(window) == 'number' then
+          vim.api.nvim_set_current_win(window)
+        end
+      end
+      vim.keymap.set('n', '<Leader>w', focus_window, opts)
     end,
     opts = {
-      chars = { 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l' },
+      hint = 'floating-big-letter',
+      filter_rules = {
+        bo = {
+          filetype = { 'NvimTree', 'neo-tree', 'notify', 'Trouble', 'qf', 'toggleterm' },
+          buftype = { 'terminal' },
+        },
+      },
     },
   },
 
@@ -315,9 +325,10 @@ return {
     'yamatsum/nvim-cursorline',
     opts = {
       cursorline = {
+        enable = false,
+      },
+      cursorword = {
         enable = true,
-        timeout = 500,
-        number = false,
       },
     },
   },

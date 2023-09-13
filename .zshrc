@@ -31,7 +31,7 @@ export GPG_TTY=$(tty)
 export FZF_LEGACY_KEYBINDINGS=0
 export FZF_ENABLE_OPEN_PREVIEW=1
 export FZF_PREVIEW_FILE_CMD='bat --color=always --style=numbers'
-export FZF_PREVIEW_DIR_CMD='exa -l'
+export FZF_PREVIEW_DIR_CMD='exa -1 --color=always'
 export FZF_DEFAULT_COMMAND='fd --hidden --follow --exclude .git'
 export FZF_FIND_FILE_COMMAND="$FZF_DEFAULT_COMMAND --type f . \$dir"
 export FZF_CD_COMMAND="$FZF_DEFAULT_COMMAND --type d --no-hidden . \$dir"
@@ -182,6 +182,13 @@ zinit light zsh-users/zsh-syntax-highlighting
 zinit light hlissner/zsh-autopair
 zinit light Aloxaf/fzf-tab
 zinit ice depth=1; zinit light romkatv/powerlevel10k
+
+zstyle ':completion:*:git-checkout:*' sort false
+zstyle ':completion:*:descriptions' format '[%d]'
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
+# switch group using `,` and `.`
+zstyle ':fzf-tab:*' switch-group ',' '.'
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
