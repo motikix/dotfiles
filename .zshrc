@@ -177,18 +177,21 @@ zinit light-mode for \
 ### End of Zinit's installer chunk
 
 zinit light zsh-users/zsh-completions
-zinit light zsh-users/zsh-autosuggestions
-zinit light zsh-users/zsh-syntax-highlighting
-zinit light hlissner/zsh-autopair
-zinit light Aloxaf/fzf-tab
-zinit ice depth=1; zinit light romkatv/powerlevel10k
 
+zinit light zsh-users/zsh-autosuggestions
+
+zinit light zsh-users/zsh-syntax-highlighting
+
+zinit light hlissner/zsh-autopair
+
+zinit light Aloxaf/fzf-tab
 zstyle ':completion:*:git-checkout:*' sort false
 zstyle ':completion:*:descriptions' format '[%d]'
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
-# switch group using `,` and `.`
 zstyle ':fzf-tab:*' switch-group ',' '.'
+
+zinit ice depth=1; zinit light romkatv/powerlevel10k
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
