@@ -88,31 +88,27 @@ return {
 
   -- Window
   {
-    's1n7ax/nvim-window-picker',
-    event = 'VeryLazy',
-    version = '2.*',
+    'yorickpeterse/nvim-window',
     init = function()
-      local focus_window = function()
-        local window = require('window-picker').pick_window()
-        if type(window) == 'number' then
-          vim.api.nvim_set_current_win(window)
-        end
-      end
-      vim.keymap.set('n', '<Leader>w', focus_window, opts)
+      vim.api.nvim_set_keymap('n', '<Leader>w', ':lua require("nvim-window").pick()<CR>', opts)
     end,
     opts = {
-      hint = 'floating-big-letter',
-      filter_rules = {
-        bo = {
-          filetype = { 'NvimTree', 'neo-tree', 'notify', 'Trouble', 'qf', 'toggleterm' },
-          buftype = { 'terminal' },
-        },
-      },
+      chars = { 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l' },
     },
   },
 
   -- Buffer
   { 'tiagovla/scope.nvim' },
+  {
+    'famiu/bufdelete.nvim',
+    cmd = { 'Bdelete', 'Bwipeout' },
+    init = function()
+      vim.api.nvim_set_keymap('n', '<Leader>bd', ':bw<CR>', opts)
+      vim.api.nvim_set_keymap('n', '<Leader>bad', ':bufdo :bw<CR>', opts)
+      vim.api.nvim_set_keymap('n', '<Leader>bD', ':Bwipeout<CR>', opts)
+      vim.api.nvim_set_keymap('n', '<Leader>baD', ':bufdo :Bwipeout<CR>', opts)
+    end,
+  },
 
   -- Bufferline
   {
