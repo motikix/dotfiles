@@ -24,8 +24,16 @@ return {
           types = { 'italic' },
         },
         integrations = {
-          treesitter = true,
-          treesitter_context = true,
+          bufferline = true,
+          cmp = true,
+          gitsigns = true,
+          hop = true,
+          indent_blankline = {
+            enabled = true,
+            colored_indent_levels = false,
+          },
+          lsp_trouble = true,
+          markdown = true,
           native_lsp = {
             enabled = true,
             virtual_text = {
@@ -44,22 +52,40 @@ return {
               background = true,
             },
           },
-          lsp_trouble = true,
-          cmp = true,
-          gitsigns = true,
-          telescope = true,
-          indent_blankline = {
-            enabled = true,
-            colored_indent_levels = false,
-          },
-          bufferline = true,
-          markdown = true,
-          hop = true,
           neotree = true,
+          noice = true,
+          telescope = true,
+          treesitter = true,
+          treesitter_context = true,
         },
       })
       vim.cmd([[colorscheme catppuccin]])
     end,
+  },
+
+  -- UI
+  {
+    'folke/noice.nvim',
+    event = 'VeryLazy',
+    dependencies = {
+      'MunifTanjim/nui.nvim',
+    },
+    opts = {
+      lsp = {
+        override = {
+          ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
+          ['vim.lsp.util.stylize_markdown'] = true,
+          ['cmp.entry.get_documentation'] = true,
+        },
+      },
+      presets = {
+        bottom_search = true,
+        command_palette = true,
+        long_message_to_split = true,
+        inc_rename = false,
+        lsp_doc_border = false,
+      },
+    },
   },
 
   -- Explorer
