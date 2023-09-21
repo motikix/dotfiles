@@ -413,7 +413,7 @@ return {
       'nvim-lua/plenary.nvim',
     },
     init = function()
-      vim.api.nvim_set_keymap('n', '<Leader>tq', ':TodoTrouble<CR>', opts)
+      vim.api.nvim_set_keymap('n', '<Leader>tc', ':TodoTrouble<CR>', opts)
     end,
     config = true,
   },
@@ -526,39 +526,6 @@ return {
     end,
   },
 
-  -- Quickfix
-  {
-    'stevearc/qf_helper.nvim',
-    init = function()
-      vim.api.nvim_set_keymap('n', '<Leader>q', ':QFToggle<CR>', opts)
-    end,
-    config = true,
-  },
-  {
-    'kevinhwang91/nvim-bqf',
-    ft = 'qf',
-    init = function()
-      vim.cmd([[copen]])
-      vim.cmd([[cclose]])
-    end,
-    opts = {
-      auto_enable = true,
-      auto_resize_height = true,
-    },
-  },
-  {
-    'yorickpeterse/nvim-pqf',
-    config = true,
-  },
-  {
-    'stefandtw/quickfix-reflector.vim',
-    init = function()
-      vim.g.qf_modifiable = 1
-      vim.g.qf_join_changes = 1
-      vim.g.qf_write_changes = 1
-    end,
-  },
-
   -- Snippets
   {
     'hrsh7th/vim-vsnip',
@@ -655,8 +622,15 @@ return {
   {
     'folke/lsp-trouble.nvim',
     init = function()
-      vim.api.nvim_set_keymap('n', '<Leader>d', ':TroubleToggle document_diagnostics<CR>', opts)
-      vim.api.nvim_set_keymap('n', '<Leader>D', ':TroubleToggle workspace_diagnostics<CR>', opts)
+      vim.api.nvim_set_keymap('n', '<Leader>td', ':TroubleToggle document_diagnostics<CR>', opts)
+      vim.api.nvim_set_keymap('n', '<Leader>tw', ':TroubleToggle workspace_diagnostics<CR>', opts)
+      vim.api.nvim_set_keymap('n', '<Leader>tq', ':TroubleToggle quickfix<CR>', opts)
+      vim.api.nvim_set_keymap('n', '<Leader>tl', ':TroubleToggle loclist<CR>', opts)
+      vim.api.nvim_set_keymap('n', '<Leader>tw', ':TroubleToggle workspace_diagnostics<CR>', opts)
+      vim.api.nvim_set_keymap('n', 'gd', ':TroubleToggle lsp_definitions<CR>', opts)
+      vim.api.nvim_set_keymap('n', 'gr', ':TroubleToggle lsp_references<CR>', opts)
+      vim.api.nvim_set_keymap('n', 'gy', ':TroubleToggle lsp_type_definitions<CR>', opts)
+      vim.api.nvim_set_keymap('n', 'gi', ':TroubleToggle lsp_implementations<CR>', opts)
     end,
     config = true,
   },
