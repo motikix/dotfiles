@@ -626,7 +626,6 @@ return {
       vim.api.nvim_set_keymap('n', '<Leader>tw', ':TroubleToggle workspace_diagnostics<CR>', opts)
       vim.api.nvim_set_keymap('n', '<Leader>tq', ':TroubleToggle quickfix<CR>', opts)
       vim.api.nvim_set_keymap('n', '<Leader>tl', ':TroubleToggle loclist<CR>', opts)
-      vim.api.nvim_set_keymap('n', '<Leader>tw', ':TroubleToggle workspace_diagnostics<CR>', opts)
       vim.api.nvim_set_keymap('n', 'gd', ':TroubleToggle lsp_definitions<CR>', opts)
       vim.api.nvim_set_keymap('n', 'gr', ':TroubleToggle lsp_references<CR>', opts)
       vim.api.nvim_set_keymap('n', 'gy', ':TroubleToggle lsp_type_definitions<CR>', opts)
