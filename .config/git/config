@@ -21,6 +21,7 @@
 [credential]
 	helper = 
 	helper = /usr/local/share/gcm-core/git-credential-manager
+	; credentialStore = gpg
 [url "https://github.com/"]
 	insteadOf = git@github.com:
 [url "https://"]
