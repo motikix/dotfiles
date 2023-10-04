@@ -30,6 +30,7 @@ return {
           hop = true,
           indent_blankline = {
             enabled = true,
+            scope_color = 'mauve',
             colored_indent_levels = false,
           },
           lsp_trouble = true,
@@ -334,13 +335,9 @@ return {
   },
   {
     'lukas-reineke/indent-blankline.nvim',
+    main = 'ibl',
     opts = {
-      char = '|',
-      use_treesitter = true,
-      show_trailing_blankline_indent = false,
-      show_current_context = true,
-      context_patterns = { '' },
-      filetype_exclude = { 'toggleterm' },
+      scope = { enabled = true },
     },
   },
   {
