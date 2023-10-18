@@ -557,7 +557,7 @@ return {
         sass = { 'stylelint' },
         scss = { 'stylelint' },
         less = { 'stylelint' },
-        python = { 'flake8', 'mypy' },
+        python = { 'flake8' },
         json = { 'jsonlint' },
         yaml = { 'yamllint' },
         markdown = { 'markdownlint' },
