@@ -506,14 +506,6 @@ return {
       default_mappings = true,
     },
   },
-  {
-    's1n7ax/nvim-comment-frame',
-    dependencies = { 'nvim-treesitter/nvim-treesitter' },
-    opts = {
-      keymap = '<Leader>cf',
-      multiline_keymap = '<Leader>cm',
-    },
-  },
   { 'AndrewRadev/linediff.vim' },
   {
     'junegunn/vim-easy-align',
@@ -554,17 +546,9 @@ return {
 
   -- Linter & Fixer
   {
-    'dense-analysis/ale',
-    init = function()
-      vim.g.ale_echo_cursor = 0
-      vim.g.ale_fix_on_save = 1
-      vim.g.ale_disable_lsp = 1
-      vim.g.ale_linters_explicit = 1
-      vim.g.ale_sign_column_always = 1
-      vim.g.ale_use_neovim_diagnostics_api = 1
-      vim.g.ale_virtualtext_cursor = 'disabled'
-
-      vim.g.ale_linters = {
+    'mfussenegger/nvim-lint',
+    config = function()
+      require('lint').linters_by_ft = {
         javascript = { 'eslint' },
         javascriptreact = { 'eslint' },
         typescript = { 'eslint' },
@@ -573,33 +557,51 @@ return {
         sass = { 'stylelint' },
         scss = { 'stylelint' },
         less = { 'stylelint' },
-        python = { 'flake8', 'mypy' },
-        go = { 'staticcheck' },
+        python = { 'flake8' },
         json = { 'jsonlint' },
         yaml = { 'yamllint' },
         markdown = { 'markdownlint' },
       }
-      vim.g.ale_fixers = {
-        lua = { 'stylua' },
-        javascript = { 'eslint', 'prettier' },
-        javascriptreact = { 'eslint', 'prettier' },
-        typescript = { 'eslint', 'prettier' },
-        typescriptreact = { 'eslint', 'prettier' },
-        css = { 'prettier' },
-        sass = { 'prettier' },
-        scss = { 'prettier' },
-        less = { 'prettier' },
-        deno = { 'deno' },
-        python = { 'isort', 'black' },
-        go = { 'goimports' },
-        rust = { 'rustfmt' },
-        terraform = { 'terraform' },
-      }
-
-      vim.g.ale_lua_stylua_options = '-s'
-      vim.g.ale_python_auto_pipenv = 1
-      vim.g.ale_python_auto_poetry = 1
-      vim.g.ale_python_auto_virtualenv = 1
+      vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWritePost', 'InsertLeave', 'TextChanged' }, {
+        callback = function()
+          require('lint').try_lint(nil, { ignore_errors = true })
+        end,
+      })
+    end,
+  },
+  {
+    'stevearc/conform.nvim',
+    init = function()
+      vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+      vim.api.nvim_set_keymap(
+        'n',
+        '<Leader>cf',
+        '<Cmd>lua require("conform").format({ async = true, lsp_fallback = true })<CR>',
+        opts
+      )
+    end,
+    config = function()
+      require('conform').setup({
+        formatters_by_ft = {
+          lua = { 'stylua' },
+          javascript = { 'prettier' },
+          javascriptreact = { 'prettier' },
+          typescript = { 'prettier' },
+          typescriptreact = { 'prettier' },
+          css = { 'prettier' },
+          sass = { 'prettier' },
+          scss = { 'prettier' },
+          less = { 'prettier' },
+          python = { 'isort', 'black' },
+          go = { 'goimports' },
+          rust = { 'rustfmt' },
+          terraform = { 'terraform_fmt' },
+        },
+        format_on_save = {
+          timeout_ms = 500,
+          lsp_fallback = true,
+        },
+      })
     end,
   },
 
@@ -737,6 +739,25 @@ return {
     end,
   },
   { 'dhruvasagar/vim-table-mode' },
+  {
+    'linux-cultist/venv-selector.nvim',
+    dependencies = { 'neovim/nvim-lspconfig', 'nvim-telescope/telescope.nvim', 'mfussenegger/nvim-dap-python' },
+    event = 'VeryLazy',
+    keys = {
+      {
+        '<Leader>vs',
+        '<Cmd>:VenvSelect<CR>',
+      },
+      {
+        '<Leader>vc',
+        '<Cmd>:VenvSelectCached<CR>',
+      },
+    },
+    opts = {
+      name = { 'venv', '.venv' },
+      auto_refresh = false,
+    },
+  },
 
   -- Rest Client
   {
