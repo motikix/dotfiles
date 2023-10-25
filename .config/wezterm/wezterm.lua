@@ -2,7 +2,7 @@ local wezterm = require('wezterm')
 
 return {
   term = 'wezterm',
-  font = wezterm.font_with_fallback({ 'IntoneMono Nerd Font Mono', 'Kiwi Maru', 'Noto Emoji' }),
+  font = wezterm.font_with_fallback({ 'JuiseeHW Nerd Font', 'Noto Emoji' }),
   font_size = 16,
   harfbuzz_features = {},
   color_scheme = 'Catppuccin Mocha',
