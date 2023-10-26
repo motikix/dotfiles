@@ -71,6 +71,9 @@ return {
     dependencies = {
       'MunifTanjim/nui.nvim',
     },
+    init = function()
+      vim.api.nvim_set_keymap('n', '<Leader>tn', ':Noice<CR>', opts)
+    end,
     opts = {
       lsp = {
         override = {
@@ -576,7 +579,7 @@ return {
       vim.api.nvim_set_keymap(
         'n',
         '<Leader>cf',
-        '<Cmd>lua require("conform").format({ async = true, lsp_fallback = true })<CR>',
+        ':lua require("conform").format({ async = true, lsp_fallback = true })<CR>',
         opts
       )
     end,
@@ -686,10 +689,10 @@ return {
         }),
         sources = cmp.config.sources({
           { name = 'emoji' },
+          { name = 'path' },
+          { name = 'vsnip' },
           { name = 'treesitter' },
           { name = 'nvim_lsp' },
-          { name = 'vsnip' },
-          { name = 'path' },
         }, {
           { name = 'buffer' },
         }),
@@ -726,6 +729,7 @@ return {
       })
     end,
   },
+  { 'Exafunction/codeium.vim' },
 
   -- Syntax Highlight / Language Support
   {
@@ -746,11 +750,11 @@ return {
     keys = {
       {
         '<Leader>vs',
-        '<Cmd>:VenvSelect<CR>',
+        ':VenvSelect<CR>',
       },
       {
         '<Leader>vc',
-        '<Cmd>:VenvSelectCached<CR>',
+        ':VenvSelectCached<CR>',
       },
     },
     opts = {
