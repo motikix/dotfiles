@@ -138,4 +138,14 @@ vim.o.termguicolors = true
 -- Terminal
 vim.api.nvim_set_keymap('t', '<Esc>', '<C-\\><C-n>', opts)
 
+-- Yank current file path & line
+vim.api.nvim_create_user_command('CopyPath', function()
+  vim.cmd('let @+ = expand("%:p")')
+end, {})
+vim.api.nvim_create_user_command('CopyPath2', function()
+  vim.cmd('let @+ = join([expand("%:p"), line(".")], ":")')
+end, {})
+vim.api.nvim_set_keymap('n', 'yp', ':CopyPath<CR>', opts)
+vim.api.nvim_set_keymap('n', 'yP', ':CopyPath2<CR>', opts)
+
 require('bootstrap')
