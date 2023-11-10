@@ -5,26 +5,25 @@
 	quotepath = false
 	autocrlf = false
 	pager = delta
+[pull]
+	rebase = false
+[diff]
+	colorMoved = default
+[merge]
+	conflictstyle = diff3
 [interactive]
 	diffFilter = delta --color-only
 [delta]
 	navigate = true
 	side-by-side = true
-[merge]
-	conflictstyle = diff3
-[diff]
-	colorMoved = default
-[pull]
-	rebase = false
 [ghq]
 	root = ~/.local/src
-[credential]
-	helper = 
-	helper = /usr/local/share/gcm-core/git-credential-manager
-	credentialStore = gpg
-[url "https://github.com/"]
-	insteadOf = git@github.com:
 [url "https://"]
 	insteadOf = git://
+[url "https://github.com/"]
+	insteadOf = git@github.com:
+[credential]
+	helper = /usr/local/share/gcm-core/git-credential-manager
+	credentialStore = gpg
 [credential "https://dev.azure.com"]
 	useHttpPath = true
