@@ -400,11 +400,8 @@ return {
       'JoosepAlviste/nvim-ts-context-commentstring',
     },
     config = function()
-      require('nvim-treesitter.configs').setup({
-        context_commentstring = {
-          enable = true,
-          enable_autocmd = false,
-        },
+      require('ts_context_commentstring').setup({
+        enable_autocmd = false,
       })
       require('Comment').setup({
         pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
@@ -766,33 +763,46 @@ return {
       auto_refresh = false,
     },
   },
+  {
+    'https://github.com/apple/pkl-neovim',
+    lazy = true,
+    event = 'BufReadPre *.pkl',
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter',
+    },
+    build = function()
+      vim.cmd('TSInstall! pkl')
+    end,
+  },
 
   -- Rest Client
   {
-    'NTBBloodbath/rest.nvim',
+    'rest-nvim/rest.nvim',
     dependencies = { 'nvim-lua/plenary.nvim' },
     init = function()
       vim.api.nvim_set_keymap('n', '<Leader>rr', '<Plug>RestNvim', opts_silent)
       vim.api.nvim_set_keymap('n', '<Leader>rp', '<Plug>RestNvimPreview', opts_silent)
       vim.api.nvim_set_keymap('n', '<Leader>rl', '<Plug>RestNvimLast', opts_silent)
     end,
-    opts = {
-      result_split_horizontal = false,
-      skip_ssl_verification = true,
-      highlight = {
-        enabled = true,
-        timeout = 150,
-      },
-      result = {
-        show_url = true,
-        show_http_info = true,
-        show_headers = true,
-      },
-      jump_to_request = false,
-      env_file = '.env',
-      custom_dynamic_variables = {},
-      yank_dry_run = true,
-    },
+    config = function()
+      require('rest-nvim').setup({
+        result_split_horizontal = false,
+        skip_ssl_verification = true,
+        highlight = {
+          enabled = true,
+          timeout = 150,
+        },
+        result = {
+          show_url = true,
+          show_http_info = true,
+          show_headers = true,
+        },
+        jump_to_request = false,
+        env_file = '.env',
+        custom_dynamic_variables = {},
+        yank_dry_run = true,
+      })
+    end,
   },
 
   -- Misc
