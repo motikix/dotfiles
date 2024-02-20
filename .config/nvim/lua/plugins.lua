@@ -556,61 +556,61 @@ return {
 
   -- Linter & Fixer
   {
-    'mfussenegger/nvim-lint',
+    'nvimtools/none-ls.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
     config = function()
-      require('lint').linters_by_ft = {
-        javascript = { 'eslint' },
-        javascriptreact = { 'eslint' },
-        typescript = { 'eslint' },
-        typescriptreact = { 'eslint' },
-        css = { 'stylelint' },
-        sass = { 'stylelint' },
-        scss = { 'stylelint' },
-        less = { 'stylelint' },
-        python = { 'flake8' },
-        json = { 'jsonlint' },
-        yaml = { 'yamllint' },
-        markdown = { 'markdownlint' },
-      }
-      vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWritePost', 'InsertLeave', 'TextChanged' }, {
-        callback = function()
-          require('lint').try_lint(nil, { ignore_errors = true })
-        end,
-      })
-    end,
-  },
-  {
-    'stevearc/conform.nvim',
-    init = function()
-      vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
-      vim.api.nvim_set_keymap(
-        'n',
-        '<Leader>cf',
-        ':lua require("conform").format({ async = true, lsp_fallback = true })<CR>',
-        opts
-      )
-    end,
-    config = function()
-      require('conform').setup({
-        formatters_by_ft = {
-          lua = { 'stylua' },
-          javascript = { 'prettier' },
-          javascriptreact = { 'prettier' },
-          typescript = { 'prettier' },
-          typescriptreact = { 'prettier' },
-          css = { 'prettier' },
-          sass = { 'prettier' },
-          scss = { 'prettier' },
-          less = { 'prettier' },
-          python = { 'isort', 'black' },
-          go = { 'goimports' },
-          rust = { 'rustfmt' },
-          terraform = { 'terraform_fmt' },
+      local nls = require('null-ls')
+      local is_deno = function(utils)
+        return utils.root_has_file({ 'deno.json', 'deno.jsonc' })
+      end
+      local is_tssrv = function(utils)
+        return utils.root_has_file({ 'package.json' })
+      end
+      nls.setup({
+        sources = {
+          -- c/c++/c#/java
+          nls.builtins.formatting.clang_format,
+          -- rust
+          nls.builtins.formatting.rustfmt,
+          -- go
+          nls.builtins.diagnostics.staticcheck,
+          nls.builtins.formatting.goimports,
+          -- zig
+          nls.builtins.formatting.zigfmt,
+          -- javascript, typescript, jsx, tsx, vue
+          nls.builtins.formatting.prettier.with({ condition = is_tssrv, prefer_local = 'node_modules/.bin' }),
+          -- css,sass,scss,less
+          nls.builtins.diagnostics.stylelint.with({ prefer_local = 'node_modules/.bin' }),
+          nls.builtins.formatting.stylelint.with({ prefer_local = 'node_modules/.bin' }),
+          -- deno
+          nls.builtins.formatting.deno_fmt.with({ condition = is_deno }),
+          -- dart
+          nls.builtins.formatting.dart_format,
+          -- python
+          nls.builtins.diagnostics.flake8.with({ prefer_local = '.venv/bin' }),
+          nls.builtins.diagnostics.mypy.with({ prefer_local = '.venv/bin' }),
+          nls.builtins.diagnostics.ruff.with({ prefer_local = '.venv/bin' }),
+          nls.builtins.formatting.black.with({ prefer_local = '.venv/bin' }),
+          nls.builtins.formatting.isort.with({ prefer_local = '.venv/bin' }),
+          nls.builtins.formatting.ruff.with({ prefer_local = '.venv/bin' }),
+          -- lua
+          nls.builtins.formatting.stylua,
+          -- editorconfig
+          nls.builtins.diagnostics.editorconfig_checker.with({
+            -- command = 'ec',
+          }),
+          -- dotenv
+          nls.builtins.diagnostics.dotenv_linter,
+          -- json
+          nls.builtins.diagnostics.jsonlint,
+          -- yaml
+          nls.builtins.diagnostics.yamllint,
+          -- markdown
+          nls.builtins.diagnostics.markdownlint,
+          -- terraform
+          nls.builtins.formatting.terraform_fmt,
         },
-        format_on_save = {
-          timeout_ms = 500,
-          lsp_fallback = true,
-        },
+        on_attach = require('lsp').on_attach,
       })
     end,
   },
@@ -774,6 +774,7 @@ return {
     },
     opts = {
       name = { 'venv', '.venv' },
+      parents = 0,
       auto_refresh = false,
     },
   },
