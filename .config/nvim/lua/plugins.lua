@@ -518,6 +518,12 @@ return {
       vim.api.nvim_set_keymap('n', 'ga', '<Plug>(EasyAlign)', opts)
     end,
   },
+  {
+    'Wansmer/treesj',
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    keys = { '<Space>m', '<Space>j', '<Space>s' },
+    config = true,
+  },
 
   -- Snippets
   {
@@ -694,6 +700,7 @@ return {
           { name = 'vsnip' },
           { name = 'treesitter' },
           { name = 'nvim_lsp' },
+          { name = 'codeium' },
         }, {
           { name = 'buffer' },
         }),
@@ -730,7 +737,14 @@ return {
       })
     end,
   },
-  { 'Exafunction/codeium.vim' },
+  {
+    'Exafunction/codeium.nvim',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'hrsh7th/nvim-cmp',
+    },
+    config = true,
+  },
 
   -- Syntax Highlight / Language Support
   {
