@@ -774,6 +774,7 @@ return {
     },
     opts = {
       name = { 'venv', '.venv' },
+      path = '~',
       parents = 0,
       auto_refresh = false,
     },
