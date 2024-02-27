@@ -20,10 +20,10 @@ M.setup = function()
       -- zig
       nls.builtins.formatting.zigfmt,
       -- javascript, typescript, jsx, tsx, vue
-      nls.builtins.formatting.prettier.with({ condition = is_ts, prefer_local = 'node_modules/.bin' }),
+      nls.builtins.formatting.prettier.with({ condition = is_ts, only_local = 'node_modules/.bin' }),
       -- css,sass,scss,less
       nls.builtins.diagnostics.stylelint,
-      nls.builtins.formatting.stylelint.with({ prefer_local = 'node_modules/.bin' }),
+      nls.builtins.formatting.stylelint.with({ only_local = 'node_modules/.bin' }),
       -- deno
       nls.builtins.formatting.deno_fmt.with({ condition = is_deno }),
       -- dart
@@ -32,9 +32,9 @@ M.setup = function()
       nls.builtins.diagnostics.flake8,
       nls.builtins.diagnostics.mypy,
       nls.builtins.diagnostics.ruff,
-      nls.builtins.formatting.black.with({ prefer_local = '.venv/bin' }),
-      nls.builtins.formatting.isort.with({ prefer_local = '.venv/bin' }),
-      nls.builtins.formatting.ruff.with({ prefer_local = '.venv/bin' }),
+      nls.builtins.formatting.black.with({ only_local = '.venv/bin' }),
+      nls.builtins.formatting.isort.with({ only_local = '.venv/bin' }),
+      nls.builtins.formatting.ruff.with({ only_local = '.venv/bin' }),
       -- lua
       nls.builtins.formatting.stylua,
       -- editorconfig
