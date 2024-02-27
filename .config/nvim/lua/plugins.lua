@@ -596,9 +596,7 @@ return {
           -- lua
           nls.builtins.formatting.stylua,
           -- editorconfig
-          nls.builtins.diagnostics.editorconfig_checker.with({
-            command = 'ec',
-          }),
+          nls.builtins.diagnostics.editorconfig_checker,
           -- dotenv
           nls.builtins.diagnostics.dotenv_linter,
           -- json
