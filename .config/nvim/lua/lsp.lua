@@ -62,14 +62,9 @@ M.setup = function()
 
   -- lsp providers
 
-  lsp.ccls.setup({
+  lsp.clangd.setup({
     on_attach = M.on_attach,
     capabilities = capabilities,
-    init_options = {
-      cache = {
-        directory = '/tmp/ccls-cache',
-      },
-    },
   })
   lsp.gopls.setup({
     on_attach = M.on_attach,
@@ -154,15 +149,10 @@ M.setup = function()
         telemetry = {
           enable = false,
         },
+        completion = {
+          callSnippet = 'Replace',
+        },
       },
-    },
-  })
-  local os = vim.fn.has('mac') == 1 and 'mac' or (vim.fn.has('linux') == 1 and 'linux' or 'windows')
-  lsp.java_language_server.setup({
-    on_attach = M.on_attach,
-    capabilities = capabilities,
-    cmd = {
-      vim.env.HOME .. '/.local/src/github.com/georgewfraser/java-language-server/dist/lang_server_' .. os .. '.sh',
     },
   })
   lsp.vimls.setup({
