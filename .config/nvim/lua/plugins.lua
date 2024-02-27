@@ -562,7 +562,7 @@ return {
       'williamboman/mason-lspconfig.nvim',
       'jay-babu/mason-null-ls.nvim',
       {
-        'jose-elias-alvarez/null-ls.nvim',
+        'nvimtools/none-ls.nvim',
         dependencies = { 'nvim-lua/plenary.nvim' },
       },
       'folke/neodev.nvim',

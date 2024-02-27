@@ -34,7 +34,7 @@ M.setup = function()
       nls.builtins.diagnostics.ruff,
       nls.builtins.formatting.black.with({ only_local = '.venv/bin' }),
       nls.builtins.formatting.isort.with({ only_local = '.venv/bin' }),
-      nls.builtins.formatting.ruff.with({ only_local = '.venv/bin' }),
+      nls.builtins.formatting.ruff_format.with({ only_local = '.venv/bin' }),
       -- lua
       nls.builtins.formatting.stylua,
       -- editorconfig
