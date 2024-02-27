@@ -554,70 +554,32 @@ return {
     },
   },
 
-  -- Linter & Fixer
-  {
-    'nvimtools/none-ls.nvim',
-    dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
-    config = function()
-      local nls = require('null-ls')
-      local is_deno = function(utils)
-        return utils.root_has_file({ 'deno.json', 'deno.jsonc' })
-      end
-      local is_tssrv = function(utils)
-        return utils.root_has_file({ 'package.json' })
-      end
-      nls.setup({
-        sources = {
-          -- c/c++/c#/java
-          nls.builtins.formatting.clang_format,
-          -- rust
-          nls.builtins.formatting.rustfmt,
-          -- go
-          nls.builtins.diagnostics.staticcheck,
-          nls.builtins.formatting.goimports,
-          -- zig
-          nls.builtins.formatting.zigfmt,
-          -- javascript, typescript, jsx, tsx, vue
-          nls.builtins.formatting.prettier.with({ condition = is_tssrv, prefer_local = 'node_modules/.bin' }),
-          -- css,sass,scss,less
-          nls.builtins.diagnostics.stylelint.with({ prefer_local = 'node_modules/.bin' }),
-          nls.builtins.formatting.stylelint.with({ prefer_local = 'node_modules/.bin' }),
-          -- deno
-          nls.builtins.formatting.deno_fmt.with({ condition = is_deno }),
-          -- dart
-          nls.builtins.formatting.dart_format,
-          -- python
-          nls.builtins.diagnostics.flake8.with({ prefer_local = '.venv/bin' }),
-          nls.builtins.diagnostics.mypy.with({ prefer_local = '.venv/bin' }),
-          nls.builtins.diagnostics.ruff.with({ prefer_local = '.venv/bin' }),
-          nls.builtins.formatting.black.with({ prefer_local = '.venv/bin' }),
-          nls.builtins.formatting.isort.with({ prefer_local = '.venv/bin' }),
-          nls.builtins.formatting.ruff.with({ prefer_local = '.venv/bin' }),
-          -- lua
-          nls.builtins.formatting.stylua,
-          -- editorconfig
-          nls.builtins.diagnostics.editorconfig_checker,
-          -- dotenv
-          nls.builtins.diagnostics.dotenv_linter,
-          -- json
-          nls.builtins.diagnostics.jsonlint,
-          -- yaml
-          nls.builtins.diagnostics.yamllint,
-          -- markdown
-          nls.builtins.diagnostics.markdownlint,
-          -- terraform
-          nls.builtins.formatting.terraform_fmt,
-        },
-        on_attach = require('lsp').on_attach,
-      })
-    end,
-  },
-
   -- LSP
   {
     'neovim/nvim-lspconfig',
-    dependencies = { 'b0o/schemastore.nvim' },
+    dependencies = {
+      'williamboman/mason.nvim',
+      'williamboman/mason-lspconfig.nvim',
+      'jay-babu/mason-null-ls.nvim',
+      {
+        'jose-elias-alvarez/null-ls.nvim',
+        dependencies = { 'nvim-lua/plenary.nvim' },
+      },
+      'folke/neodev.nvim',
+      'b0o/schemastore.nvim',
+    },
     config = function()
+      require('mason').setup({
+        log_level = vim.log.levels.INFO,
+      })
+      require('mason-lspconfig').setup({
+        automatic_installation = true,
+      })
+      require('nonels').setup()
+      require('mason-null-ls').setup({
+        automatic_installation = true,
+      })
+      require('neodev').setup()
       require('lsp').setup()
       local signs = { Error = sign.error, Warn = sign.warn, Hint = sign.hint, Info = sign.info }
       for type, icon in pairs(signs) do
