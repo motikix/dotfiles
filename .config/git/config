@@ -22,7 +22,7 @@
 	insteadOf = git://
 [url "https://github.com/"]
 	insteadOf = git@github.com:
-[credential]
+[credential "https://github.com"]
 	helper = /usr/local/bin/git-credential-manager
 	credentialStore = gpg
 [credential "https://dev.azure.com"]

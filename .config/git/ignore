@@ -9,6 +9,9 @@ pyrightconfig.json
 .env
 .venv
 
+# none-ls (null-ls)
+.null-ls_*
+
 
 # Created by https://www.toptal.com/developers/gitignore/api/macos
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos
