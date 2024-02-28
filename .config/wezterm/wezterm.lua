@@ -3,7 +3,7 @@ local wezterm = require('wezterm')
 return {
   term = 'wezterm',
   font = wezterm.font_with_fallback({ 'Moralerspace Radon HWNF', 'Noto Emoji' }),
-  font_size = 18,
+  font_size = 16,
   harfbuzz_features = {},
   color_scheme = 'Catppuccin Mocha',
   enable_tab_bar = false,
