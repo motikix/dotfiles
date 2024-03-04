@@ -3,14 +3,7 @@ local M = {}
 local opts = require('config').opts
 local lsp = require('lspconfig')
 
-local lsp_formatting = function(bufnr)
-  vim.lsp.buf.format({
-    filter = function(client)
-      return client.name == 'null-ls'
-    end,
-    bufnr = bufnr,
-  })
-end
+M.format_enabled = true
 
 local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
 M.on_attach = function(client, bufnr)
@@ -46,12 +39,23 @@ M.on_attach = function(client, bufnr)
 
   -- format on save
   if client.supports_method('textDocument/formatting') then
+    -- toggle formatting
+    vim.api.nvim_create_user_command('ToggleFormatting', function()
+      M.format_enabled = not M.format_enabled
+      vim.notify(string.format('ToggleFormatting: %s', M.format_enabled))
+    end, {})
+    vim.api.nvim_set_keymap('n', '<Leader>tf', ':ToggleFormatting<CR>', opts)
     vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
     vim.api.nvim_create_autocmd('BufWritePre', {
       group = augroup,
       buffer = bufnr,
       callback = function()
-        lsp_formatting(bufnr)
+        vim.lsp.buf.format({
+          filter = function()
+            return M.format_enabled
+          end,
+          bufnr = bufnr,
+        })
       end,
     })
   end

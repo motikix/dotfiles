@@ -563,7 +563,7 @@ return {
       'jay-babu/mason-null-ls.nvim',
       {
         'nvimtools/none-ls.nvim',
-        dependencies = { 'nvim-lua/plenary.nvim' },
+        dependencies = { 'nvim-lua/plenary.nvim', 'nvimtools/none-ls-extras.nvim' },
       },
       'folke/neodev.nvim',
       'b0o/schemastore.nvim',
