@@ -33,7 +33,7 @@ vim.o.shortmess = vim.o.shortmess .. 'I'
 
 -- Show line number
 vim.wo.number = true
-vim.wo.relativenumber = true
+vim.wo.relativenumber = false
 
 -- Show current line
 vim.wo.cursorline = true

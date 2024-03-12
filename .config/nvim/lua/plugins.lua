@@ -493,15 +493,7 @@ return {
     config = true,
   },
   {
-    'anuvyklack/fold-preview.nvim',
-    dependencies = 'anuvyklack/keymap-amend.nvim',
-    opts = {
-      auto = 400,
-    },
-  },
-  {
     'yaocccc/nvim-foldsign',
-    event = 'CursorHold',
     config = true,
   },
   {
@@ -523,12 +515,6 @@ return {
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
     keys = { '<Space>m', '<Space>j', '<Space>s' },
     config = true,
-  },
-
-  -- Snippets
-  {
-    'hrsh7th/vim-vsnip',
-    dependencies = { 'rafamadriz/friendly-snippets' },
   },
 
   -- Terminal
@@ -622,6 +608,13 @@ return {
 
   -- Completion
   {
+    'L3MON4D3/LuaSnip',
+    dependencies = { 'rafamadriz/friendly-snippets' },
+    config = function()
+      require('luasnip.loaders.from_vscode').lazy_load()
+    end,
+  },
+  {
     'hrsh7th/nvim-cmp',
     dependencies = {
       'hrsh7th/cmp-buffer',
@@ -632,6 +625,8 @@ return {
       'hrsh7th/cmp-cmdline',
       'ray-x/cmp-treesitter',
       'onsails/lspkind-nvim',
+      'L3MON4D3/LuaSnip',
+      'saadparwaiz1/cmp_luasnip',
     },
     config = function()
       vim.o.completeopt = 'menu,menuone,noselect'
@@ -644,7 +639,7 @@ return {
       cmp.setup({
         snippet = {
           expand = function(args)
-            vim.fn['vsnip#anonymous'](args.body)
+            require('luasnip').lsp_expand(args.body)
           end,
         },
         mapping = cmp.mapping.preset.insert({
@@ -652,15 +647,14 @@ return {
           ['<C-f>'] = cmp.mapping.scroll_docs(4),
           ['<C-Space>'] = cmp.mapping.complete(),
           ['<C-e>'] = cmp.mapping.close(),
-          ['<CR>'] = cmp.mapping.confirm({ select = true }),
+          ['<CR>'] = cmp.mapping.confirm({ select = false }),
         }),
         sources = cmp.config.sources({
+          { name = 'nvim_lsp' },
+          { name = 'treesitter' },
+          { name = 'luasnip' },
           { name = 'emoji' },
           { name = 'path' },
-          { name = 'vsnip' },
-          { name = 'treesitter' },
-          { name = 'nvim_lsp' },
-          { name = 'codeium' },
         }, {
           { name = 'buffer' },
         }),
@@ -671,7 +665,7 @@ return {
               menu = {
                 buffer = '[Buffer]',
                 nvim_lsp = '[LSP]',
-                vsnip = '[VSnip]',
+                luasnip = '[LuaSnip]',
                 nvim_lua = '[Lua]',
                 latex_symbols = '[Latex]',
                 treesitter = '[TS]',
@@ -698,12 +692,8 @@ return {
     end,
   },
   {
-    'Exafunction/codeium.nvim',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'hrsh7th/nvim-cmp',
-    },
-    config = true,
+    'Exafunction/codeium.vim',
+    event = 'BufEnter',
   },
 
   -- Syntax Highlight / Language Support
