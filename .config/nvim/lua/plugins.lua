@@ -650,6 +650,7 @@ return {
           ['<CR>'] = cmp.mapping.confirm({ select = false }),
         }),
         sources = cmp.config.sources({
+          { name = 'orgmode' },
           { name = 'nvim_lsp' },
           { name = 'treesitter' },
           { name = 'luasnip' },
@@ -737,6 +738,41 @@ return {
     },
     build = function()
       vim.cmd('TSInstall! pkl')
+    end,
+  },
+  {
+    'nvim-orgmode/orgmode',
+    dependencies = {
+      { 'nvim-treesitter/nvim-treesitter', lazy = true },
+    },
+    event = 'VeryLazy',
+    config = function()
+      local org = require('orgmode')
+      org.setup_ts_grammar()
+      org.setup({
+        org_startup_indented = true,
+        org_agenda_files = '~/.org/**/*',
+        org_default_notes_file = '~/.org/refile.org',
+      })
+    end,
+  },
+  {
+    'lukas-reineke/headlines.nvim',
+    dependencies = 'nvim-treesitter/nvim-treesitter',
+    config = function()
+      require('headlines').setup({
+        markdown = {
+          headline_highlights = false,
+        },
+      })
+    end,
+  },
+  {
+    'michaelb/sniprun',
+    branch = 'master',
+    build = 'sh install.sh',
+    config = function()
+      require('sniprun').setup()
     end,
   },
 

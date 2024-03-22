@@ -64,6 +64,10 @@ vim.o.expandtab = true
 vim.o.autoindent = true
 vim.o.smartindent = true
 
+-- Conceal
+vim.o.conceallevel = 2
+vim.o.concealcursor = nil
+
 -- Clipboard
 vim.o.clipboard = 'unnamed,unnamedplus'
 
