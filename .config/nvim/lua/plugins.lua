@@ -786,7 +786,7 @@ return {
       mode = 'split',
       show_notification = true,
       auto_close = false,
-      env_file = { 'vars.env' },
+      env_file = { '.env' },
       formatters = {
         json = { 'jq' },
         html = {
