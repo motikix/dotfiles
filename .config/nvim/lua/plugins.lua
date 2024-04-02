@@ -489,10 +489,6 @@ return {
     config = true,
   },
   {
-    'anuvyklack/pretty-fold.nvim',
-    config = true,
-  },
-  {
     'yaocccc/nvim-foldsign',
     config = true,
   },
@@ -743,13 +739,10 @@ return {
   {
     'nvim-orgmode/orgmode',
     dependencies = {
-      { 'nvim-treesitter/nvim-treesitter', lazy = true },
+      { 'nvim-treesitter/nvim-treesitter' },
     },
-    event = 'VeryLazy',
     config = function()
-      local org = require('orgmode')
-      org.setup_ts_grammar()
-      org.setup({
+      require('orgmode').setup({
         org_startup_indented = true,
         org_agenda_files = '~/.org/**/*',
         org_default_notes_file = '~/.org/refile.org',

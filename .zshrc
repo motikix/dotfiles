@@ -55,6 +55,9 @@ export PATH=$HOME/.cargo/bin:$PATH
 # python
 export PIPENV_VENV_IN_PROJECT=true
 
+# AWS
+export AWS_VAULT_BACKEND=pass
+
 #--------------------------------------------------------------------#
 #                             functions                              #
 #--------------------------------------------------------------------#
