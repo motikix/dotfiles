@@ -756,6 +756,26 @@ return {
       require('headlines').setup({
         markdown = {
           headline_highlights = false,
+          fat_headlines = false,
+          fat_headline_upper_string = '▃',
+          fat_headline_lower_string = '▀',
+        },
+        rmd = {
+          headline_highlights = false,
+          fat_headlines = false,
+          fat_headline_upper_string = '▃',
+          fat_headline_lower_string = '▀',
+        },
+        norg = {
+          headline_highlights = false,
+          fat_headlines = false,
+          fat_headline_upper_string = '▃',
+          fat_headline_lower_string = '▀',
+        },
+        org = {
+          fat_headlines = true,
+          fat_headline_upper_string = '▃',
+          fat_headline_lower_string = '▀',
         },
       })
     end,
