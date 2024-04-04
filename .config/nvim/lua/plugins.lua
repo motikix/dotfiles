@@ -743,7 +743,8 @@ return {
     },
     config = function()
       require('orgmode').setup({
-        org_startup_indented = true,
+        org_startup_indented = false,
+        org_adapt_indentation = false,
         org_agenda_files = '~/.org/**/*',
         org_default_notes_file = '~/.org/refile.org',
       })
@@ -755,24 +756,25 @@ return {
     config = function()
       require('headlines').setup({
         markdown = {
-          headline_highlights = false,
-          fat_headlines = false,
+          bullets = false,
+          fat_headlines = true,
           fat_headline_upper_string = '▃',
           fat_headline_lower_string = '▀',
         },
         rmd = {
-          headline_highlights = false,
-          fat_headlines = false,
+          bullets = false,
+          fat_headlines = true,
           fat_headline_upper_string = '▃',
           fat_headline_lower_string = '▀',
         },
         norg = {
-          headline_highlights = false,
-          fat_headlines = false,
+          bullets = false,
+          fat_headlines = true,
           fat_headline_upper_string = '▃',
           fat_headline_lower_string = '▀',
         },
         org = {
+          bullets = false,
           fat_headlines = true,
           fat_headline_upper_string = '▃',
           fat_headline_lower_string = '▀',
