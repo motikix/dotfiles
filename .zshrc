@@ -54,6 +54,7 @@ export PATH=$HOME/.cargo/bin:$PATH
 
 # python
 export PIPENV_VENV_IN_PROJECT=true
+export PIPENV_VERBOSITY=-1
 
 # AWS
 export AWS_VAULT_BACKEND=pass

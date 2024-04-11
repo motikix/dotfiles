@@ -9,6 +9,8 @@ M.setup = function()
       -- go
       nls.builtins.diagnostics.staticcheck,
       nls.builtins.formatting.goimports,
+      -- gleam
+      nls.builtins.formatting.gleam_format,
       -- javascript, typescript, jsx, tsx, vue
       require('none-ls.diagnostics.eslint'),
       nls.builtins.formatting.prettier,
