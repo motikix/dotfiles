@@ -263,12 +263,6 @@ return {
       vim.api.nvim_set_keymap('n', '<Leader>fh', ':Telescope help_tags theme=get_ivy<CR>', opts)
       vim.api.nvim_set_keymap('n', '<Leader>fc', ':Telescope command_history theme=get_ivy<CR>', opts)
       vim.api.nvim_set_keymap('n', '<Leader>fs', ':Telescope search_history theme=get_ivy<CR>', opts)
-      -- git actions
-      vim.api.nvim_set_keymap('n', '<Leader>gc', ':Telescope git_commits theme=get_ivy<CR>', opts)
-      vim.api.nvim_set_keymap('n', '<Leader>gC', ':Telescope git_bcommits theme=get_ivy<CR>', opts)
-      vim.api.nvim_set_keymap('n', '<Leader>gb', ':Telescope git_branches theme=get_ivy<CR>', opts)
-      vim.api.nvim_set_keymap('n', '<Leader>gs', ':Telescope git_status theme=get_ivy<CR>', opts)
-      vim.api.nvim_set_keymap('n', '<Leader>gS', ':Telescope git_stash theme=get_ivy<CR>', opts)
       -- tree sitter
       vim.api.nvim_set_keymap('n', '<Leader>ts', ':Telescope treesitter theme=get_ivy<CR>', opts)
     end,
@@ -314,11 +308,17 @@ return {
         end, { expr = true })
 
         -- Actions
-        map('n', '<Leader>hp', gs.preview_hunk)
-        map('n', '<Leader>hb', function()
+        map('n', '<Leader>gp', gs.preview_hunk)
+        map('n', '<Leader>gbp', function()
           gs.blame_line({ full = true })
         end)
       end,
+    },
+  },
+  {
+    'FabijanZulj/blame.nvim',
+    keys = {
+      { '<Leader>gbb', ':ToggleBlame<CR>' },
     },
   },
   {
@@ -489,19 +489,7 @@ return {
     config = true,
   },
   {
-    'anuvyklack/pretty-fold.nvim',
-    config = true,
-  },
-  {
-    'anuvyklack/fold-preview.nvim',
-    dependencies = 'anuvyklack/keymap-amend.nvim',
-    opts = {
-      auto = 400,
-    },
-  },
-  {
     'yaocccc/nvim-foldsign',
-    event = 'CursorHold',
     config = true,
   },
   {
@@ -523,12 +511,6 @@ return {
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
     keys = { '<Space>m', '<Space>j', '<Space>s' },
     config = true,
-  },
-
-  -- Snippets
-  {
-    'hrsh7th/vim-vsnip',
-    dependencies = { 'rafamadriz/friendly-snippets' },
   },
 
   -- Terminal
@@ -562,8 +544,8 @@ return {
       'williamboman/mason-lspconfig.nvim',
       'jay-babu/mason-null-ls.nvim',
       {
-        'jose-elias-alvarez/null-ls.nvim',
-        dependencies = { 'nvim-lua/plenary.nvim' },
+        'nvimtools/none-ls.nvim',
+        dependencies = { 'nvim-lua/plenary.nvim', 'nvimtools/none-ls-extras.nvim' },
       },
       'folke/neodev.nvim',
       'b0o/schemastore.nvim',
@@ -622,6 +604,13 @@ return {
 
   -- Completion
   {
+    'L3MON4D3/LuaSnip',
+    dependencies = { 'rafamadriz/friendly-snippets' },
+    config = function()
+      require('luasnip.loaders.from_vscode').lazy_load()
+    end,
+  },
+  {
     'hrsh7th/nvim-cmp',
     dependencies = {
       'hrsh7th/cmp-buffer',
@@ -632,6 +621,8 @@ return {
       'hrsh7th/cmp-cmdline',
       'ray-x/cmp-treesitter',
       'onsails/lspkind-nvim',
+      'L3MON4D3/LuaSnip',
+      'saadparwaiz1/cmp_luasnip',
     },
     config = function()
       vim.o.completeopt = 'menu,menuone,noselect'
@@ -644,7 +635,7 @@ return {
       cmp.setup({
         snippet = {
           expand = function(args)
-            vim.fn['vsnip#anonymous'](args.body)
+            require('luasnip').lsp_expand(args.body)
           end,
         },
         mapping = cmp.mapping.preset.insert({
@@ -652,15 +643,15 @@ return {
           ['<C-f>'] = cmp.mapping.scroll_docs(4),
           ['<C-Space>'] = cmp.mapping.complete(),
           ['<C-e>'] = cmp.mapping.close(),
-          ['<CR>'] = cmp.mapping.confirm({ select = true }),
+          ['<CR>'] = cmp.mapping.confirm({ select = false }),
         }),
         sources = cmp.config.sources({
+          { name = 'orgmode' },
+          { name = 'nvim_lsp' },
+          { name = 'treesitter' },
+          { name = 'luasnip' },
           { name = 'emoji' },
           { name = 'path' },
-          { name = 'vsnip' },
-          { name = 'treesitter' },
-          { name = 'nvim_lsp' },
-          { name = 'codeium' },
         }, {
           { name = 'buffer' },
         }),
@@ -671,7 +662,7 @@ return {
               menu = {
                 buffer = '[Buffer]',
                 nvim_lsp = '[LSP]',
-                vsnip = '[VSnip]',
+                luasnip = '[LuaSnip]',
                 nvim_lua = '[Lua]',
                 latex_symbols = '[Latex]',
                 treesitter = '[TS]',
@@ -698,12 +689,8 @@ return {
     end,
   },
   {
-    'Exafunction/codeium.nvim',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'hrsh7th/nvim-cmp',
-    },
-    config = true,
+    'Exafunction/codeium.vim',
+    event = 'BufEnter',
   },
 
   -- Syntax Highlight / Language Support
@@ -749,35 +736,78 @@ return {
       vim.cmd('TSInstall! pkl')
     end,
   },
+  {
+    'nvim-orgmode/orgmode',
+    dependencies = {
+      { 'nvim-treesitter/nvim-treesitter' },
+    },
+    config = function()
+      require('orgmode').setup({
+        org_startup_indented = false,
+        org_adapt_indentation = false,
+        org_agenda_files = '~/.org/**/*',
+        org_default_notes_file = '~/.org/refile.org',
+      })
+    end,
+  },
+  {
+    'lukas-reineke/headlines.nvim',
+    dependencies = 'nvim-treesitter/nvim-treesitter',
+    config = function()
+      require('headlines').setup({
+        markdown = {
+          bullets = false,
+          fat_headlines = false,
+        },
+        rmd = {
+          bullets = false,
+          fat_headlines = false,
+        },
+        norg = {
+          bullets = false,
+          fat_headlines = false,
+        },
+        org = {
+          bullets = false,
+          fat_headlines = false,
+        },
+      })
+    end,
+  },
+  {
+    'michaelb/sniprun',
+    branch = 'master',
+    build = 'sh install.sh',
+    config = function()
+      require('sniprun').setup()
+    end,
+  },
 
   -- Rest Client
   {
-    'rest-nvim/rest.nvim',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    init = function()
-      vim.api.nvim_set_keymap('n', '<Leader>rr', '<Plug>RestNvim', opts_silent)
-      vim.api.nvim_set_keymap('n', '<Leader>rp', '<Plug>RestNvimPreview', opts_silent)
-      vim.api.nvim_set_keymap('n', '<Leader>rl', '<Plug>RestNvimLast', opts_silent)
-    end,
-    config = function()
-      require('rest-nvim').setup({
-        result_split_horizontal = false,
-        skip_ssl_verification = true,
-        highlight = {
-          enabled = true,
-          timeout = 150,
+    'jellydn/hurl.nvim',
+    dependencies = { 'MunifTanjim/nui.nvim' },
+    ft = 'hurl',
+    opts = {
+      debug = false,
+      mode = 'split',
+      show_notification = true,
+      auto_close = false,
+      env_file = { '.env' },
+      formatters = {
+        json = { 'jq' },
+        html = {
+          'prettier',
+          '--parser',
+          'html',
         },
-        result = {
-          show_url = true,
-          show_http_info = true,
-          show_headers = true,
-        },
-        jump_to_request = false,
-        env_file = '.env',
-        custom_dynamic_variables = {},
-        yank_dry_run = true,
-      })
-    end,
+      },
+    },
+    keys = {
+      { '<Leader>ha', ':HurlRunnerAt<CR>' },
+      { '<Leader>hA', ':HurlRunner<CR>' },
+      { '<Leader>hh', ':HurlRunner<CR>',  mode = 'v' },
+    },
   },
 
   -- Misc

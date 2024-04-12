@@ -33,7 +33,7 @@ vim.o.shortmess = vim.o.shortmess .. 'I'
 
 -- Show line number
 vim.wo.number = true
-vim.wo.relativenumber = true
+vim.wo.relativenumber = false
 
 -- Show current line
 vim.wo.cursorline = true
@@ -63,6 +63,10 @@ vim.o.smarttab = true
 vim.o.expandtab = true
 vim.o.autoindent = true
 vim.o.smartindent = true
+
+-- Conceal
+vim.o.conceallevel = 2
+vim.o.concealcursor = nil
 
 -- Clipboard
 vim.o.clipboard = 'unnamed,unnamedplus'
