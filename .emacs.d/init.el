@@ -180,18 +180,30 @@
   (marginalia-mode))
 
 (use-package org
-  :ensure nil
+  :bind ("C-c c" . org-capture)
   :hook ((org-mode . org-indent-mode)
          (org-mode . (lambda ()
                        (setq-local electric-pair-inhibit-predicate
                                    `(lambda (c)
                                       (if (char-equal c ?<) t (,electric-pair-inhibit-predicate c)))))))
   :custom
+  (org-directory "~/org/")
+  (org-default-notes-file "~/org/fleeting.org")
   (org-hide-leading-stars t)
   (org-hide-emphasis-markers t)
   (org-link-descriptive t)
   (org-pretty-entities t)
-  (org-hidden-keywords t))
+  (org-hidden-keywords t)
+  (org-todo-keywords)
+  (org-todo-keywords
+   '((sequence "TODO(t)" "DOING(d)" "WAITING(w)" "|" "CANCELLED(C)" "DONE(D)")))
+  (org-capture-templates
+   '(("f" "Fleeting" entry (file "~/org/fleeting.org") "* %?"))))
+
+(use-package org-agenda
+  :bind ("C-c a" . org-agenda)
+  :custom
+  (org-agenda-files '("~/org/daily/")))
 
 (use-package org-tempo)
 
@@ -212,7 +224,7 @@
 (use-package org-roam
   :ensure t
   :custom
-  (org-roam-directory (file-truename "~/org/"))
+  (org-roam-directory "~/org/")
   (org-roam-database-connector 'sqlite-builtin)
   (org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
   :bind (("C-c n l" . org-roam-buffer-toggle)
