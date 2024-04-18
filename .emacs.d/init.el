@@ -36,6 +36,14 @@
   :config
   (load-theme 'leuven t))
 
+(use-package ddskk
+  :ensure t
+  :hook ((text-mode prog-mode) . skk-latin-mode-on)
+  :custom
+  (default-input-method "japanese-skk")
+  (skk-preload t)
+  (skk-isearch-start-mode 'latin))
+
 (use-package which-key
   :ensure t
   :config
@@ -194,16 +202,24 @@
   (org-link-descriptive t)
   (org-pretty-entities t)
   (org-hidden-keywords t)
+  (org-use-sub-superscripts '{})
+  (org-export-with-sub-superscripts '{})
   (org-todo-keywords)
   (org-todo-keywords
    '((sequence "TODO(t)" "DOING(d)" "WAITING(w)" "|" "CANCELLED(C)" "DONE(D)")))
   (org-capture-templates
-   '(("f" "Fleeting" entry (file "~/org/fleeting.org") "* %?"))))
+   '(("f" "Fleeting" entry (file "~/org/fleeting.org") "* %?")
+     ("t" "Task" entry (file "~/org/task.org") "* TODO %?"))))
+
+(use-package org-refile
+  :custom
+  (org-outline-path-complete-in-steps nil)
+  (org-refile-use-outline-path 'file))
 
 (use-package org-agenda
   :bind ("C-c a" . org-agenda)
   :custom
-  (org-agenda-files '("~/org/daily/")))
+  (org-agenda-files '("~/org/task.org")))
 
 (use-package org-tempo)
 
