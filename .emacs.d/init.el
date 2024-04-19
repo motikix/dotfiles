@@ -26,14 +26,11 @@
         ("melpa" . "http://melpa.org/packages/")
         ("org" . "http://orgmode.org/elpa/")))
 
-(use-package nerd-icons :ensure t)
-(use-package all-the-icons :ensure t)
-
 (use-package leuven-theme
   :ensure t
   :custom
   (org-fontify-whole-heading-line t)
-  :config
+
   (load-theme 'leuven t))
 
 (use-package ddskk
@@ -58,6 +55,8 @@
   :ensure t
   ;; Replace bindings. Lazily loaded due by `use-package'.
   :bind (;; C-c bindings in `mode-specific-map'
+         ("C-s" . consult-line)
+         ("C-r" . consult-line)
          ("C-c M-x" . consult-mode-command)
          ("C-c h" . consult-history)
          ("C-c k" . consult-kmacro)
@@ -197,14 +196,12 @@
   :custom
   (org-directory "~/org/")
   (org-default-notes-file "~/org/fleeting.org")
-  (org-hide-leading-stars t)
   (org-hide-emphasis-markers t)
   (org-link-descriptive t)
   (org-pretty-entities t)
   (org-hidden-keywords t)
   (org-use-sub-superscripts '{})
   (org-export-with-sub-superscripts '{})
-  (org-todo-keywords)
   (org-todo-keywords
    '((sequence "TODO(t)" "DOING(d)" "WAITING(w)" "|" "CANCELLED(C)" "DONE(D)")))
   (org-capture-templates
@@ -223,10 +220,6 @@
 
 (use-package org-tempo)
 
-(use-package org-bullets
-  :ensure t
-  :hook (org-mode . (lambda () (org-bullets-mode 1))))
-
 (use-package org-appear
   :ensure t
   :hook (org-mode . org-appear-mode)
@@ -243,6 +236,7 @@
   (org-roam-directory "~/org/")
   (org-roam-database-connector 'sqlite-builtin)
   (org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
+  (org-roam-graph-executable "neato")
   :bind (("C-c n l" . org-roam-buffer-toggle)
          ("C-c n f" . org-roam-node-find)
          ("C-c n g" . org-roam-graph)
