@@ -30,7 +30,7 @@
   :ensure t
   :custom
   (org-fontify-whole-heading-line t)
-
+  :config
   (load-theme 'leuven t))
 
 (use-package ddskk
