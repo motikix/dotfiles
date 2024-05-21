@@ -70,6 +70,20 @@ vim.o.concealcursor = nil
 
 -- Clipboard
 vim.o.clipboard = 'unnamed,unnamedplus'
+if vim.fn.has('wsl') == 1 then
+  vim.g.clipboard = {
+    name = 'win32yank',
+    copy = {
+      ['+'] = 'win32yank.exe -i --crlf',
+      ['-'] = 'win32yank.exe -i --crlf',
+    },
+    paste = {
+      ['+'] = 'win32yank.exe -o --crlf',
+      ['-'] = 'win32yank.exe -o --crlf',
+    },
+    cache_enabled = 0,
+  }
+end
 
 -- Transparency
 vim.o.winblend = 10
