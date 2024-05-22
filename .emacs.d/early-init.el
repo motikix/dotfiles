@@ -44,4 +44,4 @@
 (add-to-list 'default-frame-alist '(font . "Moralerspace Radon HWNF-16"))
 
 ;; エンコード
-(set-default-coding-systems 'utf-8)
+(prefer-coding-system 'utf-8-unix)

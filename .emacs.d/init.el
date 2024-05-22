@@ -203,7 +203,7 @@
   (org-use-sub-superscripts '{})
   (org-export-with-sub-superscripts '{})
   (org-todo-keywords
-   '((sequence "TODO(t)" "DOING(d)" "WAITING(w)" "|" "CANCELLED(C)" "DONE(D)")))
+   '((sequence "TODO(t)" "DOING(d)" "WAITING(w)" "|" "CARRIED(c)" "CANCELLED(C)" "DONE(D)")))
   (org-capture-templates
    '(("f" "Fleeting" entry (file "~/org/fleeting.org") "* %?")
      ("t" "Task" entry (file "~/org/task.org") "* TODO %?"))))
@@ -242,7 +242,8 @@
          ("C-c n g" . org-roam-graph)
          ("C-c n i" . org-roam-node-insert)
          ("C-c n c" . org-roam-capture)
-         ("C-c n j" . org-roam-dailies-capture-today))
+         ("C-c n y" . org-roam-dailies-goto-yesterday))
+         ("C-c n j" . org-roam-dailies-goto-today))
   :config
   (org-roam-db-autosync-mode)
   (require 'org-roam-protocol))
