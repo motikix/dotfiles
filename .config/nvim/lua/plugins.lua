@@ -317,9 +317,10 @@ return {
   },
   {
     'FabijanZulj/blame.nvim',
-    keys = {
-      { '<Leader>gbb', ':ToggleBlame<CR>' },
-    },
+    init = function()
+      vim.api.nvim_set_keymap('n', '<Leader>gbb', ':BlameToggle<CR>', opts)
+    end,
+    config = true,
   },
   {
     'akinsho/git-conflict.nvim',
