@@ -573,17 +573,18 @@ return {
   },
   {
     'folke/lsp-trouble.nvim',
-    init = function()
-      vim.api.nvim_set_keymap('n', '<Leader>td', ':TroubleToggle document_diagnostics<CR>', opts)
-      vim.api.nvim_set_keymap('n', '<Leader>tw', ':TroubleToggle workspace_diagnostics<CR>', opts)
-      vim.api.nvim_set_keymap('n', '<Leader>tq', ':TroubleToggle quickfix<CR>', opts)
-      vim.api.nvim_set_keymap('n', '<Leader>tl', ':TroubleToggle loclist<CR>', opts)
-      vim.api.nvim_set_keymap('n', 'gd', ':TroubleToggle lsp_definitions<CR>', opts)
-      vim.api.nvim_set_keymap('n', 'gr', ':TroubleToggle lsp_references<CR>', opts)
-      vim.api.nvim_set_keymap('n', 'gy', ':TroubleToggle lsp_type_definitions<CR>', opts)
-      vim.api.nvim_set_keymap('n', 'gi', ':TroubleToggle lsp_implementations<CR>', opts)
-    end,
+    cmd = 'Trouble',
     config = true,
+    keys = {
+      { '<Leader>td', ':Trouble diagnostics toggle filter.buf=0 focus=1<CR>' },
+      { '<Leader>tw', ':Trouble diagnostics toggle focus=1<CR>' },
+      { '<Leader>tq', ':Trouble qflist toggle focus=1<CR>' },
+      { '<Leader>tl', ':Trouble loclist toggle focus=1<CR>' },
+      { 'gd',         ':Trouble lsp_definitions focus=1<CR>' },
+      { 'gr',         ':Trouble lsp_references focus=1<CR>' },
+      { 'gy',         ':Trouble lsp_type_definitions focus=1<CR>' },
+      { 'gi',         ':Trouble lsp_implementations focus=1<CR>' },
+    },
   },
   {
     'https://git.sr.ht/~whynothugo/lsp_lines.nvim',
@@ -708,22 +709,19 @@ return {
   { 'dhruvasagar/vim-table-mode' },
   {
     'linux-cultist/venv-selector.nvim',
-    dependencies = { 'neovim/nvim-lspconfig', 'nvim-telescope/telescope.nvim', 'mfussenegger/nvim-dap-python' },
-    event = 'VeryLazy',
-    keys = {
-      {
-        '<Leader>vs',
-        ':VenvSelect<CR>',
-      },
-      {
-        '<Leader>vc',
-        ':VenvSelectCached<CR>',
-      },
+    dependencies = {
+      'neovim/nvim-lspconfig',
+      'mfussenegger/nvim-dap',
+      'mfussenegger/nvim-dap-python',
+      { 'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } },
     },
-    opts = {
-      name = { 'venv', '.venv' },
-      parents = 0,
-      auto_refresh = false,
+    lazy = false,
+    branch = 'regexp',
+    config = function()
+      require('venv-selector').setup()
+    end,
+    keys = {
+      { ',v', '<cmd>VenvSelect<cr>' },
     },
   },
   {
